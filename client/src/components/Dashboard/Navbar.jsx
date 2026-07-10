@@ -29,7 +29,7 @@ const Navbar = () => {
             }
     `}</style>
 
-    <div className={`sticky top-0 z-50 flex gap-2 justify-between ${isDark ? "bg-black text-white/80": "bg-white text-black"} py-2 px-5 border-b border-white/30`}>
+    <div className={`sticky top-0 z-50 flex gap-2 justify-between ${isDark ? "bg-black text-white/80": "bg-white text-black"} py-1.5 px-5 border-b border-white/30`}>
 
        {/* Search bar */}
        <div className="flex items-center w-80 mb-3 gap-2">

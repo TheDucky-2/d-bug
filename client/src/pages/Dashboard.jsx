@@ -11,20 +11,23 @@ const Dashboard = () => {
   return (
 
     <div className={`min-h-screen flex justify-between ${isDark? "bg-black text-white": "bg-white text-black"} mr-0`}>
-        <div className="flex flex-col">
+
+      <div className="flex flex-col">
 
         <SidebarProvider>
-        <AppSidebar/>
+          <AppSidebar/>
         </SidebarProvider>
       </div>
-
+ 
       <div className="flex flex-1 flex-col">
         <Navbar/>
-
-        <main>
-          <MainContent/>
-        </main>
+        <section>
+          <main>
+            <MainContent/>
+          </main>
+        </section>
       </div>
+
   </div>
 
   )

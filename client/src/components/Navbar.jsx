@@ -21,7 +21,7 @@ const Navbar = () => {
             }
     `}</style>
     <nav>
-      <div className={`shadow-md sticky top-0 z-50 justify-between items-center p-6 flex h-16 w-full m-0 ${isDark ? "bg-black text-white" : "bg-white text-black border-b border-gray-300"} `}>
+      <div className={`shadow-md sticky top-0 z-50 justify-between items-center p-6 flex h-16 w-full m-0 ${isDark ? "bg-zinc-900 text-white/60 border-b border-zinc-100/10" : "bg-zinc-100 text-black border-b border-gray-300"} `}>
         
         {/** Logo container */}
         <div>
@@ -31,7 +31,7 @@ const Navbar = () => {
         </div> 
 
         {/** link container */}
-        <div className={`flex gap-8 justify-between`}>
+        <div className={`flex gap-12 justify-between`}>
           <Link className={`text-lg hover:text-blue-400`} to="/"> Home</Link>
           <Link className="text-lg  hover:text-blue-400" to="/features"> Features </Link>
           <Link className="text-lg  hover:text-blue-400" to="/pricing"> Pricing</Link>
@@ -54,7 +54,7 @@ const Navbar = () => {
         Go To Dashboard
         </button>  )
 
-        :(<button onClick={handleAuth}
+        :(<button onClick={()=> navigate("/auth/sign-in")}
         className={`cursor-pointer rounded text-l px-3.5 py-1.5 m-2 transition font-medium ${isDark  ? "bg-zinc-300 hover:bg-zinc-100 text-black" : "bg-zinc-900 hover:bg-zinc-700 text-white"}`}>
         Log in
         </button>)} 

@@ -14,19 +14,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
 
 import { Separator } from "@/components/ui/separator"
 import { Link } from "react-router-dom";
 
-const AppSidebar = () => {
+
+const OrganizationSidebar = () => {
 
   const {isDark} = useTheme();
 
@@ -43,31 +36,6 @@ const AppSidebar = () => {
       </SidebarMenu>
 
       </SidebarHeader>
-      <Separator/>
-        <SidebarMenu className={`m-3`}>
-        <SidebarMenuItem>
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>
-
-                  <div className="flex items-center gap-2 ">
-                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                  <span className="text-lg"> All Projects</span>
-                  </div>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <NavigationMenuLink className="text-lg">Project 1</NavigationMenuLink>
-                  <NavigationMenuLink className="text-lg">Project 2</NavigationMenuLink>
-                  <NavigationMenuLink className="text-lg">Project 3</NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        
-        </SidebarMenuItem>
-      </SidebarMenu>
-
       <Separator/>
 
       <SidebarContent className={`pt-2`}>
@@ -119,4 +87,4 @@ const AppSidebar = () => {
   )
 }
 
-export default AppSidebar
+export default OrganizationSidebar
