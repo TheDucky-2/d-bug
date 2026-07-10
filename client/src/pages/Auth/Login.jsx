@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { useTheme } from "@/context/ThemeContext";
 import BasicNavbar from "@/components/BasicNavbar";
+import { LoaderCircle } from "lucide-react";
 
 const Login = () => {
 
@@ -37,6 +38,7 @@ const Login = () => {
         setIsLoading(true)
         
        try{ 
+        await new Promise(resolve => setTimeout(resolve, 2000));
         const {data} = await api.post("/auth/sign-in", formData)
 
         toast.success(data.message)
@@ -81,7 +83,7 @@ const Login = () => {
                 
                 <Separator/>
                 <p className={`text-base text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Sign in with Github</p>
-                <button type="button" className={`w-full bg-zinc-600 flex items-center justify-center h-12 rounded-xl ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"} transition-opacity hover:opacity-90`}>
+                <button type="button" className={`w-full bg-zinc-600 flex items-center justify-center h-12 rounded-md ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"} transition-opacity hover:opacity-90`}>
                     <img src={github_logo} alt="githubLogo" className="h-12" />
                 </button>
     
@@ -119,8 +121,10 @@ const Login = () => {
                 </div>
     
                 <button type="submit" disabled={isLoading}
-                className={`w-full h-11 rounded-xl text-white font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"} hover:opacity-90 transition-opacity cursor-pointer`}>
-                    {isLoading ? "Logging in..." : "Login"}
+                className={`w-full h-11 rounded-md text-white font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"}
+                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-3 justify-center`}>
+                    {isLoading && (<LoaderCircle className="animate-spin w-5 h-5"/>)}
+                    <span>{isLoading ? "Logging in" : "Log in"}</span>
                 </button>
                 <p className={`${isDark ? "text-white/50" : "text-black/50"} text-base `}>Don’t have an account? 
                 <Link className={`${isDark ? "text-teal-400": "text-teal-600"} hover:underline px-2`} relative="path" to="/auth/sign-up">Sign up</Link></p>

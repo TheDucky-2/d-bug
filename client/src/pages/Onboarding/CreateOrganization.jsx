@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, LoaderCircle } from "lucide-react"
 import { useState } from "react"
 import { Image } from 'lucide-react';
 import { Separator } from "@/components/ui/separator";
@@ -131,7 +131,9 @@ const CreateOrganization = ({nextStep}) => {
           <button type="submit" disabled={isCreating}
             className="px-4 py-3 bg-zinc-500 hover:bg-zinc-600 dark:hover:bg-zinc-400/80  text-white font-medium dark:text-white cursor-pointer rounded-md flex gap-2 items-center
             ">
-                {isCreating ? "Setting up..." : "Continue"}
+                {isCreating && (<LoaderCircle className="animate-spin w-5 h-5"/>)}
+                {isCreating ? "Creating" : "Continue"}
+
               <ArrowRight size={22}/>
           </button>
           

@@ -1,7 +1,7 @@
 import {useTheme} from "../context/ThemeContext.jsx";
 import { Link } from "react-router-dom";
 import logo from "../assets/d_bug.png";
-import logo_black from "../assets/d_bug_black.png";
+import logo_black from "../assets/d_bug_black.png"
 
 const Footer = () => {
 
