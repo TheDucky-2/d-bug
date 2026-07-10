@@ -1,3 +1,5 @@
+![logo](./assets/d_bug.png)
+
 # d_bug
 
 An AI-powered bug triage platform built as a portfolio project to explore how LLMs can improve bug management workflows. 
