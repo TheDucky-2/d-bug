@@ -1,4 +1,4 @@
-![logo](./assets/d_bug.png)
+![logo](./assets/d_bug_black.png)
 
 # d_bug
 
