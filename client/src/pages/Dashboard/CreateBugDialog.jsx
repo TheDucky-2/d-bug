@@ -17,13 +17,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
+import { Image } from 'lucide-react';
 import { Field, FieldGroup, FieldDescription } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { X, Bug } from "lucide-react"
 import { bugCategories, bugSeverity, bugPriority, Environment } from "@/assets/assets.js"
 import { Textarea } from "@/components/ui/textarea"
+import { Separator } from "@/components/ui/separator"
 
 
 const CreateBugDialog = ({openTrigger}) => {
@@ -60,7 +61,7 @@ const CreateBugDialog = ({openTrigger}) => {
                 Description
               </Label>
               <Textarea id="bug-description" name="description" className={`text-base resize-y min-h-20`}
-              placeholder="Example: Unable to click on Login button as it is greyed out."/ >
+              placeholder="Example: Unable to click on Login button as it is greyed out." />
             </Field>
             
             {/** Bug Category */}
@@ -169,11 +170,22 @@ const CreateBugDialog = ({openTrigger}) => {
 
             {/** Attachment */}
             <Field>
-                <Label htmlFor="attachments">
-                    Attachments (optional)
-                </Label>
-                <Input type="file" id="attachments"/>
-                <FieldDescription> Upload screenshots, etc.</FieldDescription>
+                <Label>Attachments</Label>
+                <label htmlFor="screenshot" 
+                className="text-md dark:text-zinc-300 text-zinc-800 flex items-center gap-2  rounded-md border w-full md:w-64 lg:w-96 px-2 py-1 cursor-pointer 
+                bg-transparent border-dashed border-zinc-600 hover:border-zinc-400 hover:bg-zinc-700/30 ">
+                  <Image size={20}/> 
+                  Upload Image
+                  <Separator orientation="vertical"/>
+                  <p >{ "No image selected"}</p>
+                </label>
+                <input type="file" name="bug-screenshot" id="screenshot" accept="image/*" 
+                className="w-full md:w-64 lg:w-96 rounded-md border dark:border-white/40 border-zinc-700/20 text-md font-semibold rounded-l-xl
+                text-zinc-800  file:text-sm file:bg-zinc-200 file:px-3 file:h-full hidden
+                "></input>
+                <FieldDescription>
+                    Upload screenshot
+                </FieldDescription>
             </Field>
 
           </FieldGroup>

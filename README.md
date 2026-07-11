@@ -102,3 +102,7 @@ This project is actively being developed as a portfolio project to demonstrate f
 #### Dashboard
 
 ![Dashboard](./assets/dash.png)
+<br>
+![Create A New Bug Manually](./assets/create_new_bug.png)
+<br>
+![Bug Details](./assets/bug_details_drawer.png)
