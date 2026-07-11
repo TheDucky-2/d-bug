@@ -25,7 +25,7 @@ const ConnectGithub = () => {
 
 <div className="flex flex-col  gap-6 text-left max-w-xl min-w-0 p-10">
 
-  <div className="border dark:border-white/10 border-zinc-700/30 rounded-md p-10 flex flex-col gap-5 justify-between pb-20">
+  <div className="border dark:border-white/10 border-zinc-700/30 rounded-md p-10 flex flex-col gap-5 justify-between">
     <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
       Connect GitHub
     </h1>
@@ -36,7 +36,7 @@ const ConnectGithub = () => {
 
   <div className="items-center flex flex-col gap-2 justify-center  p-2">
     <button onClick={handleGithubConnect}
-    className="px-4 py-3 bg-zinc-500 hover:bg-zinc-600 dark:hover:bg-zinc-400/80  text-white font-medium dark:text-white cursor-pointer rounded-md flex gap-2 items-center
+    className="px-4 py-2 bg-zinc-500 hover:bg-zinc-600 dark:hover:bg-zinc-400/80  text-white font-medium dark:text-white cursor-pointer rounded-md flex gap-2 items-center
               ">
       {githubConnected ? "Connecting..." : "Connect GitHub"}
       <ArrowRight size={18}/>

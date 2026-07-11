@@ -6,11 +6,12 @@ from utils.image_upload import upload_image
 from models.Organization import Organization
 from models.User import User
 from typing import List
+from schemas.organization import OrganizationResponse
 
 
 org_router = APIRouter(prefix="/organizations",tags=["organizations"], dependencies=[Depends(get_current_user)])
 
-@org_router.post("/")
+@org_router.post("/", response_model=OrganizationResponse)
 def create_organization(organization_name:str= Form(...), 
                               organization_logo: UploadFile | None = File(None),
                               user_id = Depends(get_current_user),
@@ -52,7 +53,7 @@ def create_organization(organization_name:str= Form(...),
         },
         "message": "Organization created successfully!"}
 
-@org_router.get("/")
+@org_router.get("/", response_model=)
 def get_all_organizations(user_id:int = Depends(get_current_user), db:Session = Depends(get_db)):
 
     # Validating user
@@ -70,9 +71,28 @@ def get_all_organizations(user_id:int = Depends(get_current_user), db:Session = 
     }
 
 
-@org_router.get("/{organization_id}")
-def get_organization_by_id(organization_id: int , db: Session = Depends(get_db)):
-    return 
+@org_router.get("/{organization_id}", response_model=OrganizationResponse)
+def get_organization_by_id(organization_id: int, user_id:int = Depends(get_current_user) , db: Session = Depends(get_db)):
+
+    # Validating user
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # ensuring that current user is the owner of organization id and the requested organization
+
+    current_org = db.query(Organization).filter(
+        Organization.organization_owner == user.id, 
+        Organization.organization_id == organization_id
+        ).first()
+
+    if current_org is None:
+        raise HTTPException(status_code = 404, detail = "Organization does not exist or you may not have access to this Organization.")
+
+    print(current_org)
+
+    return current_org
 
 @org_router.delete("/{organization_id}")
 def delete_organization(organization_id: int, db:Session = Depends(get_db)):

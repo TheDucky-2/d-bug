@@ -1,4 +1,4 @@
-import AppSidebar from "@/components/Dashboard/AppSidebar"
+import AppSidebar from "@/pages/Dashboard/AppSidebar"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { useTheme } from "@/context/ThemeContext";
 import { Ellipsis, SlidersHorizontal, Trash2, Inbox } from "lucide-react";

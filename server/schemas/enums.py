@@ -40,5 +40,6 @@ class BugStatus(Enum):
     IN_PROGRESS = "in_progress"
     IN_REVIEW = "in_review"
     RESOLVED = "resolved"
+    REOPENED = "reopened"
     
 

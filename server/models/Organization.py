@@ -1,11 +1,11 @@
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import ForeignKey, DateTime, func, String
 from schemas.enums import OrganizationStatus
-from schemas.user import UserResponse
 from typing import List
 from datetime import datetime
 from config.db import Base
+
 
 class Organization(Base):
 

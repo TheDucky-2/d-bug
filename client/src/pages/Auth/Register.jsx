@@ -5,6 +5,7 @@ import api from "@/config/axios";
 import { toast } from "sonner";
 import BasicNavbar from "@/components/BasicNavbar.jsx";
 import { useTheme } from "@/context/ThemeContext";
+import { LoaderCircle } from "lucide-react";
 
 const Register = () => {
 
@@ -39,6 +40,9 @@ const Register = () => {
 
         }catch(error){
             toast.error(error.response?.data?.detail ||error.response?.data?.message || "Something went wrong!")
+
+        }finally{
+            setIsLoading(false)
         }
 }
 
@@ -93,7 +97,10 @@ const Register = () => {
                     </div>
         
                     <button type="submit" disabled={isLoading}
-                    className={`w-full h-11 rounded-xl text-white font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"} hover:opacity-90 transition-opacity cursor-pointer`}>
+                    className={`w-full h-11 rounded-xl text-white font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"}
+                    hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-3 justify-center`}>
+
+                       {isLoading  && (<LoaderCircle className="animate-spin"/>)}
                        {isLoading? "Setting up your account...":  "Sign up"}
                     </button>
                     <p className={`${isDark ? "text-white/50" : "text-black/50"} text-base `}>Already have an account? 

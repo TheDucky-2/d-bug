@@ -4,7 +4,8 @@ import {
 } from "@/components/ui/sidebar";
 import OrganizationSidebar from "./OrganizationSidebar"
 import OrganizationNavbar from "./OrganizationNavbar"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "@/config/axios";
 
 /**
  * 
@@ -30,6 +31,21 @@ import { useState } from "react";
 const Organization = () => {
 
   const [currentOrganization, setCurrentOrganization] = useState(null);
+
+  useEffect(()=> {
+
+    const fetchOrganization = async () => {
+
+      const organizationData = await api.get("/organizations/")
+
+    }
+
+    fetchOrganization()
+
+  },[])
+
+
+
 
 
   return (

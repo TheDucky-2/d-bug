@@ -53,29 +53,21 @@ export const topProjects = [
 export const bugSeverity = [
   {
     severityType: "Critical",
-    count: 5,
-    percentage: 10,
     color: "bg-red-500",
     textcolor: "text-red-400"
   },
   {
     severityType: "High",
-    count: 12,
-    percentage: 24,
     color: "bg-orange-500",
     textcolor: "text-orange-500",
   },
   {
     severityType: "Medium",
-    count: 20,
-    percentage: 40,
     color: "bg-yellow-500",
     textcolor: "text-yellow-500"
   },
   {
     severityType: "Low",
-    count: 13,
-    percentage: 26,
     color: "bg-blue-500",
     textcolor: "text-blue-500"
   },
@@ -217,7 +209,7 @@ export const bugs = [
     title: "App freezes on splash screen",
     project: "Mobile App",
     severity: "critical",
-    status: "Open",
+    status: "Reopened",
     assignee: "Ava Moore",
     avatar: "AM",
     priority: 1,
@@ -748,3 +740,31 @@ export const roles = [
       "Create bug reports, upload evidence, and track reported issues.",
   },
 ];
+
+export const bugCategories = [
+  "UI / UX",
+  "Frontend",
+  "Backend",
+  "API",
+  "Database",
+  "Authentication",
+  "Performance",
+  "Security",
+  "Mobile",
+  "Integration",
+  "Infrastructure",
+  "Other"
+];
+
+export const bugPriority = [
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+  "P5"
+]
+
+export const Environment = [
+  "Production",
+  "Development"
+]

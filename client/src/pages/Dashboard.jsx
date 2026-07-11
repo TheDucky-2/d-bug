@@ -1,9 +1,9 @@
 
 import { SidebarProvider } from "@/components/ui/sidebar.jsx";
-import Navbar from "../components/Dashboard/Navbar.jsx"
-import AppSidebar from "../components/Dashboard/AppSidebar.jsx"
+import Navbar from "./Dashboard/Navbar.jsx"
+import AppSidebar from "./Dashboard/AppSidebar.jsx"
 import { useTheme } from "../context/ThemeContext.jsx";
-import MainContent from "@/components/Dashboard/MainContent.jsx";
+import MainContent from "@/pages/Dashboard/MainContent.jsx";
 const Dashboard = () => {
 
     const {isDark} = useTheme();

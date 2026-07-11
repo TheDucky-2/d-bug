@@ -74,14 +74,12 @@ const CreateOrganization = ({nextStep}) => {
 
 
   return (
-    <div className="flex flex-1 flex-col px-5 h-full items-center gap-8  max-w-5xl overflow-y-auto w-full min-w-0">
+    <div className="flex flex-1 flex-col px-5 h-full items-center gap-8`  max-w-5xl overflow-y-auto w-full min-w-0">
 
       <div className="flex flex-col  gap-6 text-left max-w-xl  p-10">
 
-        <div className="border dark:border-white/10 border-zinc-700/30 rounded-md p-10 flex flex-col gap-5 justify-between pb-20">
+        <div className="border dark:border-white/10 border-zinc-700/30 rounded-md p-10 flex flex-col gap-5 justify-between">
 
-
-          {/* Input Fields */}
           <form onSubmit = {handleSubmit} className="gap-4 flex flex-col ">
                       {/**Header and body text */}
           <div className="gap-5 flex flex-col">
@@ -92,18 +90,26 @@ const CreateOrganization = ({nextStep}) => {
           <p className="max-w-[50ch] text-md dark:text-zinc-300/70">
           Your organization is the workspace where your team manages projects, repositories and bug reports.
           </p>
+
+                  {/* Input Fields */}
               <div className="gap-2 flex flex-col">
+
+                  {/* Organization Name - Required */}
 
                 <label htmlFor="organization-name" className="text-sm dark:text-zinc-300 text-zinc-800 ">
                   Organization Name 
+                  <span className="text-red-500 font-bold"> *</span>
                 </label>
                 <input type="text" placeholder="Acme Engineering" name="organization-name" onChange={handleNameInput} value={formData.organizationName} required
                 className="w-full md:w-64 lg:w-96 rounded-md border bg-transparent dark:border-white/40 border-zinc-700/60 px-2 py-1 text-md  dark:placeholder:text-zinc-400/40 placeholder:text-zinc-900/40
                 dark:text-zinc-300 text-zinc-800 "/>
               </div>
+
+              {/* Organization Logo - Required */}
               <div className="gap-1 flex flex-col">
                 <p className="text-sm dark:text-zinc-300 text-zinc-800">Organization Logo <span className="dark:text-zinc-400/80 text-zinc-800/70"> (optional) </span></p>
 
+                
                 <label htmlFor="imageUpload" 
                 className="text-md dark:text-zinc-300 text-zinc-800 flex items-center gap-2  rounded-md border w-full md:w-64 lg:w-96 px-2 py-1 cursor-pointer 
                 bg-transparent border-dashed border-zinc-600 hover:border-zinc-400 hover:bg-zinc-700/30 ">
@@ -125,9 +131,11 @@ const CreateOrganization = ({nextStep}) => {
             </p>
 
 
-          {/** Button */}
+          {/** Submit Button */}
 
           <div className="items-center flex justify-center p-4 ">
+
+            
           <button type="submit" disabled={isCreating}
             className="px-4 py-3 bg-zinc-500 hover:bg-zinc-600 dark:hover:bg-zinc-400/80  text-white font-medium dark:text-white cursor-pointer rounded-md flex gap-2 items-center
             ">

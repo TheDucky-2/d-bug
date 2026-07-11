@@ -19,6 +19,7 @@ class BugResponse(BaseModel):
     created_at: datetime
     assignee: str | None
 
+
 class BugUpdate(BaseModel):
 
     assignee: str | None
