@@ -1,6 +1,30 @@
-node_modules
-# Keep environment variables out of version control
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables
 .env
-/venv
-/generated/prisma
-/__pycache__
+.env.*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Test & type checking
+.pytest_cache/
+.mypy_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

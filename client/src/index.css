@@ -145,3 +145,25 @@
     background-size: 40px 40px;
   }
 }
+
+.bug-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bug-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bug-scroll::-webkit-scrollbar-thumb {
+  background: #71717a;
+  border-radius: 9999px;
+}
+
+.bug-scroll::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+}
+
+.bug-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #71717a transparent;
+}

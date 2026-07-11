@@ -7,22 +7,20 @@ from models.Organization import Organization
 from models.User import User
 from typing import List
 from schemas.organization import OrganizationResponse
+from validators.user import validate_user
 
 
 org_router = APIRouter(prefix="/organizations",tags=["organizations"], dependencies=[Depends(get_current_user)])
 
 @org_router.post("/", response_model=OrganizationResponse)
 def create_organization(organization_name:str= Form(...), 
-                              organization_logo: UploadFile | None = File(None),
-                              user_id = Depends(get_current_user),
-                            db:Session = Depends(get_db)):
+                        organization_logo: UploadFile | None = File(None),
+                        user_id = Depends(get_current_user),
+                    db:Session = Depends(get_db)):
     """Function to create organization with organization name and logo image"""
 
     # Validating user
-    user = db.query(User).filter(User.id == user_id).first()
-
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+    user = validate_user(user_id)
     
 
     organization_logo_url = None
@@ -42,33 +40,60 @@ def create_organization(organization_name:str= Form(...),
     db.add(organization)
     db.flush()
 
+    # adding user to org members list
+    organization.organization_members.append(user.full_name)
+
     db.commit()
 
     return {
-        "data":{
-            
-            "organization_logo_url": organization_logo_url,
-            "organization_name": organization_name
+        "organization_id": organization.organization_id,
+        "organization_logo_url": organization.organization_logo_url,
+        "organization_name": organization.organization_name,
+        "organization_owner": organization.organization_owner,
+        "organization_status": organization.organization_status,
+        "organization_members": organization.organization_members,
+        "created_at": organization.created_at
+        }
 
-        },
-        "message": "Organization created successfully!"}
-
-@org_router.get("/", response_model=)
+@org_router.get("/", response_model=List[OrganizationResponse])
 def get_all_organizations(user_id:int = Depends(get_current_user), db:Session = Depends(get_db)):
 
     # Validating user
-    user = db.query(User).filter(User.id == user_id).first()
-
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+    user = validate_user(user_id)
     
     org_list = db.query(Organization).filter(Organization.organization_owner == user.id).all()
 
+    if org_list is None:
+        raise HTTPException(status_code=404, detail= "No organization found associated with this user")
+
+    return org_list
+
+@org_router.get("/organizations/me", response_model=OrganizationResponse)
+def get_current_organization(user_id: int = Depends(get_current_user), db:Session = Depends(get_db)):
+
+    # Validating user
+    user = validate_user(user_id)
+
+    current_org = db.query(Organization).filter(Organization.organization_owner == user.id).first()
+
+    if not current_org:
+        raise HTTPException(status_code = 404, detail="Organization not found!")
+    
     return {
-        "success": True,
-        "message": "Fetched all organizations successfully!",
-        "data": org_list
+        "organization_logo_url": current_org.organization_logo_url,
+        "organization_name": current_org.organization_name,
+        "organization_owner": current_org.organization_owner,
+        "organization_status": current_org.organization_status,
+        "organization_members": current_org.organization_members,
+        "organization_projects": 
+        ## to add project
     }
+
+
+
+
+
+
 
 
 @org_router.get("/{organization_id}", response_model=OrganizationResponse)
@@ -82,17 +107,15 @@ def get_organization_by_id(organization_id: int, user_id:int = Depends(get_curre
     
     # ensuring that current user is the owner of organization id and the requested organization
 
-    current_org = db.query(Organization).filter(
+    org = db.query(Organization).filter(
         Organization.organization_owner == user.id, 
         Organization.organization_id == organization_id
         ).first()
 
-    if current_org is None:
+    if org is None:
         raise HTTPException(status_code = 404, detail = "Organization does not exist or you may not have access to this Organization.")
 
-    print(current_org)
-
-    return current_org
+    return org
 
 @org_router.delete("/{organization_id}")
 def delete_organization(organization_id: int, db:Session = Depends(get_db)):
