@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from user import UserResponse
+from .user import UserResponse
 from enum import Enum
 
-from enums import ProjectStatus
+from .enums import ProjectStatus
 
 class ProjectCreate(BaseModel):
 

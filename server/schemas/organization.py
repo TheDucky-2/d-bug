@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from typing import List
 from datetime import datetime
 from pydantic import ConfigDict
-from project import ProjectResponse
+from .project import ProjectResponse
 
 class OrganizationCreate(BaseModel):
 

@@ -85,7 +85,6 @@ def get_current_organization(user_id: int = Depends(get_current_user), db:Sessio
         "organization_owner": current_org.organization_owner,
         "organization_status": current_org.organization_status,
         "organization_members": current_org.organization_members,
-        "organization_projects": 
         ## to add project
     }
 
