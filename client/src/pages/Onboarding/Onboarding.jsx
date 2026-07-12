@@ -57,6 +57,8 @@ const Onboarding = () => {
     return false;
   });
   const [particles, setParticles] = useState([]);
+  const [cursorFading, setCursorFading] = useState(false);
+  const [cursorRemoved, setCursorRemoved] = useState(false);
   const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -74,7 +76,25 @@ const Onboarding = () => {
   const mutedRef = useRef(false);
   const allResolvedRef = useRef(false);
   const bugEls = useRef({});
+  // Cursor fade-out sequence when all bugs resolved
+  useEffect(() => {
+    if (!allResolved) return;
+    const t1 = setTimeout(() => {
+      setCursorFading(true);
+      if (cursorEl.current) {
+        cursorEl.current.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        cursorEl.current.style.opacity = '0';
+        cursorEl.current.style.transform = 'scale(0.6)';
+      }
+    }, 200);
+    const t2 = setTimeout(() => setCursorRemoved(true), 700);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, [allResolved]);
+
   const audioCtxRef = useRef(null);
+  const gameOverRef = useRef(false);
+
+  gameOverRef.current = cursorFading;
 
   bugsRef.current = bugs;
   mutedRef.current = muted;
@@ -152,10 +172,12 @@ const Onboarding = () => {
 
   // Animation loop
   useEffect(() => {
+    if (cursorFading) return;
     let lastHovered = null;
     const discovered = {};
 
     const animate = (time) => {
+      if (gameOverRef.current) return;
       const raw = mouseRaw.current;
       const sx = cursorX.get();
       const sy = cursorY.get();
@@ -263,10 +285,11 @@ const Onboarding = () => {
     };
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [cursorX, cursorY, cursorScale, playHover, isDark]);
+  }, [cursorX, cursorY, cursorScale, playHover, isDark, cursorFading]);
 
   // Mouse events
   useEffect(() => {
+    if (cursorFading) return;
     const onMove = (e) => {
       mouseRaw.current.x = e.clientX;
       mouseRaw.current.y = e.clientY;
@@ -290,7 +313,7 @@ const Onboarding = () => {
       window.removeEventListener('mousedown', onDown);
       window.removeEventListener('mouseup', onUp);
     };
-  }, [cursorScale, mouseX, mouseY]);
+  }, [cursorScale, mouseX, mouseY, cursorFading]);
 
   const squashBug = useCallback((bug) => {
     if (!bug.alive) return;
@@ -331,6 +354,7 @@ const Onboarding = () => {
   }, [playSquash, playSuccess]);
 
   useEffect(() => {
+    if (cursorFading) return;
     const onClick = (e) => {
       if (allResolvedRef.current) return;
       const mx = e.clientX, my = e.clientY;
@@ -349,7 +373,7 @@ const Onboarding = () => {
     };
     window.addEventListener('click', onClick);
     return () => window.removeEventListener('click', onClick);
-  }, [squashBug]);
+  }, [squashBug, cursorFading]);
 
   return (
     <>
@@ -634,7 +658,7 @@ const Onboarding = () => {
 
       {/* Background */}
       <div
-        className={`h-screen w-screen relative overflow-hidden select-none ${step === 1 ? 'cursor-none' : ''}`}
+        className={`h-screen w-screen relative overflow-hidden select-none ${step === 1 && !cursorRemoved ? 'cursor-none' : ''}`}
         style={{
           background: 'var(--bg)',
           ...(step === 2 ? {
@@ -652,10 +676,10 @@ const Onboarding = () => {
         <div className="absolute inset-0 hero-glow pointer-events-none" />
 
         {/* Flashlight dark overlay */}
-        {step === 1 && <div ref={flashlightEl} className="absolute inset-0 pointer-events-none z-[2]" />}
+        {step === 1 && !cursorRemoved && <div ref={flashlightEl} className="absolute inset-0 pointer-events-none z-[2]" />}
 
         {/* Cursor-driven lens glow (warmer near bugs) */}
-        {step === 1 && <div ref={lensGlowEl} className="absolute inset-0 pointer-events-none z-[3]" />}
+        {step === 1 && !cursorRemoved && <div ref={lensGlowEl} className="absolute inset-0 pointer-events-none z-[3]" />}
 
         <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hero-guide pointer-events-none" />
         <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 hero-guide pointer-events-none" />
@@ -788,7 +812,7 @@ const Onboarding = () => {
         )}
 
         {/* Magnified Lens Overlay */}
-        {step === 1 && (
+        {step === 1 && !cursorRemoved && (
           <div
             ref={lensEl}
             className="absolute inset-0 z-[4] pointer-events-none lens-magnify"
@@ -810,7 +834,7 @@ const Onboarding = () => {
         )}
 
         {/* Bugs */}
-        {step === 1 && bugs.map(bug => (
+        {step === 1 && !cursorRemoved && bugs.map(bug => (
           <div key={bug.id} className="absolute pointer-events-none z-[3]" style={{
             left: `${bug.x}%`,
             top: `${bug.y}%`,
@@ -833,7 +857,7 @@ const Onboarding = () => {
         ))}
 
         {/* Particles */}
-        {step === 1 && particles.map(p => (
+        {step === 1 && !cursorRemoved && particles.map(p => (
           <div key={p.id} className="fixed pointer-events-none z-[100] rounded-full" style={{
             left: p.x, top: p.y,
             width: p.splat ? '3px' : `${p.size}px`,
@@ -848,7 +872,7 @@ const Onboarding = () => {
         ))}
 
         {/* Cursor */}
-        {step === 1 && (
+        {step === 1 && !cursorRemoved && (
           <div
             ref={cursorEl}
             className="fixed pointer-events-none z-[9999]"
