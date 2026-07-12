@@ -1,156 +1,222 @@
-import { ArrowRight, LoaderCircle } from "lucide-react"
+import { ArrowRight, LoaderCircle, Image } from "lucide-react"
 import { useState } from "react"
-import { Image } from 'lucide-react';
-import { Separator } from "@/components/ui/separator";
 import api from "@/config/axios";
 import { toast } from "sonner";
 
-const CreateOrganization = ({nextStep}) => {
+const CreateOrganization = ({nextStep, isDark}) => {
 
   const [isCreating, setIsCreating] = useState(false);
-
   const [formData, setFormData] = useState({
     organizationName: "",
-    organizationLogo : {
-      url: "",
-      name: "",
-      size: 0,
-      file: null
-    }
+    organizationLogo: null
   })
-
-  const handleNameInput = (e) => {
-    const name = e.target.value
-
-    setFormData(prev => ({
-      ...prev, 
-      organizationName: name
-    }))
-  }
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
-
-    if(!file) return;
-
-    setFormData(prev => ({
-      ...prev, 
-      organizationLogo: {
-        url: URL.createObjectURL(file),
-        name: file.name,
-        size: file.size,
-        file: file
-      }
-    }))
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    try{    
-    setIsCreating(true)
-
-    const data = new FormData()
-
-    data.append("organization_name", formData.organizationName)
-
-    if(formData.organizationLogo.file){
-      data.append("organization_logo", formData.organizationLogo.file)
-    }
-
-    const organizationData = await api.post("/organizations", data)
-
-    toast.success(organizationData.data.message)
-    nextStep()
-
+    if (!formData.organizationName.trim()) return
+    try{
+      setIsCreating(true)
+      const data = new FormData()
+      data.append("organization_name", formData.organizationName)
+      if (formData.organizationLogo) data.append("organization_logo", formData.organizationLogo)
+      const res = await api.post("/organizations", data)
+      toast.success(res.data.message)
+      nextStep()
     }catch(error){
       toast.error(error.response?.data?.detail || error.response?.data?.message)
-      return 
-
     }finally{
       setIsCreating(false)
     }
   }
 
+  const containerStyle = isDark ? {
+    width: '520px',
+    maxWidth: 'calc(100vw - 48px)',
+    borderRadius: '24px',
+    padding: '48px',
+    background: 'rgba(17,17,17,0.55)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+    border: '1px solid rgba(255,255,255,0.06)',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
+    animation: 'formFadeIn 0.45s ease-out',
+  } : {
+    width: '520px',
+    maxWidth: 'calc(100vw - 48px)',
+    borderRadius: '24px',
+    padding: '48px',
+    background: 'rgba(255,255,255,0.82)',
+    backdropFilter: 'blur(18px)',
+    WebkitBackdropFilter: 'blur(18px)',
+    border: '1px solid rgba(15,23,42,0.06)',
+    boxShadow: '0 20px 60px rgba(15,23,42,0.08)',
+    animation: 'formFadeIn 0.45s ease-out',
+  };
+
+  const headingColor = isDark ? '#FAFAFA' : '#111827';
+  const subtitleColor = isDark ? '#A1A1AA' : '#6B7280';
+  const labelColor = isDark ? '#A1A1AA' : '#4B5563';
+  const inputBg = isDark ? 'transparent' : 'rgba(255,255,255,0.7)';
+  const inputBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.08)';
+  const inputColor = isDark ? '#FAFAFA' : '#111827';
+  const inputHeight = '54px';
+  const inputRadius = '14px';
+  const inputPlaceholder = isDark ? '#6B7280' : '#9CA3AF';
+  const focusBorder = '#EF4444';
+  const focusShadow = '0 0 0 4px rgba(239,68,68,0.08)';
+  const logoBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.08)';
+  const logoColor = isDark ? '#A1A1AA' : '#6B7280';
+  const btnBg = '#111827';
+  const btnColor = '#FFFFFF';
+  const btnShadow = '0 4px 20px rgba(17,24,39,0.12)';
+  const btnHoverShadow = '0 12px 30px rgba(17,24,39,0.18)';
 
   return (
-    <div className="flex flex-1 flex-col px-5 h-full items-center gap-8`  max-w-5xl overflow-y-auto w-full min-w-0">
-
-      <div className="flex flex-col  gap-6 text-left max-w-xl  p-10">
-
-        <div className="border dark:border-white/10 border-zinc-700/30 rounded-md p-10 flex flex-col gap-5 justify-between">
-
-          <form onSubmit = {handleSubmit} className="gap-4 flex flex-col ">
-                      {/**Header and body text */}
-          <div className="gap-5 flex flex-col">
-          <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold ">
+    <div style={containerStyle}>
+      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <h1 style={{
+          fontSize: '28px',
+          fontWeight: 600,
+          color: headingColor,
+          letterSpacing: '-0.5px',
+          margin: 0,
+        }}>
           Create your organization
-          </h1>
+        </h1>
+        <p style={{
+          marginTop: '24px',
+          fontSize: '14px',
+          lineHeight: '1.5',
+          color: subtitleColor,
+          fontWeight: 400,
+          margin: '24px 0 0',
+        }}>
+          Your workspace for projects, repositories, and bug reports.
+        </p>
+      </div>
 
-          <p className="max-w-[50ch] text-md dark:text-zinc-300/70">
-          Your organization is the workspace where your team manages projects, repositories and bug reports.
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'block',
+            fontSize: '12px',
+            fontWeight: 500,
+            color: labelColor,
+            marginBottom: '8px',
+          }}>
+            Organization Name
+          </label>
+          <input
+            type="text" placeholder="Acme Engineering"
+            value={formData.organizationName}
+            onChange={e => setFormData(p => ({ ...p, organizationName: e.target.value }))}
+            required
+            style={{
+              width: '100%',
+              height: inputHeight,
+              padding: '0 16px',
+              fontSize: '14px',
+              borderRadius: inputRadius,
+              outline: 'none',
+              background: inputBg,
+              border: `1px solid ${inputBorder}`,
+              color: inputColor,
+              transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+              boxSizing: 'border-box',
+            }}
+            onFocus={e => {
+              e.currentTarget.style.borderColor = focusBorder;
+              e.currentTarget.style.boxShadow = focusShadow;
+            }}
+            onBlur={e => {
+              e.currentTarget.style.borderColor = inputBorder;
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '32px' }}>
+          <p style={{
+            fontSize: '12px',
+            fontWeight: 500,
+            color: labelColor,
+            margin: '0 0 8px',
+          }}>
+            Organization Logo <span style={{ opacity: 0.6 }}>(optional)</span>
           </p>
+          <label style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            height: inputHeight,
+            padding: '0 16px',
+            fontSize: '14px',
+            borderRadius: inputRadius,
+            cursor: 'pointer',
+            background: inputBg,
+            border: `1px dashed ${logoBorder}`,
+            color: logoColor,
+            transition: 'border-color 0.2s ease',
+            boxSizing: 'border-box',
+          }}>
+            <Image size={16} />
+            Upload Image
+          </label>
+          <input type="file" accept="image/*" className="hidden"
+            onChange={e => {
+              const file = e.target.files?.[0]
+              if (file) setFormData(p => ({ ...p, organizationLogo: file }))
+            }}
+          />
+        </div>
 
-                  {/* Input Fields */}
-              <div className="gap-2 flex flex-col">
-
-                  {/* Organization Name - Required */}
-
-                <label htmlFor="organization-name" className="text-sm dark:text-zinc-300 text-zinc-800 ">
-                  Organization Name 
-                  <span className="text-red-500 font-bold"> *</span>
-                </label>
-                <input type="text" placeholder="Acme Engineering" name="organization-name" onChange={handleNameInput} value={formData.organizationName} required
-                className="w-full md:w-64 lg:w-96 rounded-md border bg-transparent dark:border-white/40 border-zinc-700/60 px-2 py-1 text-md  dark:placeholder:text-zinc-400/40 placeholder:text-zinc-900/40
-                dark:text-zinc-300 text-zinc-800 "/>
-              </div>
-
-              {/* Organization Logo - Required */}
-              <div className="gap-1 flex flex-col">
-                <p className="text-sm dark:text-zinc-300 text-zinc-800">Organization Logo <span className="dark:text-zinc-400/80 text-zinc-800/70"> (optional) </span></p>
-
-                
-                <label htmlFor="imageUpload" 
-                className="text-md dark:text-zinc-300 text-zinc-800 flex items-center gap-2  rounded-md border w-full md:w-64 lg:w-96 px-2 py-1 cursor-pointer 
-                bg-transparent border-dashed border-zinc-600 hover:border-zinc-400 hover:bg-zinc-700/30 ">
-                  <Image size={20}/> 
-                  Upload Image
-                  <Separator orientation="vertical"/>
-                  <p >{formData.organizationLogo ? formData.organizationLogo.name : "No image selected"}</p>
-                </label>
-                <input type="file" name="organization-image" id="imageUpload" accept="image/*" onChange={handleImageUpload}
-                className="w-full md:w-64 lg:w-96 rounded-md border dark:border-white/40 border-zinc-700/20 text-md font-semibold rounded-l-xl
-                text-zinc-800  file:text-sm file:bg-zinc-200 file:px-3 file:h-full hidden
-                "></input>
-                
-              </div>
-
-
-            <p className="text-sm dark:text-zinc-300/70 text-zinc-900/70 -my-1 ">
-            You can invite team members and manage access later.
-            </p>
-
-
-          {/** Submit Button */}
-
-          <div className="items-center flex justify-center p-4 ">
-
-            
-          <button type="submit" disabled={isCreating}
-            className="px-4 py-3 bg-zinc-500 hover:bg-zinc-600 dark:hover:bg-zinc-400/80  text-white font-medium dark:text-white cursor-pointer rounded-md flex gap-2 items-center
-            ">
-                {isCreating && (<LoaderCircle className="animate-spin w-5 h-5"/>)}
-                {isCreating ? "Creating" : "Continue"}
-
-              <ArrowRight size={22}/>
-          </button>
-          
-          </div>
-          </div>
-        </form>
-      </div>
-      </div>
-
+        <button type="submit" disabled={isCreating}
+          style={{
+            width: '100%',
+            height: '54px',
+            borderRadius: inputRadius,
+            background: btnBg,
+            color: btnColor,
+            border: 'none',
+            fontSize: '14px',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            cursor: isCreating ? 'not-allowed' : 'pointer',
+            opacity: isCreating ? 0.6 : 1,
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            boxShadow: btnShadow,
+          }}
+          onMouseEnter={e => {
+            if (!isCreating) {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = btnHoverShadow;
+            }
+          }}
+          onMouseLeave={e => {
+            if (!isCreating) {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = btnShadow;
+            }
+          }}
+          onMouseDown={e => {
+            if (!isCreating) {
+              e.currentTarget.style.transform = 'translateY(0) scale(0.98)';
+            }
+          }}
+          onMouseUp={e => {
+            if (!isCreating) {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }
+          }}
+        >
+          {isCreating && <LoaderCircle className="animate-spin" size={16} />}
+          {isCreating ? "Creating" : "Continue"}
+          <ArrowRight size={16} strokeWidth={1.5} />
+        </button>
+      </form>
     </div>
   )
 }
