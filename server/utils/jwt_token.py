@@ -1,6 +1,7 @@
 import jwt
 from jwt import PyJWTError 
 from datetime import datetime, timedelta, timezone
+import hashlib
 from fastapi import HTTPException
 import os
 from dotenv import load_dotenv
@@ -36,7 +37,7 @@ def generate_refresh_token(data: dict):
 
     return refresh_token
 
-def verify_token(token):
+def verify_access_token(token):
 
     try:
         decoded = jwt.decode(token, SECRET_KEY, ALGORITHM)
@@ -44,9 +45,33 @@ def verify_token(token):
         if not decoded:
             return None
         
+        if decoded["type"] != "access_token":
+            return None
+
         return decoded
 
     except PyJWTError:
         return
 
+def verify_refresh_token(token):
+
+    try:
+        decoded = jwt.decode(token, SECRET_KEY, ALGORITHM)
+
+        if not decoded:
+            return None
+        
+        if decoded["type"] != "refresh_token":
+            return None
+
+        return decoded
+
+    except PyJWTError:
+        return
+
+
+def hash_token(token):
+    return hashlib.sha256(
+        token.encode()
+    ).hexdigest()
 
