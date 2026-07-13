@@ -393,10 +393,11 @@ const Onboarding = () => {
           --body: #A1A1AA;
           --guide: rgba(255,255,255,0.06);
           --crop: rgba(255,255,255,0.08);
-          --btn-bg: #18181B;
+          --btn-bg: #27272A;
           --btn-text: #FAFAFA;
           --btn-border: rgba(255,255,255,0.08);
-          --btn-hover: #1F2937;
+          --btn-hover: #3F3F46;
+          --icon-btn-hover: rgba(39,39,42,0.5);
           --feature-icon: rgba(255,255,255,0.2);
           --feature-text: rgba(255,255,255,0.3);
           --separator: rgba(255,255,255,0.06);
@@ -431,10 +432,11 @@ const Onboarding = () => {
           --body: #6B7280;
           --guide: rgba(0,0,0,0.06);
           --crop: rgba(0,0,0,0.08);
-          --btn-bg: #111827;
+          --btn-bg: #27272A;
           --btn-text: #FFFFFF;
           --btn-border: rgba(0,0,0,0.08);
-          --btn-hover: #1F2937;
+          --btn-hover: #3F3F46;
+          --icon-btn-hover: #F4F4F5;
           --feature-icon: rgba(0,0,0,0.15);
           --feature-text: rgba(0,0,0,0.25);
           --separator: rgba(0,0,0,0.06);
@@ -511,25 +513,10 @@ const Onboarding = () => {
           transform: scale(1.03);
         }
 
-        .nav-pill {
-          display: flex;
-          align-items: center;
-          padding: 6px;
-          gap: 6px;
-          height: 48px;
-          border-radius: 999px;
-          background: var(--nav-pill-bg);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid var(--nav-pill-border);
-          box-shadow: var(--nav-pill-shadow);
-          transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-        }
-
-        .pill-btn {
+        .icon-btn {
           width: 36px;
           height: 36px;
-          border-radius: 999px;
+          border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -538,9 +525,10 @@ const Onboarding = () => {
           cursor: pointer;
           outline: none;
           position: relative;
-          transition: background 0.22s ease, color 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+          color: var(--pill-btn-color);
+          transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
         }
-        .pill-btn svg {
+        .icon-btn svg {
           width: 20px;
           height: 20px;
           stroke: currentColor;
@@ -548,49 +536,31 @@ const Onboarding = () => {
           stroke-linecap: round;
           stroke-linejoin: round;
         }
-        .pill-btn:hover {
-          transform: translateY(-2px);
+        .icon-btn:hover {
+          background: var(--icon-btn-hover);
+          transform: scale(1.05);
         }
-        .pill-btn:active {
+        .icon-btn:active {
           transform: scale(0.95);
         }
 
-        .pill-btn-active {
-          background: var(--pill-active-bg);
+        .icon-btn-active {
           color: var(--pill-active-color);
-          box-shadow: var(--pill-active-shadow);
         }
-        .pill-btn-active svg {
-          filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
-        }
-        .pill-btn-active:hover {
-          background: var(--pill-active-bg);
+        .icon-btn-active:hover {
           color: var(--pill-active-color);
-          box-shadow: var(--pill-active-shadow);
         }
 
-        .pill-btn-inactive {
-          background: transparent;
-          color: var(--pill-btn-color);
-        }
-        .pill-btn-inactive:hover {
-          background: var(--pill-btn-hover);
-          color: var(--pill-btn-hover-color);
-          transform: translateY(-2px) scale(1.05);
-          box-shadow: none;
-        }
-
-        .pill-btn-muted {
+        .icon-btn-muted {
           background: var(--muted-bg);
           color: var(--muted-color);
         }
-        .pill-btn-muted:hover {
+        .icon-btn-muted:hover {
           background: var(--muted-bg);
           color: var(--muted-color);
-          transform: translateY(-2px);
         }
 
-        .pill-btn::after {
+        .icon-btn::after {
           content: attr(data-tooltip);
           position: absolute;
           bottom: -28px;
@@ -605,7 +575,7 @@ const Onboarding = () => {
           pointer-events: none;
           transition: opacity 0.15s ease;
         }
-        .pill-btn:hover::after {
+        .icon-btn:hover::after {
           opacity: 1;
         }
 
@@ -705,11 +675,11 @@ const Onboarding = () => {
             &lt;d_bug&gt;
           </span>
 
-          <div className="nav-pill">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className={`pill-btn ${isDark ? 'pill-btn-active' : 'pill-btn-inactive'}`}
+              className={`icon-btn ${isDark ? 'icon-btn-active' : ''}`}
               data-tooltip="Switch Theme"
               aria-label="Switch Theme"
             >
@@ -750,7 +720,7 @@ const Onboarding = () => {
             {/* Sound toggle */}
             <button
               onClick={() => setMuted(p => !p)}
-              className={`pill-btn ${muted ? 'pill-btn-muted' : 'pill-btn-inactive'}`}
+              className={`icon-btn ${muted ? 'icon-btn-muted' : ''}`}
               data-tooltip={muted ? 'Enable Sounds' : 'Mute Sounds'}
               aria-label={muted ? 'Enable Sounds' : 'Mute Sounds'}
             >

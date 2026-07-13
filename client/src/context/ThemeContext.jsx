@@ -7,7 +7,7 @@ export const ThemeProvider = ({children}) => {
     const [isDark, setIsDark] = useState(()=> {
        const stored = localStorage.getItem('d-bug-theme');
        if (stored) return stored === 'dark';
-       return window.matchMedia('(prefers-color-scheme: light)').matches ? false : true;
+       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
     useEffect(()=> {

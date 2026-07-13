@@ -8,7 +8,7 @@ const CreateOrganization = ({nextStep, isDark}) => {
   const [isCreating, setIsCreating] = useState(false);
   const [formData, setFormData] = useState({
     organizationName: "",
-    organizationLogo: null
+    organizationLogo: { url: '', name: '', size: 0, file: null }
   })
 
   const handleSubmit = async (e) => {
@@ -18,7 +18,7 @@ const CreateOrganization = ({nextStep, isDark}) => {
       setIsCreating(true)
       const data = new FormData()
       data.append("organization_name", formData.organizationName)
-      if (formData.organizationLogo) data.append("organization_logo", formData.organizationLogo)
+      if (formData.organizationLogo.file) data.append("organization_logo", formData.organizationLogo.file)
       const res = await api.post("/organizations", data)
       toast.success(res.data.message)
       nextStep()
@@ -66,10 +66,10 @@ const CreateOrganization = ({nextStep, isDark}) => {
   const focusShadow = '0 0 0 4px rgba(239,68,68,0.08)';
   const logoBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.08)';
   const logoColor = isDark ? '#A1A1AA' : '#6B7280';
-  const btnBg = '#111827';
+  const btnBg = '#27272A';
   const btnColor = '#FFFFFF';
-  const btnShadow = '0 4px 20px rgba(17,24,39,0.12)';
-  const btnHoverShadow = '0 12px 30px rgba(17,24,39,0.18)';
+  const btnShadow = '0 4px 20px rgba(39,39,42,0.3)';
+  const btnHoverShadow = '0 12px 30px rgba(39,39,42,0.4)';
 
   return (
     <div style={containerStyle}>
@@ -165,7 +165,15 @@ const CreateOrganization = ({nextStep, isDark}) => {
           <input type="file" accept="image/*" className="hidden"
             onChange={e => {
               const file = e.target.files?.[0]
-              if (file) setFormData(p => ({ ...p, organizationLogo: file }))
+              if (file) setFormData(p => ({
+                ...p,
+                organizationLogo: {
+                  url: URL.createObjectURL(file),
+                  name: file.name,
+                  size: file.size,
+                  file
+                }
+              }))
             }}
           />
         </div>
