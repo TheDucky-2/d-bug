@@ -81,7 +81,11 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    --grid-color: rgb(0, 0, 0, 0.05)
+    --grid-color: rgba(0, 0, 0, 0.08);
+    --grid-major: rgba(0, 0, 0, 0.15);
+    --grid-bg: #fafafa;
+    --grid-shimmer: rgba(0, 0, 0, 0.015);
+    --grid-glow: rgba(255, 255, 255, 0.06);
 }
 
 .dark {
@@ -116,7 +120,11 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
-    --grid-color: rgb(255, 255, 255, 0.020)
+    --grid-color: rgba(255, 255, 255, 0.10);
+    --grid-major: rgba(255, 255, 255, 0.18);
+    --grid-bg: #090909;
+    --grid-shimmer: rgba(255, 255, 255, 0.015);
+    --grid-glow: rgba(255, 255, 255, 0.06);
 }
 
 @layer base {
@@ -137,13 +145,45 @@
     }
 }
 
-@layer utilities{
-  .bg-grid{
-    background-image: 
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 40px 40px;
   }
+
+  .bg-grid-enhanced {
+    background-image:
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(0deg, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(0deg, var(--grid-color) 1px, transparent 1px);
+    background-size:
+      200px 200px,
+      200px 200px,
+      40px 40px,
+      40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .shimmer-overlay {
+    background: linear-gradient(
+      135deg,
+      transparent 30%,
+      var(--grid-shimmer) 50%,
+      transparent 70%
+    );
+    background-size: 200% 200%;
+    animation: grid-shimmer 35s linear infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes grid-shimmer {
+  0% { background-position: -200% -200%; }
+  100% { background-position: 200% 200%; }
 }
 
 .bug-scroll::-webkit-scrollbar {

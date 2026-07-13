@@ -5,21 +5,24 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({children}) => {
 
     const [isDark, setIsDark] = useState(()=> {
-
-       return localStorage.getItem("theme") === "dark"
+       const stored = localStorage.getItem('d-bug-theme');
+       if (stored) return stored === 'dark';
+       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
     useEffect(()=> {
-        localStorage.setItem("theme", isDark ? "dark" : "light")
-        document.documentElement.classList.toggle("dark", isDark);
+        const theme = isDark ? 'dark' : 'light';
+        localStorage.setItem('d-bug-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.toggle('dark', isDark);
     }, [isDark])
 
-        const handleDarkTheme = () => {
+    const toggleTheme = () => {
         setIsDark(prev => !prev)
     }
 
     return (
-        <ThemeContext.Provider value = {{isDark,handleDarkTheme}}>
+        <ThemeContext.Provider value = {{isDark, toggleTheme}}>
             {children}
         </ThemeContext.Provider>
     )
