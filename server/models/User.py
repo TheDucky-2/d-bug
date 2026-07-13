@@ -12,7 +12,7 @@ class User(Base):
     full_name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str] = mapped_column()
-    role: Mapped[Role|None] = mapped_column(default=Role.ADMIN.value)
+    role: Mapped[Role] = mapped_column(default=Role.ADMIN.value, nullable=False)
     subscription: Mapped[Subscription] = mapped_column(default=Subscription.FREE.value)
     organization_id: Mapped[int | None] = mapped_column(ForeignKey("organizations.organization_id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
