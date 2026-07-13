@@ -6,11 +6,13 @@ class ProjectStatus(Enum):
     LIVE = "live"
     DELETED = "deleted"
 
-class Role(str, Enum):
+class UserRole(str, Enum):
+    SUPER_ADMIN = "super_admin"
+    USER = "user"
+
+class MemberRole(str, Enum):
     ADMIN = "admin"
     DEVELOPER = "developer"
-    REPORTER = "reporter"
-    SUPER_ADMIN = "super_admin"
 
 class OrganizationStatus(Enum):
     ACTIVE = "active"
