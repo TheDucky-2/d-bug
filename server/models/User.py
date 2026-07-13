@@ -8,11 +8,11 @@ class User(Base):
 
     __tablename__ = "users"
 
-    id: Mapped[int] =  mapped_column(primary_key=True, autoincrement=True)
+    user_id: Mapped[int] =  mapped_column(primary_key=True, autoincrement=True, index=True)
     full_name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str] = mapped_column()
-    role: Mapped[str|None] = mapped_column(default=Role.ADMIN)
-    subscription: Mapped[str] = mapped_column(default=Subscription.FREE)
+    role: Mapped[Role|None] = mapped_column(default=Role.ADMIN.value)
+    subscription: Mapped[Subscription] = mapped_column(default=Subscription.FREE.value)
     organization_id: Mapped[int | None] = mapped_column(ForeignKey("organizations.organization_id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
