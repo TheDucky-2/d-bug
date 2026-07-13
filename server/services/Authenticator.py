@@ -166,6 +166,7 @@ class Authenticator:
             user_id=user.user_id,
             full_name=user.full_name,
             email=user.email,
+            user_type= user.user_type,
             role= user.role,
             organization_id = user.organization_id,
             subscription=user.subscription,
@@ -173,7 +174,7 @@ class Authenticator:
             )
 
     @staticmethod
-    def get_current_user(request:Request, response:Response, db:Session ):
+    def get_current_user(request:Request, response:Response, db:Session )-> UserResponse:
     
         access_token = request.cookies.get("access_token") 
         refresh_token = request.cookies.get("refresh_token")

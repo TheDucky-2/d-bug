@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, ConfigDict
-from .enums import Subscription, UserRole
+from constants.enums import UserType, Subscription, MemberRole
 from datetime import datetime
 
 class UserCreate(BaseModel):
@@ -17,7 +17,8 @@ class UserResponse(BaseModel):
     user_id: int
     email: EmailStr
     full_name: str
-    role: UserRole
+    user_type: UserType
+    role: MemberRole
     subscription: Subscription
     organization_id: int | None = None
     created_at: datetime

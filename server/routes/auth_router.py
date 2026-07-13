@@ -7,7 +7,7 @@ from models import User, RefreshToken
 from schemas.user import UserCreate, UserResponse, UserLogin
 from errors.auth_errors import PasswordHashingError
 from datetime import datetime, timedelta, timezone
-from auth.Authenticator import Authenticator
+from services.Authenticator import Authenticator
 import os
 from logger.logger import create_logger
 from dotenv import load_dotenv

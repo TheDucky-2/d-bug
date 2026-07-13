@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from enums import Priority, BugStatus, Severity
+from constants.enums import Priority, BugStatus, Severity
 from datetime import datetime
 
 class BugCreate(BaseModel):
