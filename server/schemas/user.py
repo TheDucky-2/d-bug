@@ -14,8 +14,9 @@ class UserLogin(BaseModel):
     
 
 class UserResponse(BaseModel):
-    id: int
+    user_id: int
     email: EmailStr
+    full_name: str
     role: Role
     subscription: Subscription
     organization_id: str | None = None
