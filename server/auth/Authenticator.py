@@ -166,6 +166,7 @@ class Authenticator:
             user_id=user.user_id,
             full_name=user.full_name,
             email=user.email,
+            user_type= user.user_type,
             role= user.role,
             organization_id = user.organization_id,
             subscription=user.subscription,
