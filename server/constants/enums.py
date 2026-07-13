@@ -1,12 +1,12 @@
 from enum import IntEnum, Enum
 
 
-class ProjectStatus(Enum):
+class ProjectStatus(str,Enum):
     CREATED = "created"
     LIVE = "live"
     DELETED = "deleted"
 
-class UserRole(str, Enum):
+class UserType(str, Enum):
     SUPER_ADMIN = "super_admin"
     USER = "user"
 
@@ -14,11 +14,11 @@ class MemberRole(str, Enum):
     ADMIN = "admin"
     DEVELOPER = "developer"
 
-class OrganizationStatus(Enum):
+class OrganizationStatus(str,Enum):
     ACTIVE = "active"
     INACTIVE = "inactive"
     
-class Subscription(Enum):
+class Subscription(str,Enum):
     FREE = "free"
     PRO = "pro"
 
@@ -31,13 +31,13 @@ class Priority(IntEnum):
     P4 = 4
     P5 = 5
 
-class Severity(Enum):
+class Severity(str,Enum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
 
-class BugStatus(Enum):
+class BugStatus(str,Enum):
     OPEN = "open"
     IN_PROGRESS = "in_progress"
     IN_REVIEW = "in_review"
