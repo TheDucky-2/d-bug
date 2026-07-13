@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from sqlalchemy import ForeignKey, DateTime, func
-from schemas.enums import ProjectStatus
+from constants.enums import ProjectStatus
 from schemas.user import UserResponse
 from datetime import datetime
 from config.db import Base

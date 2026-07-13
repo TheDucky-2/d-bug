@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from .user import UserResponse
 from enum import Enum
 
-from .enums import ProjectStatus
+from constants.enums import ProjectStatus
 
 class ProjectCreate(BaseModel):
 

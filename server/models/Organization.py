@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import ForeignKey, DateTime, func, String
-from schemas.enums import OrganizationStatus
+from constants.enums import OrganizationStatus
 from schemas.project import ProjectResponse
 from typing import List
 from datetime import datetime

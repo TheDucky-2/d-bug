@@ -1,4 +1,4 @@
-from .enums import OrganizationStatus
+from constants.enums import OrganizationStatus
 from .user import UserResponse
 from pydantic import BaseModel
 from typing import List

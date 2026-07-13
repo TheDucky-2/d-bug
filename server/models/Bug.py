@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from sqlalchemy import DateTime, func
-from schemas.enums import Priority, Severity, BugStatus
+from constants.enums import Priority, Severity, BugStatus
 from datetime import datetime
 from config.db import Base
 
