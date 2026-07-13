@@ -173,7 +173,7 @@ class Authenticator:
             )
 
     @staticmethod
-    def get_current_user(request:Request, response:Response,db:Session = Depends(get_db) ):
+    def get_current_user(request:Request, response:Response, db:Session ):
     
         access_token = request.cookies.get("access_token") 
         refresh_token = request.cookies.get("refresh_token")
