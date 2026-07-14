@@ -22,3 +22,8 @@ class OrganizationResponse(OrganizationCreate):
     organization_projects: List[ProjectResponse] | None = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class OrganizationUpdate(BaseModel):
+    organization_name: str | None = None
+    organization_logo_url: str | None = None
+    organization_status: OrganizationStatus | None = None
