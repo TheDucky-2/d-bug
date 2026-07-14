@@ -81,7 +81,7 @@ This project is actively being developed as a portfolio project to demonstrate f
 
 ### Authentication
 
-#### Sign Up Dark
+#### Sign Up
 
 ![Sign Up](./assets/sign_up.png)
 
@@ -102,7 +102,19 @@ This project is actively being developed as a portfolio project to demonstrate f
 #### Dashboard
 
 ![Dashboard](./assets/dash.png)
-<br>
+
+#### Create a new Bug manually
+
 ![Create A New Bug Manually](./assets/create_new_bug.png)
-<br>
+
+#### View Bug Details
+
 ![Bug Details](./assets/bug_details_drawer.png)
+
+##### Organization Dashboard
+
+![Organization Dashboard](./assets/organization_dashboard.png)
+
+#### Add a New Member
+
+![Add a New Member](./assets/add_member.png)
