@@ -23,5 +23,4 @@ class Organization(Base):
     organization_owner: Mapped[int | None] = mapped_column(ForeignKey("users.user_id"), nullable=True)
     organization_projects: Mapped[List["Project"]]  = relationship(back_populates="organization")
 
-
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
