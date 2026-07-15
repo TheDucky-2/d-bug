@@ -12,7 +12,7 @@ import { CircleDot, RefreshCw, CircleCheck, Clock,} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import AddMemberDialog from "./AddMemberDialog";
 import { useTheme } from "@/context/ThemeContext";
-import CreateProjectDrawer from "./CreateProjectDrawer";
+import CreateProjectDrawer from "../Project/CreateProjectDrawer.jsx";
 
 const OrganizationMainContent = ({ organization }) => {
 
