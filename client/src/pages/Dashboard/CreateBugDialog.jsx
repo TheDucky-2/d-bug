@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Image } from 'lucide-react';
-import { Field, FieldGroup, FieldDescription } from "@/components/ui/field"
+import { Field, FieldGroup} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { X, Bug } from "lucide-react"

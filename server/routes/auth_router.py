@@ -15,7 +15,7 @@ load_dotenv()
 
 auth_router = APIRouter(prefix="/auth",tags=["Authentication"])
 
-logger = create_logger()
+logger = create_logger(name=__name__.split('.')[1])
 
 ENVIRONMENT = os.environ["ENVIRONMENT"]
 

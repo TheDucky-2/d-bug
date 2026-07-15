@@ -8,8 +8,8 @@ LOG_DIR = Path("logs")
 LOG_DIR.mkdir(exist_ok=True)
 
 
-def create_logger():
-    logger = logging.getLogger("D_BUG")
+def create_logger(name:str):
+    logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
 
     if logger.handlers:

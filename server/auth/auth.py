@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from fastapi import HTTPException
 
-logger = create_logger()
+logger = create_logger(name = __name__.split(".")[1])
 
 password_hash = PasswordHash.recommended()
 

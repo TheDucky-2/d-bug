@@ -4,9 +4,19 @@ import Navbar from "./Dashboard/Navbar.jsx"
 import AppSidebar from "./Dashboard/AppSidebar.jsx"
 import { useTheme } from "../context/ThemeContext.jsx";
 import MainContent from "@/pages/Dashboard/MainContent.jsx";
+import { LoaderCircle } from "lucide-react";
+import { useState } from "react";
 const Dashboard = () => {
 
     const {isDark} = useTheme();
+    const [loading, setLoading] = useState(false)
+    
+  if (loading) {
+  return (
+    <div className="h-screen flex items-center justify-center">
+      <LoaderCircle className="animate-spin"/>
+    </div>
+  );}
 
   return (
 
