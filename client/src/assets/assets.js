@@ -332,20 +332,20 @@ export const chartConfig = {
 
 
 export const sidebarMenuItems = [
-  {title: "Overview",
-   url: "/overview",
+  {title: "Members",
+   url: "members",
   },
   {title: "Inbox",
-   url: "/inbox"
+   url: "inbox"
   },
   {title: "Bugs",
-   url: "/bugs"
+   url: "bugs"
   },
-  {title: "Repositories",
-   url: "/repositories"
+  {title: "Projects",
+   url: "projects"
   },
   {title: "Reports",
-   url: "/reports"
+   url: "reports"
   }
 ]
 
@@ -767,4 +767,122 @@ export const bugPriority = [
 export const Environment = [
   "Production",
   "Development"
+]
+
+export const projectTypes = [
+  {
+    id: "web_app",
+    name: "Web Application",
+    description: "Websites, SaaS platforms, dashboards, and web tools"
+  },
+  {
+    id: "mobile_app",
+    name: "Mobile Application",
+    description: "iOS, Android, and cross-platform mobile apps"
+  },
+  {
+    id: "desktop_app",
+    name: "Desktop Application",
+    description: "Windows, macOS, and Linux applications"
+  },
+  {
+    id: "backend_api",
+    name: "Backend / API",
+    description: "APIs, servers, microservices, and backend systems"
+  },
+  {
+    id: "frontend_library",
+    name: "Frontend Library / Framework",
+    description: "UI libraries, components, and frontend frameworks"
+  },
+  {
+    id: "package_library",
+    name: "Library / Package",
+    description: "Reusable packages, SDKs, and open-source libraries"
+  },
+  {
+    id: "cli_tool",
+    name: "CLI Tool",
+    description: "Command-line applications and developer tools"
+  },
+  {
+    id: "game",
+    name: "Game",
+    description: "Games, game engines, and interactive experiences"
+  },
+  {
+    id: "ai_ml",
+    name: "AI / Machine Learning",
+    description: "AI models, ML systems, and intelligent applications"
+  },
+  {
+    id: "data_science",
+    name: "Data Science",
+    description: "Analytics, data processing, and visualization projects"
+  },
+  {
+    id: "data_pipeline",
+    name: "Data Pipeline",
+    description: "ETL systems, workflows, and data infrastructure"
+  },
+  {
+    id: "devops",
+    name: "DevOps / Infrastructure",
+    description: "Cloud infrastructure, CI/CD, and deployment systems"
+  },
+  {
+    id: "security",
+    name: "Security Tool",
+    description: "Security software, audits, and vulnerability tools"
+  },
+  {
+    id: "blockchain",
+    name: "Blockchain / Web3",
+    description: "Smart contracts, crypto, and decentralized applications"
+  },
+  {
+    id: "iot",
+    name: "IoT / Hardware",
+    description: "Connected devices and hardware-integrated projects"
+  },
+  {
+    id: "embedded",
+    name: "Embedded System",
+    description: "Firmware and low-level hardware software"
+  },
+  {
+    id: "browser_extension",
+    name: "Browser Extension",
+    description: "Chrome, Firefox, and browser add-ons"
+  },
+  {
+    id: "automation",
+    name: "Automation Tool",
+    description: "Scripts, bots, and workflow automation"
+  },
+  {
+    id: "documentation",
+    name: "Documentation",
+    description: "Documentation websites and knowledge bases"
+  },
+  {
+    id: "research",
+    name: "Research Project",
+    description: "Experiments, prototypes, and studies"
+  },
+  {
+    id: "education",
+    name: "Educational Project",
+    description: "Learning platforms and educational tools"
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise Software",
+    description: "Business applications and internal systems"
+  },
+  {
+    id: "other",
+    name: "Other",
+    description: "Any project that does not fit above categories"
+  }
 ]

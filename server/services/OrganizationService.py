@@ -206,8 +206,3 @@ class OrganizationService:
             organization_status= validated_organization.organization_status,
         )
 
-
- 
-        
-        
-

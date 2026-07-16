@@ -41,7 +41,8 @@ const Login = () => {
         await new Promise(resolve => setTimeout(resolve, 2000));
         const {data} = await api.post("/auth/sign-in", formData)
 
-        toast.success(data.message)
+        console.log(data)
+        toast.success(data?.message)
 
         if (organization){
             await navigate("/organization")
@@ -51,7 +52,7 @@ const Login = () => {
 
 
     }catch(error){
-        toast.error(error.response?.data?.detail || error.response?.data?.message)
+        toast.error(error?.response?.data?.detail || error?.response?.data?.message || "Something went wrong")
 
     }
     finally{

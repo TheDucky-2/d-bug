@@ -7,7 +7,7 @@ import {useAuth} from "../context/AuthContext.jsx";
 
 const Navbar = () => {
 
-  const {isDark, handleDarkTheme} = useTheme();
+  const {isDark, toggleTheme} = useTheme();
   const {isLoggedIn, handleAuth} = useAuth();
   const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ const Navbar = () => {
 
         <div className="flex justify-between items-center gap-10">
         {/** theme changing container */}
-        <button onClick={handleDarkTheme} className={`cursor-pointer transition hover:text-blue-400`} >
+        <button onClick={toggleTheme} className={`cursor-pointer transition hover:text-blue-400`} >
         
         {isDark ? <Sun /> : <Moon />}
         </button>

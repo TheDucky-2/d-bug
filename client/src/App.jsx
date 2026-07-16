@@ -3,7 +3,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Pricing from "./pages/Pricing.jsx";
 import DashboardInbox from "./pages/DashboardInbox.jsx"
 import Bugs from "./pages/Bugs.jsx"
-import Repositories from "./pages/Repositories.jsx"
+import Repositories from "./pages/Project/Repositories.jsx"
 import Reports from "./pages/Reports.jsx"
 import Settings from "./pages/Settings.jsx"
 import Overview from "./pages/Overview.jsx"
@@ -14,7 +14,6 @@ import Profile from "./pages/Profile.jsx";
 import Organization from "./pages/Organization/Organization.jsx";
 import Onboarding from "./pages/Onboarding/Onboarding.jsx";
 import Error404 from "./pages/Error404.jsx";
-
 
 const App = () => {
   return (

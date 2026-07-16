@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const BasicNavbar = () => {
 
-    const {isDark, handleDarkTheme} = useTheme()
+    const {isDark, toggleTheme} = useTheme()
 
   return (
     <div className="flex justify-between items-center px-2 sm:px-4 lg:px-6 py-2">
@@ -20,7 +20,7 @@ const BasicNavbar = () => {
             <div>
 
 
-            <button onClick={handleDarkTheme} className={`cursor-pointer h-10 w-10`} >
+            <button onClick={toggleTheme} className={`cursor-pointer h-10 w-10`} >
             {isDark ? <Sun className="h-5 w-5 text-zinc-700 dark:text-zinc-400  dark:hover:text-blue-400 transition-colors" /> 
             : <Moon className="h-5 w-5 text-zinc-700 dark:text-zinc-400 hover:text-blue-400 transition-colors" />}
             </button>

@@ -1,17 +1,23 @@
 import { Moon, Sun, Bell, PanelLeft} from "lucide-react";
 import { useTheme } from "@/context/ThemeContext.jsx";
 import { useState } from "react";
-import logo from "../../assets/d_bug.png"
-import logo_light from "../../assets/d_bug_black.png"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import bug from "../../assets/bug.jpg"
-import canva_logo from "../../assets/canva-logo.svg"
+import { useAuth } from "@/context/AuthContext";
 
+const OrganizationNavbar = ({organizationLogo}) => {
 
-const OrganizationNavbar = () => {
-
-    const {isDark, handleDarkTheme} = useTheme()
+    const {isDark, toggleTheme} = useTheme()
     const [hasMessages, setHasMessages] = useState()
+    const {logout} = useAuth()
 
   return (
     <div className="flex sticky top-0 z-50 justify-between items-center px-2 sm:px-4 lg:px-6 py-2">
@@ -29,15 +35,33 @@ const OrganizationNavbar = () => {
             )
             :  (<Bell className="h-5 w-5 text-zinc-700 dark:text-zinc-400"/>)}
 
-            <button onClick={handleDarkTheme} className={`cursor-pointer h-10 w-10`} >
+            <button onClick={toggleTheme} className={`cursor-pointer h-10 w-10`} >
             {isDark ? <Sun className="h-5 w-5 text-zinc-700 dark:text-zinc-400  dark:hover:text-blue-400 transition-colors" /> 
             : <Moon className="h-5 w-5 text-zinc-700 dark:text-zinc-400 hover:text-blue-400 transition-colors" />}
             </button>
 
-            <Avatar>
-              <AvatarImage src={bug}/>
-               <AvatarFallback></AvatarFallback>
-            </Avatar>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                <Avatar>
+                  <AvatarImage src={organizationLogo}/>
+                  <AvatarFallback>MEM</AvatarFallback>
+                </Avatar>
+
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>User Settings</DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <button onClick={logout}>
+                      Logout
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
         </div>
 
