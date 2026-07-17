@@ -6,10 +6,9 @@ from validators.user import validate_user
 from validators.organization import validate_organization
 from constants.enums import OrganizationStatus
 from services.OrganizationService import OrganizationService
+from services.AuthorizationService import AuthorizationService
 
 org_router = APIRouter(prefix="/organizations",tags=["organizations"])
-
-####### USERTYPE = "user" and MEMBER ROLE = "owner" only ################
 
 # require permission -> (organization:self:create)
 @org_router.post("/", response_model=OrganizationResponse, status_code=201)
@@ -31,11 +30,12 @@ def create_organization(
 ####### USERTYPE = "user" and MEMBER ROLE = "owner" / "admin" ################
 
 # require permission -> (organization:self:read) -> admin, owner
-@org_router.get("/me", response_model=OrganizationResponse, status_code=200)
+@org_router.get("/me", status_code=200)
 def get_current_organization(
                         db:Session = Depends(get_db),
                         user = Depends(validate_user),
-                        organization_service = Depends(OrganizationService)):
+                        organization_service = Depends(OrganizationService),
+                        _ = Depends(AuthorizationService.require_permission("organization:self:read"))):
     """Function to create organization with organization name and logo image"""
     
     return organization_service.get_current_organization(
