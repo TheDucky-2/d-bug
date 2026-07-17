@@ -21,18 +21,43 @@ import {
 } from "@/components/ui/select"
 import { X, Mail, User } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
+import { useCreateInvite } from "@/hooks/useEmail"
+import { useState } from "react"
+import { toast } from "sonner";
+
+
 
 const AddMemberDialog = ({openTrigger}) => {
 
+  const [formData, setFormData] = useState(
+    {
+      toEmail : "",
+      role: "",
+      optionalComments: ""
+    }
+  )
+
+  const createInvite = useCreateInvite()
+
   const handleFormSubmit = (e)=> { 
+
     e.preventDefault()
+
+    createInvite.mutate(formData, {
+      onSuccess: (data) => {
+        toast.success(data.message)
+      },
+      onError: (error) => {
+        toast.error(error?.response?.data?.detail || error?.response?.data?.message)
+      }
+    })
   }
 
   const memberRole = [
-    "ADMIN",
-    "DEVELOPER",
-    "REVIEWER",
-    "OWNER"
+    "admin",
+    "developer",
+    "reviewer",
+    "owner"
   ]
 
   return (
@@ -46,12 +71,13 @@ const AddMemberDialog = ({openTrigger}) => {
     `}</style>
     <div>
    <Dialog>
-      <form onSubmit={handleFormSubmit} >
+      
         <DialogTrigger asChild>
         {openTrigger}
         </DialogTrigger>
     
         <DialogContent className="sm:max-w-sm max-h-[90vh] justify-center flex flex-col overflow-auto shadow-xl shadow-zinc-900/30 border border-black/10">
+          <form onSubmit={handleFormSubmit} id="invite-form">
           <DialogHeader>
             <DialogTitle className={`text-xl flex items-center justify-center gap-3 leading-none`}> 
             <span>Add a New Member</span> 
@@ -70,7 +96,13 @@ const AddMemberDialog = ({openTrigger}) => {
               <Label htmlFor="invite-email" className={`text-sm font-semibold flex items-center gap-1`}>
                 Email Address<span className="text-red-600 -top-1 -right-1">*</span>
               </Label>
-              <Input id="invite-email" name="invite-email" type="email"
+              <Input id="invite-email" name="invite-email" type="email" value={formData.toEmail}
+              onChange = {(e) => {
+                setFormData(prev => ({
+                  ...prev,
+                  toEmail : e.target.value
+                }))
+              }}
               placeholder="user@your_organization.com" className="text-sm placeholder:text-sm rounded-sm" required/>
 
             </Field>
@@ -81,7 +113,15 @@ const AddMemberDialog = ({openTrigger}) => {
                     Role
                   <span className="text-red-600 -top-1 -right-1">*</span>
                 </Label>
-                <Select items={memberRole} id="member-role">
+                <Select items={memberRole} id="member-role" value={formData.role} 
+                onValueChange={(value) => 
+                          {      console.log(value)
+                                setFormData(prev =>( {
+                                ...prev,
+                                  role : value
+                              }))
+                            }
+                          }>
 
                 <SelectTrigger className="w-full ">
                     <SelectValue placeholder="Select role..." />
@@ -104,21 +144,26 @@ const AddMemberDialog = ({openTrigger}) => {
 
                     Optional Comments
                 </Label>
-               <Textarea className={`resize-y min-h-25 text-sm rounded-sm` } id="optional-comments"
+               <Textarea className={`resize-y min-h-25 text-sm rounded-sm` } id="optional-comments" value={formData.optionalComments}
+                onChange = {(e) => {
+                setFormData(prev => ({
+                  ...prev,
+                  optionalComments : e.target.value
+                }))
+              }}
                 />
             </Field>
-
 
           </FieldGroup>
           </div>
     
-          <DialogFooter className="shrink-0 border-t pt-4 ">
+          <DialogFooter className="shrink-0 border-t pt-4 mt-10 ">
 
             
             <DialogClose render={<button> <X/></button>} />
        
-        <button type="submit" 
-        className="flex items-center justify-center gap-3 bg-amber-400  px-5 text-black cursor-pointer  font-semibold text-sm w-full py-2 hover:bg-amber-500" >
+        <button type="submit" id="invite-form" 
+        className="flex items-center mt-2 justify-center gap-3 bg-amber-400  px-5 text-black cursor-pointer  font-semibold text-sm w-full py-2 hover:bg-amber-500" >
               <Mail/>
             Send Invite
        
@@ -126,10 +171,10 @@ const AddMemberDialog = ({openTrigger}) => {
     
             
           </DialogFooter>
-
+            </form>
         </DialogContent>
 
-      </form>
+      
     </Dialog>
     </div>
     </>

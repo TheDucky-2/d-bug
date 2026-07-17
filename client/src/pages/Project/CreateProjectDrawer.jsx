@@ -8,7 +8,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { FolderPlus, LoaderCircle, X } from "lucide-react"
-import { createElement, useState } from "react"
+import { useState } from "react"
 import github_icon from "/images/github_icon.png"
 import github_icon_dark from "/images/github_icon_dark.png"
 import { useTheme } from "@/context/ThemeContext"
@@ -188,16 +188,9 @@ const CreateProjectDrawer = ({ openTrigger }) => {
                     placeholder="e.g. A platform for managing software issues, tracking bugs and collaborating with the development team."/>
                     <FieldDescription>Description of what this project is about.</FieldDescription>
                   </Field>
-                  
-                </FieldGroup>
-              
-            <Separator/>
-            <FieldGroup>
-              <div className="flex flex-col gap-1">
 
-                {/**Create Project Button */}
-              <button type="submit" id="project-create-form" disabled={createProject.isPending}
-              className="w-full text-sm text-black bg-yellow-500 hover:bg-yellow-600 dark:text-black p-3 font-semibold">
+                    <button type="submit" id="project-create-form" disabled={createProject.isPending}
+              className="w-full text-sm text-black bg-yellow-500 hover:bg-yellow-600 dark:text-black p-3 font-semibold mt-4">
                 {mode === "github" ? "Import Repository" : 
                 
                 createProject.isPending ? 
@@ -211,15 +204,22 @@ const CreateProjectDrawer = ({ openTrigger }) => {
                 
 
               </button>
+                  
+                </FieldGroup>
+              
+            <Separator/>
+            <FieldGroup>
+              <div className="flex flex-col gap-1">
+
+                {/**Create Project Button */}
+
                   {/** GO BACK button */}
-            {mode && (
-            <>
+
             <button onClick={() => setMode(null)} 
-            className="w-full font-semibold text-sm bg-primary text-primary-foreground  dark:hover:bg-zinc-300 hover:bg-zinc-700 p-3 ">
+            className="w-full font-semibold text-sm bg-primary text-primary-foreground  dark:hover:bg-zinc-300 hover:bg-zinc-700 p-3  ">
               Go Back
             </button>
-            </>
-          )}
+
           </div>
           </FieldGroup>
           </FieldSet>
@@ -238,6 +238,14 @@ const CreateProjectDrawer = ({ openTrigger }) => {
               <p className="text-sm text-muted-foreground text-center">
                 You will be redirected to GitHub to authorize access.
               </p>
+
+            <div className="pt-4 border-t">
+
+            <button onClick={() => setMode(null)} 
+            className="w-full font-semibold text-sm bg-primary text-primary-foreground  dark:hover:bg-zinc-300 hover:bg-zinc-700 p-3 ">
+              Go Back
+            </button>
+            </div>
             </div>
           )}
         </div>
