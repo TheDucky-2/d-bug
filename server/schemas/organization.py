@@ -5,6 +5,7 @@ from typing import List
 from datetime import datetime
 from pydantic import ConfigDict
 from .project import ProjectResponse
+from .member import MemberResponse
 
 class OrganizationCreate(BaseModel):
 
@@ -16,7 +17,6 @@ class OrganizationResponse(OrganizationCreate):
     organization_name: str
     organization_status: OrganizationStatus
     organization_owner: int | None = None
-    organization_members: List[int]
     created_at: datetime
     organization_logo_url: str | None = None
     organization_projects: List[ProjectResponse] | None = None

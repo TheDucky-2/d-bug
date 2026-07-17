@@ -18,7 +18,6 @@ class UserResponse(BaseModel):
     email: EmailStr
     full_name: str
     user_type: UserType
-    role: MemberRole
     subscription: Subscription
     organization_id: int | None = None
     created_at: datetime

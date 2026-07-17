@@ -1,8 +1,14 @@
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, DateTime, func
 from constants.enums import Subscription, UserType, MemberRole
 from datetime import datetime
 from config.db import Base
+from models.Role import Role 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+
+    from models.Member import Member
 
 class User(Base):
 
@@ -15,5 +21,5 @@ class User(Base):
     user_type: Mapped[UserType] = mapped_column(default=UserType.USER.value, nullable=False)
     subscription: Mapped[Subscription] = mapped_column(default=Subscription.FREE.value)
     organization_id: Mapped[int | None] = mapped_column(ForeignKey("organizations.organization_id"), nullable=True)
-    role: Mapped[MemberRole] = mapped_column(default=MemberRole.ADMIN.value, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    member: Mapped["Member"] = relationship("Member", back_populates="user")

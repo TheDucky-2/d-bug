@@ -11,11 +11,14 @@ class MemberCreate(BaseModel):
 
 class MemberResponse(BaseModel):
 
-    member_name: str
     member_id: int
     organization_id: int
     role: MemberRole
     is_active: bool
+
+    model_config = {
+        "from_attributes": True
+    }
 
 class MemberUpdate(BaseModel):
 
