@@ -40,7 +40,7 @@ class AuthorizationService:
         
         role = {
             "role_id" : member.role.role_id,
-            "role": member.role.role_id
+            "role": member.role.role
         }
         
         # store in cache
@@ -50,8 +50,8 @@ class AuthorizationService:
             json.dumps(role),
             ex=3600
         )
-
-        return member.role
+        print(role)
+        return role
 
     @staticmethod
     def get_role_permissions(db:Session, user:User):
@@ -69,14 +69,17 @@ class AuthorizationService:
     
     @staticmethod
     def require_permission(permission:str):
-
+    
         def permission_checker(db:Session = Depends(get_db),  user = Depends(Authenticator.get_current_user)):
-
+            print("permission checker called")
             permission_ = db.query(Permission).filter(Permission.permission == permission).first()
 
             print("PERMISSION", permission_.permission_id)
+            print(type(permission_.permission_id))
 
             permissions = AuthorizationService.get_role_permissions(db = db, user = user)
+            print([(x) for x in permissions])
+            print(permissions)
 
             if permission_.permission_id not in permissions:
                 raise HTTPException(status_code=403, detail="Forbidden access")
