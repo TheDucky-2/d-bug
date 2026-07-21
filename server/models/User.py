@@ -20,6 +20,5 @@ class User(Base):
     password: Mapped[str] = mapped_column()
     user_type: Mapped[UserType] = mapped_column(default=UserType.USER.value, nullable=False)
     subscription: Mapped[Subscription] = mapped_column(default=Subscription.FREE.value)
-    organization_id: Mapped[int | None] = mapped_column(ForeignKey("organizations.organization_id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
-    member: Mapped["Member"] = relationship("Member", back_populates="user")
+    membership: Mapped["Member"] = relationship("Member", back_populates="user")

@@ -13,6 +13,6 @@ def validate_user(request:Request, response:Response, db:Session = Depends(get_d
     user = db.query(User).filter(User.user_id == current_user.user_id).first()
 
     if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="User does not exist.")
     
     return user

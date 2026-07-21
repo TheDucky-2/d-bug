@@ -7,16 +7,33 @@ from routes.org_router import org_router
 from routes.project_router import project_router
 from auth.authorization.insert_permissions import insert_permissions
 from config.db import Base, engine
+<<<<<<< HEAD
 import models
 from dotenv import load_dotenv
 from logger.logger import create_logger
+=======
+from auth.authorization.insert_permissions import insert_permissions
+>>>>>>> main
 import os
 
 Base.metadata.create_all(engine)
 
+db = SessionLocal()
+
+try:
+    db = SessionLocal()
+    insert_permissions(db)
+
+except Exception as error:
+    raise error
+
+finally:
+    db.close()
+
+
 app = FastAPI()
 
-allowed_origins = [os.environ["FRONTEND_URL"], "http://127.0.0.1/5173"]
+allowed_origins = [os.environ["FRONTEND_URL"], "http://127.0.0.1:5173"]
 logger = create_logger(__name__.split(".")[0])
 
 try: 

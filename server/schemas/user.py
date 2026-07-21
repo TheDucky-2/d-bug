@@ -10,7 +10,7 @@ class UserCreate(BaseModel):
 
 class UserLogin(BaseModel):
     email: EmailStr
-    password: str
+    password: str 
     
 
 class UserResponse(BaseModel):
@@ -19,7 +19,6 @@ class UserResponse(BaseModel):
     full_name: str
     user_type: UserType
     subscription: Subscription
-    organization_id: int | None = None
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

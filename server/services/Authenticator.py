@@ -52,15 +52,7 @@ class Authenticator:
         db.refresh(new_user)
 
         return {
-            "message": "Account Created Successfully!",
-
-            "data":{
-                "user_id" : new_user.user_id,
-                "full_name": new_user.full_name,
-                "email": new_user.email,
-                "organization_id": new_user.organization_id
-            },
-            
+            "message": "Account Created Successfully"
         }
         
     
@@ -121,7 +113,7 @@ class Authenticator:
             "user_id": existing_user.user_id,
             "full_name": existing_user.full_name,
             "email": existing_user.email,
-            "organization_id": existing_user.organization_id
+            "access_token": access_token
         },
         "message": "Login successful!"
     }
@@ -159,22 +151,9 @@ class Authenticator:
             "success": True,
             "message": "Logout Successful"
         }
-    
-    @staticmethod
-    def serialize_user_response(user:User)-> UserResponse:
-        return UserResponse(
-            user_id=user.user_id,
-            full_name=user.full_name,
-            email=user.email,
-            user_type= user.user_type,
-            role= user.role,
-            organization_id = user.organization_id,
-            subscription=user.subscription,
-            created_at=user.created_at
-            )
 
     @staticmethod
-    def get_current_user(request:Request, response:Response, db:Session = Depends(get_db) )-> UserResponse:
+    def get_current_user(request:Request, response:Response, db:Session = Depends(get_db) ):
     
         access_token = request.cookies.get("access_token") 
         refresh_token = request.cookies.get("refresh_token")
@@ -221,7 +200,7 @@ class Authenticator:
             if not user:
                 raise HTTPException(status_code=404, detail="Missing user")
             
-            return Authenticator.serialize_user_response(user)
+            return user
         
         
         # if missing user_id
@@ -235,4 +214,4 @@ class Authenticator:
         if not user:
             raise HTTPException(status_code=404, detail="Missing user")
         
-        return Authenticator.serialize_user_response(user)
+        return user
