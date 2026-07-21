@@ -16,7 +16,6 @@ class OrganizationResponse(OrganizationCreate):
     organization_id: int
     organization_name: str
     organization_status: OrganizationStatus
-    organization_owner: int | None = None
     created_at: datetime
     organization_logo_url: str | None = None
     organization_projects: List[ProjectResponse] | None = None
