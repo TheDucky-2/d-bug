@@ -18,40 +18,17 @@ class AuthorizationService:
     @staticmethod
     def get_role(db:Session, user:User):
 
-        # return cached reponse
-        
-        print("TYPE:", type(user))
-        print("VALUE:", user)
-
-        cache_key = f"auth:user:{user.user_id}:role"
-
-        role = redis_client.get(cache_key)
-
-        if role:
-            return json.loads(role)
-
-        ## If not in cached
-
         member = db.query(Member).filter(Member.user_id == user.user_id).first()
-        print(member)
 
         if not member:
-            raise HTTPException(status_code = 404, detail="Unable to find organization member.")
+            raise HTTPException(status_code = 404, detail="Membership does not exist.")
         
         role = {
             "role_id" : member.role.role_id,
             "role": member.role.role_id
         }
         
-        # store in cache
-
-        redis_client.set(
-            cache_key, 
-            json.dumps(role),
-            ex=3600
-        )
-
-        return member.role
+        return role
 
     @staticmethod
     def get_role_permissions(db:Session, user:User):
@@ -73,6 +50,8 @@ class AuthorizationService:
         def permission_checker(db:Session = Depends(get_db),  user = Depends(Authenticator.get_current_user)):
 
             permission_ = db.query(Permission).filter(Permission.permission == permission).first()
+            print("PERMISSION", permission_)
+
 
             print("PERMISSION", permission_.permission_id)
 
