@@ -1,15 +1,66 @@
-import { ArrowRight, LoaderCircle, Image } from "lucide-react"
-import { useState } from "react"
+import { ArrowRight, LoaderCircle, Image, X } from "lucide-react"
+import { useState, useRef } from "react"
 import api from "@/config/axios";
 import { toast } from "sonner";
+
+const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg+xml"];
+const ACCEPTED_EXTENSIONS = ["png", "jpg", "jpeg", "webp", "svg"];
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 const CreateOrganization = ({nextStep, isDark}) => {
 
   const [isCreating, setIsCreating] = useState(false);
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     organizationName: "",
     organizationLogo: { url: '', name: '', size: 0, file: null }
   })
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const extension = file.name.split(".").pop().toLowerCase()
+
+    if (!ACCEPTED_EXTENSIONS.includes(extension)) {
+      toast.error("Unsupported file extension. Please upload a PNG, JPG, WEBP, or SVG image.")
+      e.target.value = ""
+      return
+    }
+
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+      toast.error("Unsupported image type.")
+      e.target.value = ""
+      return
+    }
+
+    if (file.size > MAX_SIZE) {
+      toast.error("Image is too large. Maximum size is 5MB.")
+      e.target.value = ""
+      return
+    }
+
+    setFormData(prev => {
+      if (prev.organizationLogo.url) URL.revokeObjectURL(prev.organizationLogo.url)
+      return {
+        ...prev,
+        organizationLogo: {
+          url: URL.createObjectURL(file),
+          name: file.name,
+          size: file.size,
+          file
+        }
+      }
+    })
+  }
+
+  const removeLogo = () => {
+    setFormData(prev => {
+      if (prev.organizationLogo.url) URL.revokeObjectURL(prev.organizationLogo.url)
+      return { ...prev, organizationLogo: { url: '', name: '', size: 0, file: null } }
+    })
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -144,37 +195,84 @@ const CreateOrganization = ({nextStep, isDark}) => {
           }}>
             Organization Logo <span style={{ opacity: 0.6 }}>(optional)</span>
           </p>
-          <label style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            height: inputHeight,
-            padding: '0 16px',
-            fontSize: '14px',
-            borderRadius: inputRadius,
-            cursor: 'pointer',
-            background: inputBg,
-            border: `1px dashed ${logoBorder}`,
-            color: logoColor,
-            transition: 'border-color 0.2s ease',
-            boxSizing: 'border-box',
-          }}>
-            <Image size={16} />
-            Upload Image
-          </label>
-          <input type="file" accept="image/*" className="hidden"
-            onChange={e => {
-              const file = e.target.files?.[0]
-              if (file) setFormData(p => ({
-                ...p,
-                organizationLogo: {
-                  url: URL.createObjectURL(file),
-                  name: file.name,
-                  size: file.size,
-                  file
-                }
-              }))
-            }}
+          {formData.organizationLogo.url ? (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              height: inputHeight,
+              padding: '0 12px',
+              borderRadius: inputRadius,
+              background: inputBg,
+              border: `1px solid ${logoBorder}`,
+              boxSizing: 'border-box',
+            }}>
+              <img
+                src={formData.organizationLogo.url}
+                alt="Logo preview"
+                style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover', flexShrink: 0 }}
+              />
+              <span style={{
+                flex: 1,
+                fontSize: '13px',
+                color: inputColor,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}>
+                {formData.organizationLogo.name}
+              </span>
+              <button
+                type="button"
+                onClick={removeLogo}
+                aria-label="Remove logo"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: 'transparent',
+                  color: logoColor,
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+          ) : (
+            <label
+              htmlFor="organization-logo-input"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                height: inputHeight,
+                padding: '0 16px',
+                fontSize: '14px',
+                borderRadius: inputRadius,
+                cursor: 'pointer',
+                background: inputBg,
+                border: `1px dashed ${logoBorder}`,
+                color: logoColor,
+                transition: 'border-color 0.2s ease',
+                boxSizing: 'border-box',
+              }}
+            >
+              <Image size={16} />
+              Upload Image
+            </label>
+          )}
+          <input
+            id="organization-logo-input"
+            ref={fileInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml"
+            className="hidden"
+            onChange={handleFileChange}
           />
         </div>
 
