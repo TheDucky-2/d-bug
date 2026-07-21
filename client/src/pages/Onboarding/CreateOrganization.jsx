@@ -4,6 +4,7 @@ import api from "@/config/axios";
 import { toast } from "sonner";
 
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg+xml"];
+const ACCEPTED_EXTENSIONS = ["png", "jpg", "jpeg", "webp", "svg"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 const CreateOrganization = ({nextStep, isDark}) => {
@@ -19,8 +20,16 @@ const CreateOrganization = ({nextStep, isDark}) => {
     const file = e.target.files?.[0]
     if (!file) return
 
+    const extension = file.name.split(".").pop().toLowerCase()
+
+    if (!ACCEPTED_EXTENSIONS.includes(extension)) {
+      toast.error("Unsupported file extension. Please upload a PNG, JPG, WEBP, or SVG image.")
+      e.target.value = ""
+      return
+    }
+
     if (!ACCEPTED_TYPES.includes(file.type)) {
-      toast.error("Unsupported file type. Please upload a PNG, JPG, WEBP, or SVG image.")
+      toast.error("Unsupported image type.")
       e.target.value = ""
       return
     }
