@@ -35,7 +35,8 @@ def get_current_organization(
                         db:Session = Depends(get_db),
                         user = Depends(validate_user),
                         organization_service = Depends(OrganizationService),
-                        _ = Depends(AuthorizationService.require_permission("organization:self:read"))):
+                        _ = Depends(AuthorizationService.require_permission("organization:self:read"))
+        ):
     """Function to create organization with organization name and logo image"""
     
     return organization_service.get_current_organization(
@@ -48,7 +49,10 @@ def get_current_organization(
 def delete_current_organization(
     db:Session = Depends(get_db), 
     user = Depends(validate_user),
-    organization_service = Depends(OrganizationService)):
+    organization_service = Depends(OrganizationService),
+    _ = Depends(AuthorizationService.require_permission("organization:self:delete"))):
+
+
     return organization_service.delete_current_organization(
             user = user, 
             db=db)
