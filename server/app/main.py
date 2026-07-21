@@ -1,16 +1,24 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from config.db import get_db
+from config.db import get_db, SessionLocal
 from routes.auth_router import auth_router
 from routes.org_router import org_router
 from routes.project_router import project_router
 from config.db import Base, engine
-import models
-from dotenv import load_dotenv
+from auth.authorization.insert_permissions import insert_permissions
 import os
 
 Base.metadata.create_all(engine)
+
+db = SessionLocal()
+
+try:
+    insert_permissions(db)
+
+except Exception as error:
+    raise error
+
 
 app = FastAPI()
 
