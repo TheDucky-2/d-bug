@@ -2,7 +2,7 @@ from .permissions import ROLE_PERMISSIONS
 from sqlalchemy.orm import Session
 from models.Permission import Permission
 from .roles import MEMBER_ROLES
-from models import Role
+from models.Role import Role
 from models.RolePermission import role_permissions
 
 
