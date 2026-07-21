@@ -17,11 +17,9 @@ class Organization(Base):
     __tablename__ = "organizations"
 
     organization_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    organization_name: Mapped[str] = mapped_column()
+    organization_name: Mapped[str] = mapped_column(unique=True)
     organization_logo_url: Mapped[str | None] = mapped_column(nullable=True)
-    organization_members: Mapped[List["Member"]] = relationship("Member", back_populates="organization")
     organization_status: Mapped[OrganizationStatus] = mapped_column(default=OrganizationStatus.ACTIVE)
-    organization_owner: Mapped[int | None] = mapped_column(ForeignKey("users.user_id"), nullable=True)
     organization_projects: Mapped[List["Project"]]  = relationship(back_populates="organization")
-
+    members: Mapped[List["Member"]] = relationship(back_populates="organization")
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
