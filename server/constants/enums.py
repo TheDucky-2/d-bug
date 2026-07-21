@@ -10,6 +10,7 @@ class UserType(str, Enum):
     SUPER_ADMIN = "super_admin"
 
 class MemberRole(str, Enum):
+    OWNER = "owner"
     ADMIN = "admin"
     DEVELOPER = "developer"
     REVIEWER = "reviewer"
@@ -45,3 +46,9 @@ class BugStatus(str, Enum):
     REOPENED = "reopened"
     
 
+## Invitation
+
+class InviteStatus(str, Enum):
+    ACCEPTED = "accepted"
+    DENIED = "denied"
+    PENDING = "pending"

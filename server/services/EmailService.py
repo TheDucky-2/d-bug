@@ -1,8 +1,11 @@
 import resend
-from models import Role, Invitation, Organization, User
+from models.Invitation import Invitation
+from models.Organization import Organization
+from models.User import User
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError 
 from fastapi import HTTPException
+from models.Role import Role
 import os
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
@@ -41,6 +44,7 @@ class EmailService:
 
         return hashed_token
 
+    
     def send_invitation(self, user:User, 
                         organization:Organization, 
                         to_email:str, 

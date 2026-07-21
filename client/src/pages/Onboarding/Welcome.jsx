@@ -33,7 +33,7 @@ const Welcome = ({ resolvedCount, totalBugs, allResolved, nextStep }) => {
 
       {/* Bug Hunt Counter / Workspace Clean */}
       <div className="flex items-center gap-2 font-mono text-xs tracking-wider transition-all duration-500"
-        style={{ color: allResolved ? 'rgba(239,68,68,0.75)' : 'var(--body)' }}>
+        style={{ color: allResolved ? 'rgba(34,197,94,0.75)'  : 'var(--body)' }}>
         {!allResolved ? (
           <>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -73,7 +73,7 @@ const Welcome = ({ resolvedCount, totalBugs, allResolved, nextStep }) => {
           </p>
         ) : (
           <p className="mt-5 sm:mt-6 text-sm sm:text-base leading-relaxed max-w-md mx-auto transition-all duration-700"
-            style={{ color: 'rgba(239,68,68,0.65)' }}>
+            style={{ color: 'rgba(34,197,94,0.75)'  }}>
             Workspace cleaned successfully.
           </p>
         )}
@@ -94,7 +94,7 @@ const Welcome = ({ resolvedCount, totalBugs, allResolved, nextStep }) => {
       {!allResolved ? (
         <button
           disabled
-          className="flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-lg opacity-20 cursor-not-allowed border"
+          className="flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-sm opacity-20 cursor-not-allowed border"
           style={{
             background: 'var(--btn-bg)',
             color: 'var(--btn-text)',
@@ -110,7 +110,7 @@ const Welcome = ({ resolvedCount, totalBugs, allResolved, nextStep }) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.6 }}
           onClick={nextStep}
-          className="flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-lg border transition-all cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-sm border transition-all cursor-pointer"
           style={{
             background: 'var(--btn-bg)',
             color: 'var(--btn-text)',

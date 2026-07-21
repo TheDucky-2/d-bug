@@ -2,6 +2,8 @@ from constants.enums import OrganizationStatus
 from fastapi import Request, Response, Depends, HTTPException,Form, UploadFile, File
 from sqlalchemy.orm import Session
 from schemas.organization import OrganizationResponse, OrganizationUpdate
+from models.Role import Role
+from models.Member import Member
 from utils.image_upload import upload_image
 from validators.user import validate_user
 from models import Organization, User
@@ -21,50 +23,62 @@ class OrganizationService:
             user = Depends(validate_user),
             ):
         """Function to create organization with organization name and logo image"""
+        try:
+            if user.membership:
+                raise HTTPException(status_code=409, detail="User already belongs to an organization")
 
-        if user.organization_id is not None:
-            raise HTTPException(status_code=409, detail="User already belongs to an organization")
+            organization_logo_url = None
 
-        organization_logo_url = None
+            if organization_logo:
+            
+                organization_logo_url = upload_image(organization_logo) 
 
-        if organization_logo is not None:
-        
-            organization_logo_url = upload_image(organization_logo) 
+                if not organization_logo_url:
+                    raise HTTPException(status_code=500, detail="Unable to upload image at the moment")
+                
+            role = db.query(Role).filter(Role.role == "admin").first()
 
-            if not organization_logo_url:
-                raise HTTPException(status_code=500, detail="Unable to upload image at the moment")
-        
+            if not role:
+                raise HTTPException(status_code=404, detail='Role "admin" not found')
 
-        organization = Organization(organization_name = organization_name,
-                                    organization_logo_url=organization_logo_url,
-                                    organization_owner = user.user_id,
-                                    organization_members = [user.user_id])
+            organization = Organization(organization_name = organization_name,
+                                        organization_logo_url=organization_logo_url,
+                                        organization_owner = user.user_id)
 
-        db.add(organization)
-        db.flush()
 
-        user.organization_id = organization.organization_id
+            db.add(organization)
+            db.flush()
 
-        db.commit()
+            member = Member(
+                user = user,
+                role = role, 
+                organization= organization)
+            
+            db.add(member)
 
-        db.refresh(organization)
+            db.commit()
 
-        logger.info({
-            "message": "New Organization Created",
-            "data": {
-                "organization_id" : organization.organization_id,
-                "organization_name": organization.organization_name,
-                "organization_owner" : organization.organization_owner
-            }
-        })
+            db.refresh(organization)
+
+            logger.info({
+                "message": "New Organization Created",
+                "data": {
+                    "organization_id" : organization.organization_id,
+                    "organization_name": organization.organization_name
+                }
+            })
+
+        except HTTPException:
+            raise
+
+        except Exception as error:
+            raise error
 
         return OrganizationResponse(
         organization_id = organization.organization_id,
         organization_name = organization.organization_name,
         organization_logo_url =  organization.organization_logo_url,
-        organization_owner = organization.organization_owner,
         organization_status = organization.organization_status,
-        organization_members = organization.organization_members,
         created_at = organization.created_at
         )
     
@@ -76,12 +90,12 @@ class OrganizationService:
 
         """Function to fetch current organization"""
 
-        if user.organization_id is None:
+        if not user.membership:
             raise HTTPException(status_code=404, detail="User does not belong to any organization.")
 
         current_organization = db.query(Organization).filter(
-        Organization.organization_id == user.organization_id,
-        Organization.organization_members.any(user.user_id)    # checking whether user is still a member of organization
+        Organization.organization_id == user.membership.organization_id,
+        Organization.members.any(Member.user_id == user.user_id)    # checking whether user is still a member of organization
         ).first()
 
         if not current_organization:
@@ -91,9 +105,7 @@ class OrganizationService:
         organization_id = current_organization.organization_id,
         organization_name = current_organization.organization_name,
         organization_logo_url =  current_organization.organization_logo_url,
-        organization_owner = current_organization.organization_owner,
         organization_status = current_organization.organization_status,
-        organization_members = current_organization.organization_members,
         created_at = current_organization.created_at
         )
     
@@ -110,9 +122,7 @@ class OrganizationService:
         organization_id = organization.organization_id,
         organization_name = organization.organization_name,
         organization_logo_url =  organization.organization_logo_url,
-        organization_owner = organization.organization_owner,
         organization_status = organization.organization_status,
-        organization_members = organization.organization_members,
         created_at = organization.created_at
         )
 
@@ -137,7 +147,7 @@ class OrganizationService:
         if not organization:
             raise HTTPException(status_code=404, detail = "Organization not found")
         
-        users = db.query(User).filter(User.organization_id == organization.organization_id).all()
+        users = db.query(User).filter(User.membership.organization_id == organization.organization_id).all()
         
         if len(users) > 0:
             raise HTTPException(status_code=400, detail="Cannot delete organization with existing users")
@@ -164,7 +174,7 @@ class OrganizationService:
         if not validated_organization:
             raise HTTPException(status_code=404, detail = "Organization not found")
         
-        users = db.query(User).filter(User.organization_id == validated_organization.organization_id).all()
+        users = db.query(User).filter(User.membership.organization_id == validated_organization.organization_id).all()
         
         if len(users) > 0:
             raise HTTPException(status_code=400, detail="Cannot delete organization with existing users")
