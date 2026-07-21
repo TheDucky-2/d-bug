@@ -10,6 +10,7 @@ class UserType(str, Enum):
     SUPER_ADMIN = "super_admin"
 
 class MemberRole(str, Enum):
+    OWNER = "owner"
     ADMIN = "admin"
     DEVELOPER = "developer"
     REVIEWER = "reviewer"
