@@ -1,3 +1,6 @@
+![logo](../../assets/d_bug.png)
+
+
 # Permissions-based Role-Based Access Control (RBAC)
 
 ## Overview
