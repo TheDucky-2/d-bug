@@ -1,4 +1,4 @@
-import resend
+from workers.EmailWorker import send_invitation_email
 from models.Invitation import Invitation
 from models.Organization import Organization
 from models.User import User
@@ -99,64 +99,11 @@ class EmailService:
             db.rollback()
             raise HTTPException(status_code=500, detail="Failed to create invitation")
 
-        # Send email
-        r = resend.Emails.send({
-            "from":  "onboarding@resend.dev",
-            "to": to_email,
-            "subject": f"You've been invited to join {organization.organization_name}",
-            "html": f"""
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
-                <h2>You're invited! 🎉</h2>
-
-                <p>
-                    You have been invited to join 
-                    <strong>{organization.organization_name}</strong>.
-                </p>
-
-                <p>
-                    Your assigned role will be:
-                    <strong>{role}</strong>
-                </p>
-
-                <p>
-                    Click the button below to accept your invitation:
-                </p>
-
-                <p>
-                    <a href="{invite_url}"
-                    style="
-                            display: inline-block;
-                            padding: 12px 24px;
-                            background-color: #2563eb;
-                            color: white;
-                            text-decoration: none;
-                            border-radius: 6px;
-                    ">
-                        Accept Invitation
-                    </a>
-                </p>
-
-                <p>
-                    Or copy and paste this link into your browser:
-                </p>
-
-                <p>
-                    {invite_url}
-                </p>
-
-                <p>
-                    This invitation expires on:
-                    <strong>{invite.expires_at}</strong>
-                </p>
-
-                <hr />
-
-                <p style="color: #666; font-size: 12px;">
-                    If you were not expecting this invitation, you can safely ignore this email.
-                </p>
-            </div>
-            """
-        })
+        send_invitation_email.send(
+            invitation_id=invite.invitation_id,
+            invitation_url=invite_url
+            )
+        
         return {
             "success": True,
             "message": "Invite Sent Successfully!"
