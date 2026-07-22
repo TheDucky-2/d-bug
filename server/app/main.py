@@ -9,6 +9,7 @@ from routes.email_router import email_router
 from auth.authorization.insert_permissions import insert_permissions
 from config.db import Base, engine
 from logger.logger import create_logger
+from prometheus_fastapi_instrumentator import Instrumentator
 from auth.authorization.insert_permissions import insert_permissions
 import os
 
@@ -19,9 +20,11 @@ logger = create_logger(__name__.split(".")[1])
 Base.metadata.create_all(engine)
 
 app = FastAPI()
+Instrumentator().instrument(app).expose(app)
 
 db = SessionLocal()
 try: 
+    
     insert_permissions(db)
 
 except Exception as error:
