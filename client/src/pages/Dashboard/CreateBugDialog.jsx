@@ -52,7 +52,9 @@ const CreateBugDialog = ({openTrigger}) => {
 
             {/** Bug Title */}
             <Field>
-              <Label htmlFor="bug-title" className={`text-sm font-semibold`}>Title</Label>
+              <Label htmlFor="bug-title" className={`text-sm font-semibold`}>
+            Title
+            </Label>
               <Input id="bug-title" name="title" placeholder="Authentication" className="text-sm placeholder:text-sm rounded-sm" required/>
             </Field>
 
@@ -63,6 +65,24 @@ const CreateBugDialog = ({openTrigger}) => {
               </Label>
               <Textarea id="bug-description" name="description" className={`text-sm placeholder:text-sm resize-y min-h-20 rounded-sm`}
               placeholder="Example: Unable to click on Login button as it is greyed out." />
+            </Field>
+
+            {/** Stack trace */}
+            <Field>
+              <Label htmlFor="bug-description" className={`text-sm font-semibold gap-1`}>
+                <p>Stack Trace</p>
+                <span className="opacity-60 text-white/70">(optional)</span>
+              </Label>
+              <Textarea id="bug-description" name="description" className={`text-sm placeholder:text-sm resize-y min-h-20 rounded-sm`}
+              placeholder="Example: 
+              
+              AuthError: Login button disabled due to invalid form state
+                    at LoginForm.handleSubmit (/app/src/components/LoginForm.jsx:64:18)
+                    at Button.onClick (/app/src/components/ui/Button.jsx:22:9)
+                    at HTMLButtonElement.dispatchEvent (/app/node_modules/react-dom/cjs/react-dom.development.js:4125:14)
+
+                ErrorCode: AUTH_FORM_INVALID
+                Message: Cannot submit login request while validation is pending" />
             </Field>
             
             {/** Bug Category */}

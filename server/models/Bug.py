@@ -1,6 +1,6 @@
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import DateTime, func
-from constants.enums import Priority, Severity, BugStatus
+from constants.enums import Priority, Severity, BugStatus, BugSource
 from datetime import datetime
 from config.db import Base
 
@@ -18,4 +18,6 @@ class Bug(Base):
     assignee: Mapped[str] = mapped_column(nullable=True)
     assigned_by: Mapped[str] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    source: Mapped[BugSource] = mapped_column(default=BugSource.MANUAL)
+    stack_trace: Mapped[str | None] = mapped_column(nullable=True)
 

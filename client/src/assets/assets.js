@@ -332,8 +332,8 @@ export const chartConfig = {
 
 
 export const sidebarMenuItems = [
-  {title: "Members",
-   url: "members",
+  {title: "Team",
+   url: "team",
   },
   {title: "Inbox",
    url: "inbox"

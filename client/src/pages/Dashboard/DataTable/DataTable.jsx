@@ -23,38 +23,24 @@ import { CircleDot, RefreshCw, CircleCheck, Clock, Plus, Funnel, UserPlus, Squar
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink, 
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator.jsx";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
-import { useState } from "react";
 import CreateBugDialog from "../CreateBugDialog.jsx";
 
 const DataTable = () => {
 
-  const [openDrawer, setOpenDrawer] = useState(false)
   const {isDark} = useTheme()
-
-
-
-
-  const handleBugDrawer = () => {
-    setOpenDrawer(true)
-  }
 
   return (  
 

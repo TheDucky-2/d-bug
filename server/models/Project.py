@@ -21,7 +21,7 @@ class Project(Base):
     github_url: Mapped[str|None] = mapped_column(nullable=True)
     organization: Mapped["Organization"] = relationship(back_populates="organization_projects")
     project_status: Mapped[ProjectStatus | None]= mapped_column(default=ProjectStatus.CREATED.value)
-    project_owner: Mapped[User] = mapped_column(ForeignKey("users.user_id"))
+    created_by: Mapped[User] = mapped_column(ForeignKey("users.user_id"))
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     organization_id: Mapped[int | None] = mapped_column(
         ForeignKey("organizations.organization_id"),nullable=True)
