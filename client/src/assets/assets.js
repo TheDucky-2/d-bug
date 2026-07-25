@@ -5,7 +5,11 @@ import {
   Filter,
   Users,
   BarChart3,
+  UserCheck,
+  MailPlus,
+  ShieldCheck,
 } from "lucide-react";
+
 
 export const topProjects = [
   {
@@ -332,8 +336,11 @@ export const chartConfig = {
 
 
 export const sidebarMenuItems = [
-  {title: "Team",
-   url: "team",
+  {title: "Overview",
+   url: "dashboard",
+  },
+  {title: "Members",
+   url: "members",
   },
   {title: "Inbox",
    url: "inbox"
@@ -886,3 +893,186 @@ export const projectTypes = [
     description: "Any project that does not fit above categories"
   }
 ]
+
+export const members = [
+  {
+    member_id: 1,
+    full_name: "Mia Chen",
+    email: "mia.chen@example.com",
+    role: "Owner",
+    avatar: "MC",
+    status: "Active",
+    joined_at: "2026-01-15",
+  },
+  {
+    member_id: 2,
+    full_name: "Liam Scott",
+    email: "liam.scott@example.com",
+    role: "Admin",
+    avatar: "LS",
+    status: "Active",
+    joined_at: "2026-01-22",
+  },
+  {
+    member_id: 3,
+    full_name: "Emma Wilson",
+    email: "emma.wilson@example.com",
+    role: "Developer",
+    avatar: "EW",
+    status: "Active",
+    joined_at: "2026-02-03",
+  },
+  {
+    member_id: 4,
+    full_name: "Noah Brown",
+    email: "noah.brown@example.com",
+    role: "Reviewer",
+    avatar: "NB",
+    status: "Active",
+    joined_at: "2026-02-10",
+  },
+  {
+    member_id: 5,
+    full_name: "Sophia Lee",
+    email: "sophia.lee@example.com",
+    role: "Admin",
+    avatar: "SL",
+    status: "Active",
+    joined_at: "2025-11-18",
+  },
+  {
+    member_id: 6,
+    full_name: "James Carter",
+    email: "james.carter@example.com",
+    role: "Developer",
+    avatar: "JC",
+    status: "Active",
+    joined_at: "2026-01-05",
+  },
+  {
+    member_id: 7,
+    full_name: "Olivia Davis",
+    email: "olivia.davis@example.com",
+    role: "Developer",
+    avatar: "OD",
+    status: "Away",
+    joined_at: "2026-03-01",
+  },
+  {
+    member_id: 8,
+    full_name: "Ethan Miller",
+    email: "ethan.miller@example.com",
+    role: "Admin",
+    avatar: "EM",
+    status: "Active",
+    joined_at: "2025-12-12",
+  },
+  {
+    member_id: 9,
+    full_name: "Grace Kim",
+    email: "grace.kim@example.com",
+    role: "Developer",
+    avatar: "GK",
+    status: "Active",
+    joined_at: "2026-01-30",
+  },
+  {
+    member_id: 10,
+    full_name: "Lucas Hall",
+    email: "lucas.hall@example.com",
+    role: "Reviewer",
+    avatar: "LH",
+    status: "Inactive",
+    joined_at: "2025-10-21",
+  },
+  {
+    member_id: 11,
+    full_name: "Ava Moore",
+    email: "ava.moore@example.com",
+    role: "Developer",
+    avatar: "AM",
+    status: "Active",
+    joined_at: "2026-02-18",
+  },
+  {
+    member_id: 12,
+    full_name: "Henry Walker",
+    email: "henry.walker@example.com",
+    role: "Developer",
+    avatar: "HW",
+    status: "Active",
+    joined_at: "2026-03-08",
+  },
+  {
+    member_id: 13,
+    full_name: "Ella Young",
+    email: "ella.young@example.com",
+    role: "Reviewer",
+    avatar: "EY",
+    status: "Away",
+    joined_at: "2026-02-27",
+  },
+  {
+    member_id: 14,
+    full_name: "Daniel White",
+    email: "daniel.white@example.com",
+    role: "Developer",
+    avatar: "DW",
+    status: "Active",
+    joined_at: "2025-09-15",
+  },
+];
+
+export const memberTableColumns = [
+  {
+    accessorKey: "member_id",
+    header: "ID",
+  },
+  {
+    accessorKey: "full_name",
+    header: "Member",
+  },
+  {
+    accessorKey: "email",
+    header: "Email Address",
+  },
+  {
+    accessorKey: "role",
+    header: "Role",
+  },
+  {
+    accessorKey: "joined_on",
+    header: "Joined",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+];
+
+export const memberStats = [
+  {
+    title: "Total Members",
+    value: "14",
+    description: "Organization members",
+    icon: Users,
+  },
+  {
+    title: "Active Members",
+    value: "12",
+    description: "Currently active",
+    icon: UserCheck,
+  },
+  {
+    title: "Pending Invites",
+    value: "2",
+    description: "Awaiting acceptance",
+    icon: MailPlus,
+  },
+  {
+    title: "Admins",
+    value: "4",
+    description: "Administrative members",
+    icon: ShieldCheck,
+  },
+];
