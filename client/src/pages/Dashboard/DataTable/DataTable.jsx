@@ -75,10 +75,7 @@ const DataTable = () => {
                 </div>
             </div>
         <Table >
-          <TableHeader>
 
-
-          </TableHeader>
           <TableHeader>
             <TableRow>
                 {columns.map((column) => {
@@ -96,7 +93,7 @@ const DataTable = () => {
 
               return (
               <>
-               <TableRow>
+              <TableRow>
               <TableCell key={bug.id} >{bug.id}</TableCell>
               <TableCell className={`${isDark ? "text-white" : "text-black"}`}>
                 <div className="flex items-center gap-2">
