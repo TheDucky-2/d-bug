@@ -1,13 +1,71 @@
 import {
+  Loader2Icon,
   Plus
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CreateProjectDrawer from "./CreateProjectDrawer.jsx";
 import { projectStats } from "@/assets/assets.js";
 import ProjectsTable from "./ProjectsTable.jsx";
-import ActiveProjectsCard from "./ActiveProjectsCard.js";
+import EmptyProject from "./EmptyProject.js";
+import { useFetchProjects } from "@/hooks/useProjects.js";
+import {
+  Users,
+  FolderKanban,
+  Folder,
+  FolderGit2,
+} from "lucide-react";
 
 const Projects = () => {
+
+  const {data, error, isPending} = useFetchProjects()
+
+  const projectStats = [
+    {
+      title: "Projects",
+      value: data?.length,
+      icon: FolderKanban,
+      description: "Total Projects",
+    },
+    {
+      title: "GitHub Repos",
+      value: 9,
+      icon: FolderGit2,
+      description: "Connected repositories",
+    },
+    {
+      title: "Custom Projects",
+      value: 9,
+      icon: Folder,
+      description: "Created manually",
+    },
+    {
+      title: "Contributors",
+      value: 42,
+      icon: Users,
+      description: "Across all projects",
+    },
+  ];
+
+  if(!data){
+    return (
+    <EmptyProject/>)
+  }
+
+  if(error){
+    return (
+      <p>Encountered an issue while fetching projects.</p>
+    )
+  }
+
+  if(isPending){
+    return (
+      <>
+      <Loader2Icon className="animate-spin"/>
+      <p>Loading projects...</p>
+      </>
+    )
+  }
+
 
   return (
     <div className="space-y-4">
@@ -29,8 +87,8 @@ const Projects = () => {
 
           <CreateProjectDrawer openTrigger={
             <button className={`bg-yellow-500 px-4 py-2 font-medium hover:bg-yellow-600 flex items-center cursor-pointer `}>
-              <span className="text-sm text-white dark:text-black">Create New Project</span>
-              <Plus className="text-white dark:text-black ml-2 h-4 w-4"/>
+              <span className="text-sm text-black">Create New Project</span>
+              <Plus className="text-black ml-2 h-4 w-4"/>
             </button>}>
 
             </CreateProjectDrawer>

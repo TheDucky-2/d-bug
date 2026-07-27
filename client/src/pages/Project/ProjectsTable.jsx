@@ -65,8 +65,9 @@ const ProjectsTable = () => {
                         <TableCell className={`px-5`}>{project.source}</TableCell>
                         <TableCell className={`px-5`}>{project.visibility}</TableCell>
                         <TableCell className={`px-5`}>{project.members}</TableCell>
-                        <TableCell className={`px-5`}>{project.status}</TableCell>
                         <TableCell className={`px-5`}>{project.created_at}</TableCell>
+                        <TableCell className={`px-5`}>{project.status}</TableCell>
+                        
                         <TableCell className={`px-5`}>
                             <ProjectDropDown openTrigger = {
                                 <button className="hover:text-blue-600 dark:hover:bg-zinc-300/10 hover:bg-zinc-600/10 rounded-full p-1">

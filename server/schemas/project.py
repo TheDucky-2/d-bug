@@ -5,18 +5,19 @@ from enum import Enum
 from constants.enums import ProjectStatus
 
 class ProjectCreate(BaseModel):
-    project_name: str
-    project_category:str
+    name: str
+    category:str
     description: str|None = None
 
 
 class ProjectResponse(ProjectCreate):
-    project_status: ProjectStatus = ProjectStatus.CREATED 
-    project_owner: str
-    organization_id: str | None
+    status: ProjectStatus = ProjectStatus.CREATED 
+    created_by: int
+    organization_id: int 
     project_id: int
-    project_category:str
-    project_name: str
+    category:str
+    name: str
+    description:str|None = None
 
     
 

@@ -20,8 +20,6 @@ const CreateProject = () => {
 
   const {data, isLoading, error } = useProjects()
   
-  
-
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
