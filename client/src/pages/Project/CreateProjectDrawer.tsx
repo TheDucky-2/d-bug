@@ -51,7 +51,7 @@ const CreateProjectDrawer = ({ openTrigger }) => {
 
     createProject.mutate(project, {
       onSuccess: (data) => {
-        toast.success(data.message)
+        toast.success(data?.message)
       },
       onError: (error:any) => {
         toast.error(error?.response?.data?.detail || error?.response?.data?.message)

@@ -7,7 +7,7 @@ import CreateProjectDrawer from "./CreateProjectDrawer.jsx";
 import { projectStats } from "@/assets/assets.js";
 import ProjectsTable from "./ProjectsTable.jsx";
 import EmptyProject from "./EmptyProject.js";
-import { useFetchProjects } from "@/hooks/useProjects.js";
+import { useFetchAllProjects } from "@/hooks/useProjects.js";
 import {
   Users,
   FolderKanban,
@@ -17,7 +17,7 @@ import {
 
 const Projects = () => {
 
-  const {data, error, isPending} = useFetchProjects()
+  const {data, error, isPending} = useFetchAllProjects()
 
   const projectStats = [
     {

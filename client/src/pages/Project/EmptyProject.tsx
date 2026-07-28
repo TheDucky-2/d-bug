@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon } from "lucide-react"
+import { ArrowUpRightIcon, Plus } from "lucide-react"
 import { FolderCode } from 'lucide-react';
 import { Button } from "@/components/ui/button"
 import CreateProjectDrawer from "./CreateProjectDrawer";
@@ -34,13 +34,14 @@ const EmptyProject = () => {
           your first project.
         </EmptyDescription>
       </EmptyHeader>
-      <EmptyContent className="flex-row justify-center gap-2">
+      <EmptyContent className="flex-row justify-center">
 
         <CreateProjectDrawer openTrigger={
         <button 
         className="bg-zinc-900 dark:hover:bg-zinc-400 dark:bg-zinc-300 dark:text-black px-4 py-2 text-sm rounded-lg font-semibold cursor-pointer transition-all 
-        hover:bg-zinc-700 text-zinc-200">
+        hover:bg-zinc-700 text-zinc-200 flex items-center ">
         Create Project
+        <Plus className="text-white dark:text-black ml-2 h-4 w-4"/>
         </button>}>
         </CreateProjectDrawer>
 

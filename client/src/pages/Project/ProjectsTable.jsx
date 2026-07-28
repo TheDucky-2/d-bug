@@ -16,8 +16,20 @@ import { Separator } from "@/components/ui/separator";
 import { projects, projectTableColumns } from "@/assets/assets";
 import { EllipsisVertical, Funnel } from 'lucide-react';
 import ProjectDropDown from "./ProjectDropDown";
+import { useFetchAllProjects } from "@/hooks/useProjects";
+
 
 const ProjectsTable = () => {
+
+  const {data, error, isPending} = useFetchAllProjects()
+
+  const convertToDate = (dateString) => {
+    const date = new Date(dateString)
+
+    return date.toISOString().split("T")[0]
+
+  }
+    
   return (
     <div className="max-h-150 overflow-auto border border-white/20">
          <div className={`bg-white dark:bg-zinc-900 flex p-3 items-center gap-6`}>
@@ -56,17 +68,17 @@ const ProjectsTable = () => {
                 </TableHeader>
                 <TableBody className={`text-sm text-black/60 dark:text-white/50`}>
 
-                    {projects.map((project)=> {
+                    {data.map((project)=> {
+                        console.log(project)
                         return (
                     <TableRow>
                         <TableCell className={`px-5`}>{project.project_id}</TableCell>
-                        <TableCell className={`px-5`}>{project.name}</TableCell>
-                        <TableCell className={`px-5`}>{project.owner}</TableCell>
-                        <TableCell className={`px-5`}>{project.source}</TableCell>
-                        <TableCell className={`px-5`}>{project.visibility}</TableCell>
-                        <TableCell className={`px-5`}>{project.members}</TableCell>
-                        <TableCell className={`px-5`}>{project.created_at}</TableCell>
-                        <TableCell className={`px-5`}>{project.status}</TableCell>
+                        <TableCell className={`px-5`}>{project.project_name}</TableCell>
+                         <TableCell className={`px-5`}>{project.category}</TableCell>
+                        <TableCell className={`px-5`}>{project.source.toUpperCase()}</TableCell>
+                        <TableCell className={`px-5`}>{project.status.toUpperCase()}</TableCell>
+                        <TableCell className={`px-5`}>{convertToDate(project.created_at)}</TableCell>
+                        
                         
                         <TableCell className={`px-5`}>
                             <ProjectDropDown openTrigger = {
