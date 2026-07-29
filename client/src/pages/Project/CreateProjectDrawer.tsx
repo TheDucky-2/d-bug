@@ -9,8 +9,6 @@ import {
 } from "@/components/ui/drawer"
 import { FolderPlus, LoaderCircle, X } from "lucide-react"
 import { useState } from "react"
-import github_icon from "/images/github_icon.png"
-import github_icon_dark from "/images/github_icon_dark.png"
 import { useTheme } from "@/context/ThemeContext"
 import {
   Field,
@@ -35,26 +33,27 @@ import { toast } from "sonner"
 import api from "@/config/axios"
 import { Separator } from "@/components/ui/separator"
 import { useCreateProject } from "@/hooks/useProjects"
+import type { createProjectInput } from "@/types/project"
 
 const CreateProjectDrawer = ({ openTrigger }) => {
 
   const createProject = useCreateProject()
   const [mode, setMode] = useState(null)
   const {isDark} = useTheme()
-  const [formData, setFormData] = useState({
-                                    projectName : "",
-                                    projectCategory: "",
-                                    projectDescription: ""
+  const [project, setProject] = useState<createProjectInput>({
+                                    name : "",
+                                    category: "",
+                                    description: ""
                                   })
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
 
-    createProject.mutate(formData, {
+    createProject.mutate(project, {
       onSuccess: (data) => {
-        toast.success(data.message)
+        toast.success(data?.message)
       },
-      onError: (error) => {
+      onError: (error:any) => {
         toast.error(error?.response?.data?.detail || error?.response?.data?.message)
       }
     })
@@ -106,7 +105,7 @@ const CreateProjectDrawer = ({ openTrigger }) => {
                 onClick={() => setMode("github")}
                 className="w-full flex items-center gap-4 rounded-sm border p-4 text-left hover:bg-muted transition cursor-pointer"
               >
-                <img src={isDark ? github_icon : github_icon_dark} className="h-7 w-7"/>
+                <img src={isDark ? "images/github_icon.png" : "/images/github_icon_dark.png"} className="h-7 w-7"/>
 
                 <div>
                   <h3 className="font-medium">
@@ -131,10 +130,10 @@ const CreateProjectDrawer = ({ openTrigger }) => {
                       <span>Project Name</span>
                       <span className="text-red-600 font-bold text-lg">*</span>
                       </FieldLabel>
-                    <Input required id="project-name" autoComplete="off" value = {formData.projectName}
-                    onChange = {(e) => setFormData(prev => (
+                    <Input required id="project-name" autoComplete="off" value = {project.name}
+                    onChange = {(e) => setProject(prev => (
                        { ...prev,
-                          projectName: e.target.value
+                          name: e.target.value
                        }
 
                       ))
@@ -149,12 +148,12 @@ const CreateProjectDrawer = ({ openTrigger }) => {
                       <span className="text-red-600 font-bold text-lg">*</span>
                     </FieldLabel>
                    <Select id="project-category" required
-                   items={projectTypes}  value={formData.projectCategory}
+                   items={projectTypes}  value={project.category}
                     onValueChange={(value) => 
                           {      console.log(value)
-                                setFormData(prev =>( {
+                                setProject(prev =>( {
                                 ...prev,
-                                  projectCategory : value
+                                  category : value
                               }))
                             }
                           }
@@ -180,9 +179,9 @@ const CreateProjectDrawer = ({ openTrigger }) => {
                     <FieldLabel htmlFor="description">Description</FieldLabel>
                     <Textarea id="description" className="min-h-32 rounded-xs"
                     onChange={(e) =>
-                      setFormData((prev) => ({
+                      setProject((prev) => ({
                         ...prev,
-                        projectDescription: e.target.value,
+                        description : e.target.value,
                       }))
                     }
                     placeholder="e.g. A platform for managing software issues, tracking bugs and collaborating with the development team."/>

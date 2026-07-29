@@ -1,4 +1,4 @@
-import {columns} from "../../../assets/assets.js";
+import {columns} from "../../assets/assets.js";
 import {
   Table,
   TableBody,
@@ -12,14 +12,14 @@ import {
   Card,
 } from "@/components/ui/card"
 import { useTheme } from "@/context/ThemeContext.jsx";
-import { bugs } from "../../../assets/assets.js";
+import {bugs} from "../../assets/assets.js"
 import {
   TriangleAlert,
   Flame,
   CircleAlert,
   Info
 } from "lucide-react";
-import { CircleDot, RefreshCw, CircleCheck, Clock, Plus, Funnel, UserPlus, SquarePen, X, SquareArrowOutUpRight, RotateCcw} from "lucide-react";
+import { CircleDot, RefreshCw, CircleCheck, Clock, Funnel, UserPlus, SquarePen, X, SquareArrowOutUpRight, RotateCcw} from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -36,17 +36,18 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
-import CreateBugDialog from "../CreateBugDialog.jsx";
 
-const DataTable = () => {
+const BugsTable = () => {
 
   const {isDark} = useTheme()
 
   return (  
 
       <Card className={` border border-white/20 ${isDark ? "bg-zinc-900 text-white/50" : "bg-zinc-100 text-black"} mb-5`}>
-        <div className="max-h-125 overflow-auto">
-            <div className="px-2 gap-5 flex items-center justify-between w-full pb-2">
+        <div className="max-h-150 overflow-auto scrollbar-thumb-black dark:scrollbar-thumb-zinc-200/50">
+            <div className={`px-2 gap-5 flex items-center justify-between sticky top-0 z-50 w-full pb-2 
+                ${isDark ? "bg-zinc-900" : "bg-zinc-100"}
+                border-b ${isDark ? "border-zinc-900" : "border-black/10"}`}>
               <div className="flex items-center text-lg gap-6">
                 <span className={isDark ? "text-white/30" : "text-black/30"}> <div className="items-center flex gap-1"><Funnel/>FILTER </div> </span>
   
@@ -63,20 +64,11 @@ const DataTable = () => {
                 <button className={`cursor-pointer hover:text-blue-400 ${isDark ? "text-white/50" : "text-black/50"}`}> Critical</button>
               
               </div>
-                <div>
-                    
-                  <CreateBugDialog openTrigger={
-                  <button 
-                  className={`px-3 py-2 flex items-center gap-2 text-base font-semibold bg-yellow-500 hover:bg-yellow-400
-                   ${isDark ? "text-black" : "text-zinc-800"}`}> <Plus/>New Bug
-                   </button>
-                  }/>
 
-                </div>
             </div>
         <Table >
 
-          <TableHeader>
+          <TableHeader className={`p-2`}>
             <TableRow>
                 {columns.map((column) => {
                   return (
@@ -298,7 +290,11 @@ const DataTable = () => {
         <Separator/>
 
         {/* Pagination for bug data */}
-        <div className="p-2 mt-2">
+        <div
+            className={`p-2 mt-2 bottom-0 sticky z-50
+            ${isDark ? "bg-zinc-900" : "bg-zinc-100"}
+            border-t ${isDark ? "border-white/10" : "border-black/10"}`}
+>
             <Pagination>
                 <PaginationContent>
                   <PaginationItem>
@@ -325,4 +321,4 @@ const DataTable = () => {
   )
 }
 
-export default DataTable
+export default BugsTable

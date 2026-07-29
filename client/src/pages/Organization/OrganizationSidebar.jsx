@@ -2,7 +2,7 @@ import {useTheme} from "../../context/ThemeContext.jsx";
 import logo from "../../assets/d_bug.png"
 import logo_black from "../../assets/d_bug_black.png"
 import {sidebarMenuItems} from "../../assets/assets.js"
-import { Inbox, Bug, FolderGit2, ChartNoAxesCombined, Settings, Users} from "lucide-react";
+import { Inbox, Bug, FolderGit2, ChartNoAxesCombined, Settings, Users, LayoutGrid} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -40,7 +40,7 @@ const OrganizationSidebar = ({setActivePage}) => {
       <SidebarMenu className={`mb-1`}>
         <SidebarMenuItem>
         <Link to="/">
-        <img src={isDark ? logo : logo_black} className="h-10 w-32"/>
+        <img src={isDark ? logo : logo_black} className="h-8 w-24"/>
         </Link>
         </SidebarMenuItem>
       </SidebarMenu>
@@ -58,7 +58,8 @@ const OrganizationSidebar = ({setActivePage}) => {
                     <SidebarMenuButton asChild>
                       <button onClick={() => setActivePage(item.url)}>
                       <div className="flex items-center gap-2">
-                        {
+                        { 
+                          item.title === "Overview" ? <LayoutGrid size={18}/> :
                           item.title === "Members" ? <Users size={18}/> :
                           item.title === "Inbox" ? <Inbox size={18}/> : 
                           item.title === "Bugs" ? <Bug size={18}/> :

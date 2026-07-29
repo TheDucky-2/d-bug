@@ -17,9 +17,7 @@ export const AuthProvider = ({children}) => {
         try{
             
             const response = await api.post("auth/sign-in", credentials) 
-            setUser(response.user);
 
-            console.log(response)
             setUser(response.data.user);
 
             return response.data

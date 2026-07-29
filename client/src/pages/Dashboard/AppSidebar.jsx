@@ -81,10 +81,10 @@ const AppSidebar = () => {
                       <Link to={item.url}>
                       <div className="flex items-center gap-2">
                         {
-                          item.title === "Overview" ? <LayoutGrid size={20}/> :
+                          item.title === "Team" ? <LayoutGrid size={20}/> :
                           item.title === "Inbox" ? <Inbox size={20}/> : 
                           item.title === "Bugs" ? <Bug size={20}/> :
-                          item.title === "Repositories" ? <FolderGit2 size={20}/> :
+                          item.title === "Projects" ? <FolderGit2 size={20}/> :
                           item.title === "Reports" ? <ChartNoAxesCombined size={20}/> : "None"
                         }
                         <span className={`text-lg ${isDark? "text-white/40 hover:text-white": "text-black"}`} >{item.title}</span>

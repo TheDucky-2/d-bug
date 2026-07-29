@@ -1,4 +1,4 @@
-import { Moon, Sun, Bell, PanelLeft} from "lucide-react";
+import { Moon, Sun, Bell, PanelLeft, Search} from "lucide-react";
 import { useTheme } from "@/context/ThemeContext.jsx";
 import { useState } from "react";
 import {
@@ -24,7 +24,16 @@ const OrganizationNavbar = ({organizationLogo}) => {
       <div className="gap-5 items-center flex ">
         <PanelLeft className="h-5 w-5 text-zinc-700 dark:text-zinc-400  dark:hover:text-blue-400 transition-colors"/>
       </div>
+
         <div className="flex items-center gap-8">
+          <div className="relative gap-2 flex justify-center mr-4 items-center p-1">
+            <button type="button" className="absolute left-3 -translate-y-1/2 top-1/2">
+              <Search size={18}/>
+            </button>
+            <input className={`border rounded px-3 pl-10 text-m mr-10 h-8 min-w-96 max-w-auto ${isDark ? "border-2 border-white/30 hover:bg-gray-900" : "border-2 border-gray-700"}`} 
+            type="text" placeholder="Search bugs..." >
+            </input>
+            </div>
            
             {hasMessages ? 
             (
@@ -41,7 +50,7 @@ const OrganizationNavbar = ({organizationLogo}) => {
             </button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger asChild className="h-10 w-10">
                 <Avatar>
                   <AvatarImage src={organizationLogo}/>
                   <AvatarFallback>MEM</AvatarFallback>
