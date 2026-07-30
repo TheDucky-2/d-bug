@@ -21,3 +21,4 @@ class Member(Base):
     organization = relationship("Organization", back_populates="members")
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     role:Mapped["Role"] = relationship(back_populates="members")
+    is_active: Mapped[bool] = mapped_column(default=True)
