@@ -1,12 +1,14 @@
 "Class for handling authentication logic"
 
 from fastapi import Request, Response, Depends, HTTPException
-from schemas.user import UserCreate, UserLogin, UserResponse
+from schemas.user import UserCreate, UserLogin
 from datetime import datetime, timezone, timedelta
 from sqlalchemy.orm import Session
 from config.db import get_db
 from models import User, RefreshToken
+from models.auth.ResetToken import ResetToken
 from auth.auth import hash_password, verify_hash
+from workers.EmailWorker import send_password_reset_email
 from utils.jwt_token import generate_access_token, generate_refresh_token, hash_token, verify_access_token, verify_refresh_token
 from logger.logger import create_logger
 import os
@@ -16,6 +18,7 @@ load_dotenv()
 
 logger = create_logger(name = __name__.split(".")[1])
 ENVIRONMENT = os.environ["ENVIRONMENT"]
+BASE_URL = os.environ["FRONTEND_URL"]
 
 class Authenticator:
 
@@ -153,6 +156,64 @@ class Authenticator:
         }
 
     @staticmethod
+    def generate_reset_token():
+        import secrets
+
+        token = secrets.token_urlsafe(32)
+
+        return token
+
+    @staticmethod
+    def generate_reset_url(reset_token:str):
+        reset_url = f"{BASE_URL}/reset-password/{reset_token}"
+
+        return reset_url
+    
+    @staticmethod
+    def send_reset_password_link(
+                email:str,
+                db:Session
+            ):
+    
+        try:
+            user = db.query(User).filter(User.email == email).first()
+
+            if not user:
+                raise HTTPException(status_code=404, detail="User not found.")
+        
+            reset_token = Authenticator.generate_reset_token()
+
+            hashed_token = hash_token(reset_token)
+
+            password_reset_token = ResetToken(
+                user_id = user.user_id,
+                token_hash = hashed_token,
+                expires_in = datetime.now(timezone.utc) + timedelta(minutes=30)
+            )
+
+            db.add(password_reset_token)
+            db.commit()
+
+            reset_url = Authenticator.generate_reset_url(reset_token)
+
+            send_password_reset_email.send(
+                user_id=user.user_id,
+                reset_url=reset_url
+            )
+
+        except HTTPException:
+            raise
+            
+        except Exception:
+            db.rollback()
+            raise
+
+        return {
+            "success": True,
+            "message": "Password reset link sent successfully!"
+        }
+
+    @staticmethod
     def get_current_user(request:Request, response:Response, db:Session = Depends(get_db) ):
     
         access_token = request.cookies.get("access_token") 
@@ -215,3 +276,6 @@ class Authenticator:
             raise HTTPException(status_code=404, detail="Missing user")
         
         return user
+
+    def reset_password(self):
+        return

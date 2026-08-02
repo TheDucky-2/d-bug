@@ -56,11 +56,8 @@ class AuthorizationService:
 
 
             print("PERMISSION", permission_.permission_id)
-            print(type(permission_.permission_id))
 
             permissions = AuthorizationService.get_role_permissions(db = db, user = user)
-            print([(x) for x in permissions])
-            print(permissions)
 
             if permission_.permission_id not in permissions:
                 raise HTTPException(status_code=403, detail="Forbidden access")

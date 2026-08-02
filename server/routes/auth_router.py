@@ -1,12 +1,7 @@
-from fastapi import APIRouter, Depends, Response, HTTPException, Request
+from fastapi import APIRouter, Depends, Response, Request, Body
 from sqlalchemy.orm import Session
 from config.db import get_db
-from auth.auth import hash_password, verify_hash
-from utils.jwt_token import generate_access_token, generate_refresh_token, hash_token
-from models import User, RefreshToken
-from schemas.user import UserCreate, UserResponse, UserLogin
-from errors.auth_errors import PasswordHashingError
-from datetime import datetime, timedelta, timezone
+from schemas.user import UserCreate,UserLogin, UserResponse
 from services.Authenticator import Authenticator
 import os
 from logger.logger import create_logger
@@ -35,7 +30,21 @@ def sign_out(request: Request, response: Response,db: Session = Depends(get_db),
 
     return auth.sign_out(request=request, response=response, db=db)
 
-@auth_router.get("/me")
-def get_current_user(request:Request, response:Response, db:Session = Depends(get_db), auth = Depends(Authenticator)):
+@auth_router.post("/forgot-password")
+def reset_password(
+    email:str = Body(str) ,
+    db:Session = Depends(get_db),
+    auth = Depends(Authenticator)):
+
+    return auth.send_reset_password_link(email = email, db = db)
+
+@auth_router.get("/me", response_model=UserResponse)
+def get_current_user(
+    request:Request, 
+    response:Response, 
+    db:Session = Depends(get_db), 
+    auth = Depends(Authenticator),
+    
+    ):
 
     return auth.get_current_user(request=request, response=response, db=db)

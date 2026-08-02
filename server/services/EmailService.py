@@ -45,7 +45,7 @@ class EmailService:
         return hashed_token
 
     
-    def send_invitation(self, user:User, 
+    def create_invitation(self, user:User, 
                         organization:Organization, 
                         to_email:str, 
                         role:str, 
