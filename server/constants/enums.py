@@ -1,8 +1,8 @@
 from enum import IntEnum, Enum
 
 class ProjectStatus(str, Enum):
-    CREATED = "created"
-    LIVE = "live"
+    ACTIVE = "active"
+    INACTIVE = "inactive"
     DELETED = "deleted"
 
 class UserType(str, Enum):
@@ -44,6 +44,10 @@ class BugStatus(str, Enum):
     IN_REVIEW = "in_review"
     RESOLVED = "resolved"
     REOPENED = "reopened"
+
+class BugSource(str, Enum):
+    MANUAL = "manual"
+    GITHUB = "github"
     
 
 ## Invitation
