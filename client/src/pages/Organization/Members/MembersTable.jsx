@@ -12,16 +12,27 @@ import {
   PaginationItem,
   PaginationLink, 
 } from "@/components/ui/pagination";
-import { members, memberTableColumns} from "@/assets/assets.js"
+import { memberTableColumns} from "@/assets/assets.js"
 import { Separator } from "@/components/ui/separator";
-import { EllipsisVertical, Funnel } from 'lucide-react';
+import { EllipsisVertical, Funnel, LoaderCircle } from 'lucide-react';
 import MemberDropDown from "./MemberDropDown";
-import { useGetMembers } from "@/hooks/useMembers";
+import { useFetchAllMembers } from "@/hooks/useMembers";
 
 
 const MembersTable = () => {
 
-    const getMembers = useGetMembers()
+    const {data, isPending, error} = useFetchAllMembers()
+
+    if(isPending){
+        return (
+        
+        <div className="w-full justify-center flex gap-2 items-center">
+        <LoaderCircle className="animate-spin"/>
+        <p>
+            Loading members...
+        </p>
+        </div>)
+    }
 
   return (
     <div>
@@ -58,22 +69,26 @@ const MembersTable = () => {
                             )
                         } )}
                     </TableRow>
-                
                 </TableHeader>
-                <TableBody className={`text-sm font-medium dark:text-white/40 text-black/50`}>
 
-                    {getMembers.data.map((member)=> {
-                        console.log(getMembers.data)
-                        return (
-                            <TableRow>
-                                <TableCell className={`px-5`}>{member.member_id}</TableCell>
-                                <TableCell className={`px-5`}>{member.user.full_name}</TableCell>
-                                <TableCell className={`px-5`}>{member.user.email}</TableCell>
-                                <TableCell className={`px-5`}>{member.role}</TableCell>
-                                <TableCell className={`px-5`}>{member.joined_at}</TableCell>
-                                <TableCell className={`px-5`}>{member.status}</TableCell>
-                                <TableCell className={`px-5`}>
-                                    <MemberDropDown openTrigger = {
+            <TableBody className={`text-sm font-medium dark:text-white/40 text-black/50`}>
+
+                    {data?.map((member)=> {
+                    return (
+                            <TableRow key={member.member_id}>
+                            <TableCell className={`px-5 `}>{member.user.full_name}</TableCell>        
+                            <TableCell className={`px-5`}>{member.user.email}</TableCell>
+                            <TableCell className={`px-5`}>{member.role.role.toUpperCase()}</TableCell>
+                            <TableCell className={`px-5`}>
+                            <span className={`${
+                                member.is_active ? " text-green-600 " : "text-red-600"
+                            }`}>
+                                {member.is_active? "ACTIVE" : "INACTIVE"}
+                            </span>
+                            </TableCell>
+                            
+                            <TableCell className={`px-5`}>
+                                    <MemberDropDown memberId={member.member_id} openTrigger = {
                                     <button>
                                         <EllipsisVertical/>
 
@@ -81,11 +96,14 @@ const MembersTable = () => {
                                     }>
 
                                     </MemberDropDown>
-                                </TableCell>
+                            </TableCell>
                             </TableRow>
                         )
                     })}
                 </TableBody>
+            
+                
+                
             </Table>
             <Separator className={`text-white/20`}/>
                 {/* Pagination for bug data */}

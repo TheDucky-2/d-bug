@@ -6,7 +6,6 @@ ROLE_PERMISSIONS = {
         "organization:self:read",
         "organization:self:update",
         "organization:self:delete",
-        "organization:self:create",
 
         # Members
         "member:any:read",
