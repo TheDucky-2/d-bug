@@ -22,7 +22,7 @@ function TableHeader({
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b text-lg text-black/30 dark:text-white/30", className)}
+      className={cn("[&_tr]:border-b text-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-700/20 text-black/30 dark:text-white/30", className)}
       {...props} />
   );
 }
@@ -59,7 +59,7 @@ function TableRow({
     <tr
       data-slot="table-row"
       className={cn(
-        "border-b border-b-black/10 dark:border-b-white/10 transition-colors hover:bg-zinc-400/20 dark:hover:bg-zinc-400/20 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted",
+        "border-b border-b-black/10 dark:border-b-white/10 transition-colors hover:bg-zinc-200/50 dark:hover:bg-zinc-700/20 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted",
         className
       )}
       {...props} />

@@ -1,3 +1,5 @@
+
+//@ts-nocheck
 import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils"
