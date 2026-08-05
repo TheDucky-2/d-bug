@@ -14,7 +14,7 @@ interface AuthContextType {
         password:string
     }) => Promise<any>;
     logout: () => Promise<void>;
-    resetPassword: (email: string) => Promise<any>;
+    forgotPassword: (email: string) => Promise<any>;
     setUser: React.Dispatch<React.SetStateAction<User|null>>;
     getCurrentUser: () => Promise<void>;
 }
@@ -59,7 +59,7 @@ export const AuthProvider = ({children}) => {
         throw error
     }}
 
-    const resetPassword = async (email : string) => {
+    const forgotPassword = async (email : string) => {
 
     try{ 
         const res = await api.post("auth/forgot-password", email)
@@ -101,7 +101,7 @@ export const AuthProvider = ({children}) => {
         }, [])
 
     return (
-        <AuthContext.Provider value={{user, loading, login, logout, setUser, getCurrentUser, resetPassword }}>
+        <AuthContext.Provider value={{user, loading, login, logout, setUser, getCurrentUser, forgotPassword }}>
             {children}
         </AuthContext.Provider>
     )
