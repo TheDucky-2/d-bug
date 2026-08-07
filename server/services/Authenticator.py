@@ -1,6 +1,6 @@
 "Class for handling authentication logic"
 
-from fastapi import Request, Response, Depends, HTTPException
+from fastapi import Request, Response, Depends, HTTPException, status
 from schemas.user import UserCreate, UserLogin
 from datetime import datetime, timezone, timedelta
 from sqlalchemy.orm import Session
@@ -165,7 +165,7 @@ class Authenticator:
 
     @staticmethod
     def generate_reset_url(reset_token:str):
-        reset_url = f"{BASE_URL}/reset-password/{reset_token}"
+        reset_url = f"{BASE_URL}/auth/reset-password/{reset_token}"
 
         return reset_url
     
@@ -277,5 +277,54 @@ class Authenticator:
         
         return user
 
-    def reset_password(self):
-        return
+    def reset_password(
+            self, 
+            new_password: str,
+            confirm_password: str,
+            token:str|None,
+            db:Session
+            ):
+
+        try:
+            # validating passwords
+            if new_password != confirm_password:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Passwords do not match."
+                )
+
+            # verifying the tokens
+            hashed_token = hash_token(token)
+
+            verified_token = db.query(ResetToken).filter(ResetToken.token_hash == hashed_token).first()
+
+            if not verified_token:
+                raise HTTPException(status_code=404, detail="Matching token not found.")
+
+
+            user = db.query(User).filter(User.user_id == verified_token.user_id).first()
+
+            if not user:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+            ## hashing the password
+
+            hashed_password = hash_password(new_password)
+
+            user.password = hashed_password
+            
+            # deleting the reset token
+            db.delete(verified_token)
+
+            db.commit()
+
+        except HTTPException:
+            raise
+
+        except Exception:
+            db.rollback()
+            raise
+        
+        return {
+            "message": "Password reset successfully!"
+        }
