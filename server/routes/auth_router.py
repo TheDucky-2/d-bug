@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response, Request, Body
+from fastapi import APIRouter, Depends, Response, Request, Body, Form
 from sqlalchemy.orm import Session
 from config.db import get_db
 from schemas.user import UserCreate,UserLogin, UserResponse
@@ -31,7 +31,7 @@ def sign_out(request: Request, response: Response,db: Session = Depends(get_db),
     return auth.sign_out(request=request, response=response, db=db)
 
 @auth_router.post("/forgot-password")
-def reset_password(
+def forgot_password(
     email:str = Body(str) ,
     db:Session = Depends(get_db),
     auth = Depends(Authenticator)):
@@ -44,7 +44,21 @@ def get_current_user(
     response:Response, 
     db:Session = Depends(get_db), 
     auth = Depends(Authenticator),
-    
     ):
 
     return auth.get_current_user(request=request, response=response, db=db)
+
+@auth_router.post("/reset-password/{token}")
+def reset_password(
+    token:str,
+    new_password:str = Form(str),
+    confirm_password: str = Form(str),
+    db:Session = Depends(get_db),
+    auth = Depends(Authenticator)):
+    
+    return auth.reset_password(
+        new_password = new_password,
+        confirm_password = confirm_password,
+        token = token,
+        db = db
+    )

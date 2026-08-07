@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import type { User } from '@/types/user';
+import { useParams } from 'react-router-dom';
 
 interface AuthContextType {
     user : User | null;
@@ -14,7 +15,11 @@ interface AuthContextType {
         password:string
     }) => Promise<any>;
     logout: () => Promise<void>;
-    resetPassword: (email: string) => Promise<any>;
+    forgotPassword: (email: string) => Promise<any>;
+    resetPassword : (formData: {
+        newPassword: string,
+        confirmPassword: string
+    }, token:string) => Promise<any>;
     setUser: React.Dispatch<React.SetStateAction<User|null>>;
     getCurrentUser: () => Promise<void>;
 }
@@ -59,7 +64,7 @@ export const AuthProvider = ({children}) => {
         throw error
     }}
 
-    const resetPassword = async (email : string) => {
+    const forgotPassword = async (email : string) => {
 
     try{ 
         const res = await api.post("auth/forgot-password", email)
@@ -74,6 +79,29 @@ export const AuthProvider = ({children}) => {
         }
 
     }
+
+    const resetPassword = async(formData, token) => {
+
+
+        try{
+
+            const data = new FormData()
+
+            data.append("new_password", formData.newPassword)
+            data.append("confirm_password", formData.confirmPassword)
+
+            const res = await api.post(`auth/reset-password/${token}`, data)
+
+            console.log(res.data)
+            return res.data;
+
+        }catch(error){
+            console.error(error?.response?.data?.message || error?.response?.data?.detail)
+            throw error
+
+        }
+    }
+
 
     const getCurrentUser = async () => {
 
@@ -101,7 +129,7 @@ export const AuthProvider = ({children}) => {
         }, [])
 
     return (
-        <AuthContext.Provider value={{user, loading, login, logout, setUser, getCurrentUser, resetPassword }}>
+        <AuthContext.Provider value={{user, loading, login, logout, setUser, getCurrentUser, forgotPassword, resetPassword }}>
             {children}
         </AuthContext.Provider>
     )
