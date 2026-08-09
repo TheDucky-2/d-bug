@@ -8,6 +8,12 @@ import {
   UserCheck,
   MailPlus,
   ShieldCheck,
+  FolderKanban,
+  Folder,
+  FolderGit2,
+  Inbox,
+  MailOpen,
+  ClipboardCheck,
 } from "lucide-react";
 
 
@@ -277,32 +283,28 @@ export const bugs = [
 
 export const columns = [
     {
-        accessorKey : "id",
-        header: "ID"
-    },
-    {
         accessorKey : "title",
-        header: "TITLE"
+        header: "Title"
     },
     {
         accessorKey : "project",
-        header: "PROJECT"
+        header: "Project"
     },
         {
         accessorKey : "severity",
-        header: "SEVERITY"
+        header: "Severity"
     },
         {
         accessorKey : "status",
-        header: "STATUS"
+        header: "Status"
     },
         {
         accessorKey : "assignee",
-        header: "ASSIGNEE"
+        header: "Assignee"
     },
         {
         accessorKey : "updated",
-        header: "UPDATED"
+        header: "Updated"
     }
   
   ]
@@ -365,7 +367,8 @@ export const emails = [
     preview: "We've received multiple reports that users are being logged out immediately after login.",
     body: "Hi team,\n\nWe've received multiple reports from customers that they are being logged out immediately after a successful login.\n\nThis appears to have started after yesterday's deployment. It affects both Chrome and Firefox.\n\nCan someone investigate? This is blocking users from accessing their accounts.\n\nThanks,\nSarah",
     project: "Authentication Service",
-    severity: "critical",
+    severity: "Critical",
+    status: "Open",
     unread: true,
     starred: true,
     received: "10m ago"
@@ -378,7 +381,8 @@ export const emails = [
     preview: "Duplicate payment captures detected during overnight regression testing.",
     body: "Our overnight regression suite detected duplicate payment captures when retrying failed transactions.\n\nEnvironment: Production-like staging.\n\nObserved:\n- First attempt times out\n- User retries payment\n- Both transactions are captured successfully\n\nThis looks like a high priority issue.",
     project: "Payment Gateway",
-    severity: "critical",
+    severity: "Critical",
+    status: "In Review",
     unread: true,
     starred: false,
     received: "25m ago"
@@ -391,7 +395,8 @@ export const emails = [
     preview: "Refreshing the Profile page consistently crashes the application.",
     body: "Hello,\n\nSeveral enterprise customers reported that refreshing the Profile page causes the application to crash.\n\nSteps:\n1. Login\n2. Navigate to Profile\n3. Refresh browser\n\nExpected: Profile reloads normally.\nActual: Application crashes.\n\nThanks.",
     project: "Customer Portal",
-    severity: "high",
+    severity: "High",
+    status: "Resolved",
     unread: true,
     starred: false,
     received: "1h ago"
@@ -404,7 +409,8 @@ export const emails = [
     preview: "Support tickets regarding password reset failures have increased today.",
     body: "Hi,\n\nSupport tickets regarding password resets have increased significantly today.\n\nUsers complete the reset flow successfully, but no email is received.\n\nWe've checked spam folders with no success.\n\nCould engineering investigate?",
     project: "Authentication Service",
-    severity: "high",
+    severity: "High",
+    status: "In Progress",
     unread: false,
     starred: false,
     received: "2h ago"
@@ -417,7 +423,8 @@ export const emails = [
     preview: "Automated monitoring detected increased HTTP 500 responses.",
     body: "Automated Alert\n\nRefund endpoint error rate exceeded threshold.\n\nCurrent Status:\n- Endpoint: /api/refunds\n- HTTP 500 responses increasing\n- Started approximately 40 minutes ago\n\nImmediate investigation recommended.",
     project: "Payment Gateway",
-    severity: "high",
+    severity: "High",
+    status: "Reopened",
     unread: true,
     starred: true,
     received: "40m ago"
@@ -430,7 +437,8 @@ export const emails = [
     preview: "Multiple Android devices are stuck on the splash screen after the latest release.",
     body: "Morning team,\n\nI'm seeing reports that the Android application gets stuck on the splash screen after the latest release.\n\nIssue reproduced on:\n- Pixel 8\n- Samsung S24\n\nUsers cannot proceed beyond startup.",
     project: "Mobile App",
-    severity: "critical",
+    severity: "Critical",
+    status: "In Review",
     unread: true,
     starred: true,
     received: "55m ago"
@@ -443,7 +451,8 @@ export const emails = [
     preview: "Security validation found administrator permissions are not enforced consistently.",
     body: "During our routine security validation we noticed administrator role restrictions are not being enforced consistently.\n\nA user without elevated permissions was able to access administrative actions.\n\nPlease treat this as urgent.",
     project: "Admin Dashboard",
-    severity: "critical",
+    severity: "Critical",
+    status: "Open",
     unread: true,
     starred: true,
     received: "1h ago"
@@ -456,7 +465,8 @@ export const emails = [
     preview: "Several products now display negative inventory after today's sync.",
     body: "Hi,\n\nAfter running today's warehouse synchronization, several products now display negative inventory counts.\n\nThis is preventing order fulfillment.\n\nExample SKUs have been attached to the internal ticket.\n\nThanks.",
     project: "Inventory API",
-    severity: "high",
+    severity: "High",
+    status: "Resolved",
     unread: false,
     starred: false,
     received: "3h ago"
@@ -469,7 +479,8 @@ export const emails = [
     preview: "Finance identified discrepancies in dashboard revenue totals.",
     body: "Hi Engineering,\n\nThe revenue dashboard appears to be calculating totals incorrectly.\n\nFinance compared yesterday's exports against our internal reports and there are noticeable discrepancies.\n\nCould someone review the aggregation logic?",
     project: "Analytics Platform",
-    severity: "medium",
+    severity: "Medium",
+    status: "Open",
     unread: true,
     starred: false,
     received: "5h ago"
@@ -482,7 +493,8 @@ export const emails = [
     preview: "Customers report blank dashboards immediately after login.",
     body: "Hi,\n\nCustomer Success has escalated several reports that dashboard charts remain blank after login.\n\nThe rest of the application appears functional.\n\nCan someone investigate whether this is frontend or API related?",
     project: "Admin Dashboard",
-    severity: "medium",
+    severity: "Medium",
+    status: "In Review",
     unread: false,
     starred: false,
     received: "6h ago"
@@ -495,7 +507,8 @@ export const emails = [
     preview: "Duplicate notification events detected by automated monitoring.",
     body: "Automated Monitoring Alert\n\nWe've detected duplicate notification events for email deliveries.\n\nCurrent observations:\n- Same notification ID processed twice\n- Issue appears intermittent\n- Queue latency remains normal",
     project: "Notification Service",
-    severity: "low",
+    severity: "Low",
+    status: "Resolved",
     unread: false,
     starred: false,
     received: "1d ago"
@@ -508,7 +521,8 @@ export const emails = [
     preview: "Premium customer unable to export reports as PDF.",
     body: "Hi team,\n\nA premium customer reported that exporting analytics reports as PDF consistently fails.\n\nCSV export continues to work normally.\n\nThis feature is important for their monthly reporting workflow.\n\nPlease prioritize when possible.",
     project: "Analytics Platform",
-    severity: "high",
+    severity: "High",
+    status: "Reopened",
     unread: true,
     starred: false,
     received: "7h ago"
@@ -955,7 +969,7 @@ export const members = [
     email: "olivia.davis@example.com",
     role: "Developer",
     avatar: "OD",
-    status: "Away",
+    status: "Inactive",
     joined_at: "2026-03-01",
   },
   {
@@ -1000,7 +1014,7 @@ export const members = [
     email: "henry.walker@example.com",
     role: "Developer",
     avatar: "HW",
-    status: "Active",
+    status: "Inactive",
     joined_at: "2026-03-08",
   },
   {
@@ -1009,7 +1023,7 @@ export const members = [
     email: "ella.young@example.com",
     role: "Reviewer",
     avatar: "EY",
-    status: "Away",
+    status: "Active",
     joined_at: "2026-02-27",
   },
   {
@@ -1025,12 +1039,8 @@ export const members = [
 
 export const memberTableColumns = [
   {
-    accessorKey: "member_id",
-    header: "ID",
-  },
-  {
     accessorKey: "full_name",
-    header: "Member",
+    header: "Name",
   },
   {
     accessorKey: "email",
@@ -1041,38 +1051,202 @@ export const memberTableColumns = [
     header: "Role",
   },
   {
-    accessorKey: "joined_on",
-    header: "Joined",
-  },
-  {
     accessorKey: "status",
     header: "Status",
   },
 ];
 
-export const memberStats = [
+  export const memberRole = [
+    "Admin",
+    "Developer",
+    "Reviewer",
+    "Owner"
+  ]
+
+  export const memberStatus = [
+    "Active", "Inactive"
+  ]
+
+
+export const projectStats = [
   {
-    title: "Total Members",
-    value: "14",
-    description: "Organization members",
+    title: "Projects",
+    value: 18,
+    icon: FolderKanban,
+    description: "Total workspaces",
+  },
+  {
+    title: "GitHub Repos",
+    value: 9,
+    icon: FolderGit2,
+    description: "Connected repositories",
+  },
+  {
+    title: "Custom Projects",
+    value: 9,
+    icon: Folder,
+    description: "Created manually",
+  },
+  {
+    title: "Contributors",
+    value: 42,
     icon: Users,
+    description: "Across all projects",
+  },
+];
+
+export const projects = [
+  {
+    project_id: 1,
+    name: "Authentication Service",
+    owner: "Mia Chen",
+    visibility: "Private",
+    source: "GitHub",
+    members: 8,
+    status: "Active",
+    created_at: "2026-01-10",
   },
   {
-    title: "Active Members",
-    value: "12",
-    description: "Currently active",
+    project_id: 2,
+    name: "Customer Portal",
+    owner: "Liam Scott",
+    visibility: "Private",
+    source: "Manual",
+    members: 6,
+    status: "Active",
+    created_at: "2026-01-18",
+  },
+  {
+    project_id: 3,
+    name: "Payment Gateway",
+    owner: "Sophia Lee",
+    visibility: "Private",
+    source: "GitHub",
+    members: 7,
+    status: "Active",
+    created_at: "2025-12-03",
+  },
+  {
+    project_id: 4,
+    name: "Inventory API",
+    owner: "Grace Kim",
+    visibility: "Public",
+    source: "GitHub",
+    members: 5,
+    status: "Active",
+    created_at: "2026-02-02",
+  },
+  {
+    project_id: 5,
+    name: "Analytics Platform",
+    owner: "Daniel White",
+    visibility: "Private",
+    source: "Manual",
+    members: 4,
+    status: "Archived",
+    created_at: "2025-09-20",
+  },
+  {
+    project_id: 6,
+    name: "Mobile App",
+    owner: "Ava Moore",
+    visibility: "Private",
+    source: "GitHub",
+    members: 6,
+    status: "Active",
+    created_at: "2026-03-01",
+  },
+  {
+    project_id: 7,
+    name: "Notification Service",
+    owner: "Henry Walker",
+    visibility: "Private",
+    source: "GitHub",
+    members: 3,
+    status: "Inactive",
+    created_at: "2026-03-12",
+  },
+  {
+    project_id: 8,
+    name: "Admin Dashboard",
+    owner: "Ethan Miller",
+    visibility: "Private",
+    source: "Manual",
+    members: 5,
+    status: "Active",
+    created_at: "2025-11-14",
+  },
+];
+
+export const projectTableColumns = [
+  {
+    accessorKey: "name",
+    header: "Project",
+  },
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
+    {
+    accessorKey: "source",
+    header: "Source",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "created_at",
+    header: "Created",
+  },
+];
+
+export const inboxStats = [
+  {
+    title: "Inbox",
+    value: 124,
+    icon: Inbox,
+    description: "Total notifications",
+  },
+  {
+    title: "Unread",
+    value: 18,
+    icon: MailOpen,
+    description: "New since your last visit",
+  },
+  {
+    title: "Assigned",
+    value: 9,
     icon: UserCheck,
+    description: "Assigned to you",
   },
   {
-    title: "Pending Invites",
-    value: "2",
-    description: "Awaiting acceptance",
-    icon: MailPlus,
+    title: "Awaiting Review",
+    value: 6,
+    icon: ClipboardCheck,
+    description: "Review requests",
+  },
+];
+
+export const inboxTableColumns = [
+    {
+    accessorKey: "email",
+    header: "Email",
   },
   {
-    title: "Admins",
-    value: "4",
-    description: "Administrative members",
-    icon: ShieldCheck,
+    accessorKey: "subject",
+    header: "Subject",
   },
+  {
+    accessorKey: "project",
+    header: "Project",
+  },
+    {
+    accessorKey: "severity",
+    header: "Severity",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  }
 ];

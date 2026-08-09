@@ -56,3 +56,11 @@ class InviteStatus(str, Enum):
     ACCEPTED = "accepted"
     DENIED = "denied"
     PENDING = "pending"
+
+class BugAssignee(str, Enum):
+    USER = "user"
+    SYSTEM = "system"
+
+class BugAssigner(str, Enum):
+    USER = "user"
+    SYSTEM = "system"
