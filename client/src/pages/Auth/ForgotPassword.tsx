@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import BasicNavbar from "@/components/BasicNavbar";
-import { ArrowLeft, Mail } from "lucide-react";
+import { ArrowLeft, Mail, Send } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -43,12 +43,12 @@ const ForgotPassword = () => {
         <div className={`w-full px-6 py-10 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
             
             <form onSubmit={handleSubmit}
-            className={`max-w-md w-full flex flex-col shadow-xl shadow-zinc-700/20 dark:shadow-zinc-200/10 items-center justify-center border ${isDark ?  "border-white/20" : "border-black/20"} p-6 sm:p-8 rounded-xl gap-5`}>
-                <h2 className={`text-2xl font-medium sm:text-2xl ${isDark ? "text-white/80" : "text-black/70"}`}>
+            className={`max-w-md w-full flex flex-col items-center justify-center p-6 sm:p-8 rounded-xl gap-5`}>
+                <h2 className={`text-xl font-medium sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>
                 Forgot Password?
                 </h2>
                 <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>
-                No worries, we'll send you a reset link.
+                No worries, we'll send you a reset link to your associated email account.
                 </p>
             
                 <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-xl overflow-hidden pl-6 gap-2">
@@ -60,9 +60,9 @@ const ForgotPassword = () => {
                 </div>
     
                 <button type="submit" 
-                className={`w-full h-11 rounded-md text-white font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"}
+                className={`w-full h-11 text-sm rounded-full text-white font-semibold dark:bg-zinc-700 bg-zinc-800 dark:hover:bg-zinc-600 hover:bg-zinc-700
                 hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
-                <Mail size={18}/>
+                <Send    size={18}/>
                 <span>Send Link</span>
                    
                 </button>

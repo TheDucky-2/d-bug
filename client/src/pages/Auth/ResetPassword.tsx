@@ -71,8 +71,8 @@ const ResetPassword = () => {
         <div className={`w-full px-6 py-10 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
             
             <form onSubmit = {handleFormSubmit}
-            className={`max-w-md w-full flex flex-col shadow-xl shadow-zinc-700/20 dark:shadow-zinc-200/10 items-center justify-center border ${isDark ?  "border-white/20" : "border-black/20"} p-6 sm:p-8 rounded-xl gap-5`}>
-                <h2 className={`text-2xl font-medium sm:text-2xl ${isDark ? "text-white/80" : "text-black/70"}`}>
+            className={`max-w-md w-full flex flex-col items-center justify-center p-6 sm:p-8 rounded-xl gap-5`}>
+                <h2 className={`text-xl font-medium sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>
                 Reset Password
                 </h2>
             
@@ -93,7 +93,7 @@ const ResetPassword = () => {
                 </div>
     
                 <button type="submit" 
-                className={`w-full h-11 rounded-md text-white font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"}
+                className={`w-full h-11 rounded-full text-white text-sm font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"}
                 hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
                 <KeyRound size={18}/>
                 <span>Reset Password</span>
