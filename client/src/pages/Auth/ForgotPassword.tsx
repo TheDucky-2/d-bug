@@ -48,7 +48,7 @@ const ForgotPassword = () => {
                 Forgot Password?
                 </h2>
                 <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>
-                No worries, we'll send you a reset link to your associated email account.
+                No worries, we'll send a password-reset link to your registered email address.
                 </p>
             
                 <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-xl overflow-hidden pl-6 gap-2">
@@ -60,14 +60,15 @@ const ForgotPassword = () => {
                 </div>
     
                 <button type="submit" 
-                className={`w-full h-11 text-sm rounded-full text-white font-semibold dark:bg-zinc-700 bg-zinc-800 dark:hover:bg-zinc-600 hover:bg-zinc-700
+                    className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
+                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
                 hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
-                <Send    size={18}/>
+                <Send    size={24}/>
                 <span>Send Link</span>
                    
                 </button>
                 <div className="flex items-center gap-2 hover:underline">
-                    <ArrowLeft size={18} className={`${isDark ? "text-teal-400" : "text-teal-600"} `}/>
+                    <ArrowLeft size={24} className={`${isDark ? "text-teal-400" : "text-teal-600"} `}/>
                     <Link className={`text-sm cursor-pointer  ${isDark ? "text-teal-400" : "text-teal-600"}`} relative="path" to="/auth/sign-in">   
                     Back to log in
                     </Link>

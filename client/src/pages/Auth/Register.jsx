@@ -1,4 +1,5 @@
-
+import logo from "../../assets/d_bug.png"
+import logo_black from "../../assets/d_bug_black.png";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/axios";
@@ -57,13 +58,6 @@ const Register = () => {
 
   return (
     <>
-     <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
-        
-            * {
-                font-family: "Inter";
-            }
-    `}</style>
     <div className="flex min-h-screen flex-col">
         <BasicNavbar/>
 
@@ -73,7 +67,8 @@ const Register = () => {
             className={`max-w-md w-full flex flex-col items-center  justify-center  p-6 sm:p-8 rounded-xl gap-5`}>
 
                     <div className="flex items-center justify-center  text-base flex-col text-center">
-                      <h2 className={`text-xl font-medium sm:text-xl pb-4 ${isDark ? "text-white/80" : "text-black/70"}`}>Get started free</h2>
+                      <h2 className={`text-xl font-semibold sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>Get started with</h2>
+                      <img src={isDark ? logo : logo_black} className="h-10 w-30 mb-2"/>
                       <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Start tracking and resolving issues with your team.</p>
                     </div>
 
@@ -111,7 +106,7 @@ const Register = () => {
                     <Tooltip>
                         <TooltipTrigger>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
-                               <EyeOff className=" text-gray-500 dark:text-zinc-200 h-5 w-5"/> 
+                               <EyeOff className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     
                             </button>
                         </TooltipTrigger>
@@ -125,7 +120,7 @@ const Register = () => {
                     <Tooltip>
                         <TooltipTrigger>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
-                               <Eye className=" text-gray-500 dark:text-zinc-200 h-5 w-5"/> 
+                               <Eye className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     
                             </button>
                         </TooltipTrigger>
@@ -139,9 +134,10 @@ const Register = () => {
                     </div>
         
                     <button type="submit" disabled={isLoading}
-                    className={`w-full h-11 rounded-full text-white font-semibold text-sm dark:bg-zinc-700 bg-zinc-800 dark:hover:bg-zinc-600 hover:bg-zinc-700
-                    hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-2 justify-center`}>
-                        {!isLoading && <UserPlus size={18}/>}
+                    className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
+                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
+                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
+                        {!isLoading && <UserPlus size={24}/>}
                        {isLoading  && (<LoaderCircle className="animate-spin"/>)}
                        {isLoading? "Setting up your account...":  "Sign up"}
                     </button>

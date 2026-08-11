@@ -93,7 +93,8 @@ const ResetPassword = () => {
                 </div>
     
                 <button type="submit" 
-                className={`w-full h-11 rounded-full text-white text-sm font-semibold bg-zinc-600 ${isDark ? "hover:bg-gray-300/30" : "hover:bg-gray-600"}
+                className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
+                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
                 hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
                 <KeyRound size={18}/>
                 <span>Reset Password</span>

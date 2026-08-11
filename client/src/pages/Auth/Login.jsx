@@ -1,5 +1,4 @@
-import github_icon_dark from "../../assets/github_icon.svg"
-import github_text_icon_dark from "../../assets/github_text_dark.svg"
+
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/axios";
 import { useState } from "react";
@@ -126,7 +125,7 @@ const Login = () => {
                     
                     {showPassword ?
                     <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
                                <EyeOff className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     
@@ -140,7 +139,7 @@ const Login = () => {
                     :
 
                     <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
                                <Eye className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     
