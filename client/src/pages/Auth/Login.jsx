@@ -1,8 +1,11 @@
-import github_logo from "/images/github_logo.png";
+import github_icon_dark from "../../assets/github_icon.svg"
+import github_text_icon_dark from "../../assets/github_text_dark.svg"
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/axios";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Github } from '@lobehub/icons';
+import { Flexbox } from '@lobehub/ui';
 
 import { useTheme } from "@/context/ThemeContext";
 import BasicNavbar from "@/components/BasicNavbar";
@@ -70,13 +73,6 @@ const Login = () => {
 
   return (
     <>
-     <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
-        
-            * {
-                font-family: "Inter";
-            }
-    `}</style>
 
         {/**Navbar section */}
     <div className="flex min-h-screen flex-col">
@@ -87,13 +83,15 @@ const Login = () => {
             <form onSubmit={handleFormSubmit}
             className={`max-w-md w-full flex flex-col  items-center justify-center 
             p-6 sm:p-8 rounded-xl gap-5`}>
-                <h2 className={`text-xl font-medium sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>Sign in</h2>
+                <h2 className={`text-xl font-semibold sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>Sign in</h2>
                 <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Welcome back! Please login to continue</p>
                 
-                <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Sign in with Github</p>
-                <button type="button" className={`w-full  flex items-center justify-center h-11 rounded-full cursor-pointer
-                    dark:bg-zinc-700 bg-zinc-800 dark:hover:bg-zinc-600 hover:bg-zinc-700 transition-opacity hover:opacity-90`}>
-                    <img src={github_logo} alt="githubLogo" className="h-10" />
+                <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Sign in with</p>
+                <button type="button" className={`w-full rounded-full text-white text-sm font-semibold dark:bg-white dark:text-black
+                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800 py-3
+                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
+                     <Github size={26} />
+                    <Github.Text size={17} />
                 </button>
     
                 <div className="flex items-center gap-4 w-full">
@@ -103,7 +101,7 @@ const Login = () => {
                 </div>
 
                 <div className="flex items-center justify-center gap-4 w-full">
-                    <p className={` text-sm ${isDark ? "text-white/50" : "text-black/50"} `}>Sign in with Email</p>
+                    <p className={` text-sm ${isDark ? "text-white/50" : "text-black/50"} `}>Sign in with</p>
                 </div>
     
                 <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-xl overflow-hidden pl-6 gap-2">
@@ -123,13 +121,14 @@ const Login = () => {
                     type="text" placeholder="Password" className={`bg-transparent ${isDark ?  "text-white" : "text-black"} placeholder-gray-500/80 outline-none text-sm w-full h-full`} required />
                 :
                 <input name = "password" value={formData.password} onChange={handleChange} 
-                    type="password" placeholder="Password" className={`bg-transparent ${isDark ?  "text-white" : "text-black"} placeholder-gray-500/80 outline-none text-sm w-full h-full`} required />}
+                    type="password" placeholder="Password" className={`bg-transparent ${isDark ?  "text-white" : "text-black"}
+                     placeholder-gray-500/80 outline-none text-sm w-full h-full`} required />}
                     
                     {showPassword ?
                     <Tooltip>
                         <TooltipTrigger>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
-                               <EyeOff className=" text-gray-500 dark:text-zinc-200 h-5 w-5"/> 
+                               <EyeOff className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     
                             </button>
                         </TooltipTrigger>
@@ -143,7 +142,7 @@ const Login = () => {
                     <Tooltip>
                         <TooltipTrigger>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
-                               <Eye className=" text-gray-500 dark:text-zinc-200 h-5 w-5"/> 
+                               <Eye className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     
                             </button>
                         </TooltipTrigger>
@@ -164,10 +163,11 @@ const Login = () => {
                 </div>
                 
                 <button type="submit" disabled={isLoading}
-                className={`w-full h-11 rounded-full text-white text-sm font-semibold dark:bg-zinc-700 bg-zinc-800 dark:hover:bg-zinc-600 hover:bg-zinc-700
+                className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
+                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
                 hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
                     {isLoading && (<LoaderCircle className="animate-spin w-5 h-5"/>)}
-                    {!isLoading && <LogIn size={18}/>}
+                    {!isLoading && <LogIn size={24}/>}
                     <span>{isLoading ? "Logging in" : "Log in"}</span>
                 </button>
                 <p className={`${isDark ? "text-white/50" : "text-black/50"} text-sm `}>Don’t have an account? 
