@@ -61,15 +61,15 @@ const Register = () => {
     <div className="flex min-h-screen flex-col">
         <BasicNavbar/>
 
-        <div className={`w-full px-6 py-10 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
+         <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
         
                 <form onSubmit={handleFormSubmit}
             className={`max-w-md w-full flex flex-col items-center  justify-center  p-6 sm:p-8 rounded-xl gap-5`}>
 
                     <div className="flex items-center justify-center  text-base flex-col text-center">
-                      <h2 className={`text-xl font-semibold sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>Get started with</h2>
+                      <h2 className="auth-page-title">Get started with</h2>
                       <img src={isDark ? logo : logo_black} className="h-10 w-30 mb-2"/>
-                      <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Start tracking and resolving issues with your team.</p>
+                      <p className="auth-page-subtitle">Start tracking and resolving issues with your team.</p>
                     </div>
 
 
@@ -133,16 +133,13 @@ const Register = () => {
                     }
                     </div>
         
-                    <button type="submit" disabled={isLoading}
-                    className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
-                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
-                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
+                    <button type="submit" disabled={isLoading} className="auth-page-button">
                         {!isLoading && <UserPlus size={24}/>}
                        {isLoading  && (<LoaderCircle className="animate-spin"/>)}
                        {isLoading? "Setting up your account...":  "Sign up"}
                     </button>
-                    <p className={`${isDark ? "text-white/50" : "text-black/50"} text-sm `}>Already have an account? 
-                    <Link className={`${isDark ? "text-teal-400": "text-teal-600"} hover:underline px-2`} to="/auth/sign-in">Log in</Link></p>
+                    <p className="auth-page-text">Already have an account? 
+                    <Link className="auth-page-navigation-link px-2" to="/auth/sign-in">Log in</Link></p>
 
                 </form>
             </div>

@@ -68,11 +68,11 @@ const ResetPassword = () => {
     <div className="flex min-h-screen flex-col">
         <BasicNavbar/>
 
-        <div className={`w-full px-6 py-10 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
+         <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
             
             <form onSubmit = {handleFormSubmit}
             className={`max-w-md w-full flex flex-col items-center justify-center p-6 sm:p-8 rounded-xl gap-5`}>
-                <h2 className={`text-xl font-medium sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>
+                <h2 className={`auth-page-title ${isDark ? "text-white/80" : "text-black/70"}`}>
                 Reset Password
                 </h2>
             
@@ -92,17 +92,14 @@ const ResetPassword = () => {
                     type="password" placeholder="Confirm Password" className={`bg-transparent ${isDark ?  "text-white" : "text-black"} placeholder-gray-500/80 outline-none text-base w-full h-full`} required />
                 </div>
     
-                <button type="submit" 
-                className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
-                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
-                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
+                <button type="submit" className="auth-page-button">
                 <KeyRound size={18}/>
                 <span>Reset Password</span>
                    
                 </button>
                 <div className="flex items-center gap-2 hover:underline">
                     <ArrowLeft size={18} className={`${isDark ? "text-teal-400" : "text-teal-600"} `}/>
-                    <Link className={`text-sm cursor-pointer  ${isDark ? "text-teal-400" : "text-teal-600"}`} relative="path" to="/auth/sign-in">   
+                    <Link className="auth-page-navigation-link" relative="path" to="/auth/sign-in">   
                     Back to log in
                     </Link>
                 </div>

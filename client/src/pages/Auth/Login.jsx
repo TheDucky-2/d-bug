@@ -74,18 +74,17 @@ const Login = () => {
     <>
 
         {/**Navbar section */}
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col ">
         <BasicNavbar/>
 
-        <div className={`w-full px-6 py-10 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
+        <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
         
             <form onSubmit={handleFormSubmit}
-            className={`max-w-md w-full flex flex-col  items-center justify-center 
-            p-6 sm:p-8 rounded-xl gap-5`}>
-                <h2 className={`text-xl font-semibold sm:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}>Sign in</h2>
-                <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Welcome back! Please login to continue</p>
+            className={`max-w-md w-full flex flex-col  items-center justify-center p-4 sm:p-4 rounded-xl gap-5`}>
+                <h2 className="auth-page-title">Sign in</h2>
+                <p className="auth-page-subtitle">Welcome back! Please login to continue</p>
                 
-                <p className={`text-sm text-center ${isDark ? "text-white/50" : "text-black/50"}`}>Sign in with</p>
+                <p className="auth-page-text">Sign in with</p>
                 <button type="button" className={`w-full rounded-full text-white text-sm font-semibold dark:bg-white dark:text-black
                     bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800 py-3
                 hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
@@ -95,12 +94,12 @@ const Login = () => {
     
                 <div className="flex items-center gap-4 w-full">
                     <div className="w-full h-px bg-gray-300/90"></div>
-                    <span className={`text-nowrap text-sm ${isDark ? "text-white/50" : "text-black/50"} `}>or </span>
+                    <span className={`text-nowrap auth-page-text`}>or </span>
                     <div className="w-full h-px bg-gray-300/90"></div>
                 </div>
 
                 <div className="flex items-center justify-center gap-4 w-full">
-                    <p className={` text-sm ${isDark ? "text-white/50" : "text-black/50"} `}>Sign in with</p>
+                    <p className="auth-page-text">Sign in with</p>
                 </div>
     
                 <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-xl overflow-hidden pl-6 gap-2">
@@ -157,22 +156,19 @@ const Login = () => {
                 <div className="w-full flex items-center justify-between text-white/50">
                     <div className="flex items-center gap-2">
                         <input className="h-5" type="checkbox" id="checkbox " />
-                        <label className={`text-sm ${isDark ? "text-white/50" : "text-black/50"}`} htmlFor="checkbox">Remember me</label>
+                        <label className="auth-page-text" htmlFor="checkbox">Remember me</label>
                     </div>
                 </div>
                 
-                <button type="submit" disabled={isLoading}
-                className={`w-full py-3 rounded-full text-white text-base font-semibold dark:bg-white dark:text-black
-                    bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
-                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center`}>
+                <button type="submit" disabled={isLoading} className="auth-page-button">
                     {isLoading && (<LoaderCircle className="animate-spin w-5 h-5"/>)}
                     {!isLoading && <LogIn size={24}/>}
                     <span>{isLoading ? "Logging in" : "Log in"}</span>
                 </button>
-                <p className={`${isDark ? "text-white/50" : "text-black/50"} text-sm `}>Don’t have an account? 
-                <Link className={`${isDark ? "text-teal-400": "text-teal-600"} hover:underline px-2`} relative="path" to="/auth/sign-up">Sign up</Link></p>
+                <p className="auth-page-text">Don’t have an account? 
+                <Link className="auth-page-navigation-link px-2" relative="path" to="/auth/sign-up">Sign up</Link></p>
 
-                <Link className={`text-sm hover:underline  ${isDark ? "text-teal-400" : "text-teal-600"}`} relative="path" to="/auth/forgot-password">Forgot password?</Link>
+                <Link className="auth-page-navigation-link" relative="path" to="/auth/forgot-password">Forgot password?</Link>
             </form>
         </div>
     </div>
