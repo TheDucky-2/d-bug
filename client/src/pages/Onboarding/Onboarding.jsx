@@ -45,7 +45,7 @@ const generateBugs = (count) => {
   return bugs;
 };
 
-const Onboarding = () => {
+const Onboarding = ({nextStep}) => {
   const [step, setStep] = useState(1);
   const [bugs, setBugs] = useState(() => generateBugs(BUG_COUNT));
   const [resolvedCount, setResolvedCount] = useState(0);
@@ -379,7 +379,7 @@ const Onboarding = () => {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=JetBrains+Mono:wght@400;600&display=swap');
-        * { font-family: 'Inter', sans-serif; }
+        * { font-family: 'Inter' }
 
         :root {
           --bg: #090909;

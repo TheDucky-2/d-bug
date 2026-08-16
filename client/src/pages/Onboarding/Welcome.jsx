@@ -29,6 +29,15 @@ const CounterDigit = ({ value }) => {
 
 const Welcome = ({ resolvedCount, totalBugs, allResolved, nextStep }) => {
   return (
+    <>
+<style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+        
+            * {
+                font-family: "Inter";
+            }
+    `}
+    </style>
     <div className="flex flex-col items-center gap-10 sm:gap-12 lg:gap-14 max-w-lg mx-auto">
 
       {/* Bug Hunt Counter / Workspace Clean */}
@@ -136,6 +145,7 @@ const Welcome = ({ resolvedCount, totalBugs, allResolved, nextStep }) => {
         }
       `}</style>
     </div>
+    </>
   )
 }
 

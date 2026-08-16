@@ -1,0 +1,263 @@
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { FolderPlus, LoaderCircle, X, Import } from "lucide-react"
+import { useState } from "react"
+import { useTheme } from "@/context/ThemeContext"
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { projectTypes } from "@/assets/assets"
+import { toast } from "sonner"
+
+import api from "@/config/axios"
+import { Separator } from "@/components/ui/separator"
+import { useCreateProject } from "@/hooks/useProjects"
+import type { createProjectInput } from "@/types/project"
+
+const CreateProjectDrawer = ({ openTrigger }) => {
+
+  const createProject = useCreateProject()
+  const [mode, setMode] = useState(null)
+  const {isDark} = useTheme()
+  const [project, setProject] = useState<createProjectInput>({
+                                    name : "",
+                                    category: "",
+                                    description: ""
+                                  })
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault()
+
+    createProject.mutate(project)
+  }
+
+
+  return (
+    <>
+  <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+        
+            * {
+                font-family: "Inter";
+            }
+    `}
+    </style>
+    <Drawer direction="right">
+      <DrawerTrigger asChild>
+        {openTrigger}
+      </DrawerTrigger>
+
+      <DrawerContent className="w-full sm:min-w-lg ml-auto">
+        <DrawerHeader className={`flex flex-col`}>
+          <div className="flex items-center justify-between">
+          <DrawerTitle className="text-2xl">
+            Create a New Project
+          </DrawerTitle>
+          <DrawerClose asChild>
+            <X/>
+          </DrawerClose>
+          </div>
+
+          <DrawerDescription className="mt-2 text-sm">
+            Start a bug triage project manually.
+          </DrawerDescription>
+        </DrawerHeader>
+
+        <div className="p-4 space-y-4">
+          {!mode && (
+            <>
+              <button
+                onClick={() => setMode("manual")}
+                className="w-full flex items-center gap-4 rounded-sm border p-4 text-left hover:bg-muted transition cursor-pointer"
+              >
+                <FolderPlus className="h-6 w-6" />
+
+                <div>
+                  <h3 className="font-medium">
+                    Create Manually
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Create an empty project and configure it later.
+                  </p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setMode("github")}
+                className="w-full flex items-center gap-4 rounded-sm border p-4 text-left hover:bg-muted transition cursor-pointer"
+              >
+                <img src={isDark ? "images/github_icon.png" : "/images/github_icon_dark.png"} className="h-7 w-7"/>
+
+                <div>
+                  <h3 className="font-medium">
+                    Connect GitHub Repository
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Import issues and sync bugs from a repository.
+                  </p>
+                </div>
+              </button>
+            </>
+          )}
+
+          {mode === "manual" && (
+            <div className="space-y-4">
+
+              <form onSubmit={handleFormSubmit} id="project-create-form" >
+              <FieldSet>
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="project-name" className={`flex gap-1`}>
+                      <span>Project Name</span>
+                      <span className="text-red-600 font-bold text-lg">*</span>
+                      </FieldLabel>
+                    <Input required id="project-name" autoComplete="off" value = {project.name}
+                    onChange = {(e) => setProject(prev => (
+                       { ...prev,
+                          name: e.target.value
+                       }
+
+                      ))
+                    }
+                    placeholder="Bug Tracker Pro, My SaaS Dashboard, etc." className={`rounded-xs`}/>
+                    <FieldDescription>Name of your project or repository.</FieldDescription>
+                  </Field>
+
+                  <Field>
+                    <FieldLabel htmlFor="project-category" className={`flex gap-1`}>
+                      <span>Category</span>
+                      <span className="text-red-600 font-bold text-lg">*</span>
+                    </FieldLabel>
+                   <Select id="project-category" required
+                   items={projectTypes}  value={project.category}
+                    onValueChange={(value) => 
+                          {      console.log(value)
+                                setProject(prev =>( {
+                                ...prev,
+                                  category : value
+                              }))
+                            }
+                          }
+                   >
+                      <SelectTrigger className="w-45">
+                        <SelectValue placeholder="Enterprise Software"/>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {projectTypes.map((type) => (
+                            <SelectItem key={type.id} value = {type.name} 
+                            >
+                              {type.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FieldDescription>Description of what this project is about.</FieldDescription>
+                  </Field>
+
+                  <Field>
+                    <FieldLabel htmlFor="description">Description</FieldLabel>
+                    <Textarea id="description" className="min-h-32 rounded-xs"
+                    onChange={(e) =>
+                      setProject((prev) => ({
+                        ...prev,
+                        description : e.target.value,
+                      }))
+                    }
+                    placeholder="e.g. A platform for managing software issues, tracking bugs and collaborating with the development team."/>
+                    <FieldDescription>Description of what this project is about.</FieldDescription>
+                  </Field>
+
+                    <div className="">
+                    <button type="submit" id="project-create-form" disabled={createProject.isPending}
+              className="max-w-48 text-sm text-black bg-yellow-500 hover:bg-yellow-600 dark:text-black px-4 py-3 font-semibold mt-4 rounded-sm">
+                {mode === "github" ? "Import Repository" : 
+                
+                createProject.isPending ? 
+                (
+                  <div className="flex items-center justify-center gap-2">
+                    <LoaderCircle size={18} className="animate-spin"/>
+                    <p>Creating Project...</p>
+                  </div>
+                )
+                : "Create Project"}
+                
+
+              </button>
+              </div>
+                  
+                </FieldGroup>
+              
+            <Separator/>
+            
+            <FieldGroup>
+              <div className="flex flex-col gap-1 items-center">
+
+                {/**Create Project Button */}
+
+                  {/** GO BACK button */}
+
+            <button onClick={() => setMode(null)} 
+            className="max-w-48 font-semibold text-sm bg-primary text-primary-foreground  dark:hover:bg-zinc-300 hover:bg-zinc-700 px-4 py-3  mt-4 rounded-sm  ">
+              Go Back
+            </button>
+
+          </div>
+          </FieldGroup>
+          </FieldSet>
+            </form>
+            </div>
+          )}
+
+          {mode === "github" && (
+            <div className="space-y-4">
+              <button 
+              className="w-full bg-black text-white transition hover:bg-zinc-700 dark:hover:bg-zinc-600 py-4 flex items-center justify-center gap-2 font-semibold text-sm">
+                <img src={github_icon} className="h-5 w-5"/>
+                Connect GitHub
+              </button>
+
+              <p className="text-sm text-muted-foreground text-center">
+                You will be redirected to GitHub to authorize access.
+              </p>
+
+            <div className="pt-4 border-t">
+
+            <button onClick={() => setMode(null)} 
+            className="w-full font-semibold text-sm bg-primary text-primary-foreground  dark:hover:bg-zinc-300 hover:bg-zinc-700 p-3 ">
+              Go Back
+            </button>
+            </div>
+            </div>
+          )}
+        </div>
+
+      </DrawerContent>
+    </Drawer>
+    </>
+  )
+}
+
+export default CreateProjectDrawer

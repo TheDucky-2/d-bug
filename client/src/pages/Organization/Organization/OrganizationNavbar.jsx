@@ -1,4 +1,4 @@
-import { Moon, Sun, Bell, PanelLeft, Search} from "lucide-react";
+import { Moon, Sun, Bell, PanelLeft, Search, LogOut, CircleUser, UserCog  } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext.jsx";
 import { useState } from "react";
 import {
@@ -12,14 +12,31 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "@/context/AuthContext";
+import Profile from "../../Profile";
+import { useNavigate } from "react-router-dom";
 
 const OrganizationNavbar = ({organizationLogo}) => {
 
     const {isDark, toggleTheme} = useTheme()
     const [hasMessages, setHasMessages] = useState()
     const {logout} = useAuth()
+    const navigate = useNavigate()
+
+    const handleNavigate = () => {
+      navigate("/profile")
+
+    }
 
   return (
+    <>
+  <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+        
+            * {
+                font-family: "Inter";
+            }
+    `}
+    </style>
     <div className="flex sticky top-0 z-50 justify-between items-center px-2 sm:px-4 lg:px-6 py-2">
       <div className="gap-5 items-center flex ">
         <PanelLeft className="h-5 w-5 text-zinc-700 dark:text-zinc-400  dark:hover:text-blue-400 transition-colors"/>
@@ -53,19 +70,31 @@ const OrganizationNavbar = ({organizationLogo}) => {
                 <DropdownMenuTrigger asChild className="h-10 w-10">
                 <Avatar>
                   <AvatarImage src={organizationLogo}/>
-                  <AvatarFallback>MEM</AvatarFallback>
+                  <AvatarFallback>ORG</AvatarFallback>
                 </Avatar>
 
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent >
                   <DropdownMenuGroup>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>User Settings</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <button onClick={handleNavigate} className="cursor-pointer flex items-center gap-2">
+                        <CircleUser />
+                        Profile
+                      </button>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="flex items-center gap-2 cursor-pointer"> 
+                      <UserCog  />
+                      User Settings
+                      </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <button onClick={logout}>
+                  <DropdownMenuItem variant="destructive">
+                    <button 
+                    className="items-center flex gap-2 cursor-pointer"
+                    onClick={logout}
+                    >
+                      <LogOut/>
                       Logout
                     </button>
                   </DropdownMenuItem>
@@ -75,6 +104,7 @@ const OrganizationNavbar = ({organizationLogo}) => {
         </div>
 
     </div>
+    </>
 
   )
 }
