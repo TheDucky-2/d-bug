@@ -317,13 +317,13 @@
 /* PRICING CARDS */
 
 .pricing-card{
-  @apply rounded-sm dark:bg-zinc-100 bg-zinc-800 font-medium 
+  @apply rounded-sm dark:bg-zinc-100 bg-zinc-800 font-medium;
 
   & h1{
-    @apply text-4xl md:text-[52px] dark:text-teal-500 text-teal-700 text-center
+    @apply text-4xl md:text-[52px] dark:text-teal-500 text-teal-700 text-center;
   }
 
   & p{
-    @apply text-base/7 text-zinc-400 max-w-sm text-center mt-4
+    @apply text-base/7 text-zinc-400 max-w-sm text-center mt-4;
   }
 }
