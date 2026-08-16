@@ -78,7 +78,7 @@ const Pricing = () => {
                         <div className="flex justify-between items-center w-full">
                           <h1 className=' flex items-center gap-2 font-medium text-3xl dark:text-teal-600 text-teal-600 mt-1'>
                             {item.name}
-                            {item.name === "Basic" &&  <Zap className="text-yellow-600"/> }
+                            {item.name === "Free" &&  <Zap className="text-yellow-600"/> }
                             {item.name === "Pro" &&  <Crown className="text-yellow-600"/> }
                           
                           </h1>
