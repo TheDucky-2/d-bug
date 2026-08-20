@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/axios";
 import { toast } from "sonner";
 import { useTheme } from "@/context/ThemeContext";
-import { LoaderCircle, UserPlus } from "lucide-react";
+import { ArrowLeft, Home, LoaderCircle, UserPlus } from "lucide-react";
 import {  Eye, EyeOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -138,7 +138,9 @@ const Register = () => {
                     </button>
                     <p className="auth-page-text">Already have an account? 
                     <Link className="auth-page-navigation-link px-2" to="/auth/sign-in">Log in</Link></p>
-
+                    <Link className="home-navigation-link flex items-center gap-1  " relative="path" to="/">
+                            <ArrowLeft size={28}/> Go Back to Home
+                    </Link>
                 </form>
             </div>
         </div>

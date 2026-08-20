@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Github } from '@lobehub/icons';
 
 import { useTheme } from "@/context/ThemeContext";
-import { LoaderCircle, LogIn, Eye, EyeOff } from "lucide-react";
+import { LoaderCircle, LogIn, Eye, EyeOff, Home, ArrowLeft } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Login = () => {
@@ -166,6 +166,9 @@ const Login = () => {
                 <Link className="auth-page-navigation-link px-2" relative="path" to="/auth/sign-up">Sign up</Link></p>
 
                 <Link className="auth-page-navigation-link" relative="path" to="/auth/forgot-password">Forgot password?</Link>
+                <Link className="home-navigation-link flex items-center gap-1  " relative="path" to="/">
+                   <ArrowLeft size={28}/>Go Back to Home
+                </Link>
             </form>
         </div>
     </div>
