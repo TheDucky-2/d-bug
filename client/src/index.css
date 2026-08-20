@@ -50,7 +50,7 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
+    --background: rgb(244, 244, 245);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -212,8 +212,8 @@
 /* NAVBAR */
 
 .navbar{
-  @apply sticky top-0 z-50 items-center flex w-full shadow-md max-h-20 py-4 m-0 border-b justify-evenly flex-wrap 
-  sm:flex-row 
+  @apply fixed top-0  items-center flex w-full shadow-md max-h-20 py-4 m-0 border-b justify-evenly flex-wrap 
+  sm:flex-row bg-background
         
 }
 
@@ -261,18 +261,19 @@
 }
 
 .dashboard-round-button{
-  @apply py-3 px-4 rounded-full cursor-pointer sm:text-xs lg:text-sm md:text-sm font-medium flex items-center gap-2
+  @apply py-3 px-5 rounded-full cursor-pointer sm:text-xs lg:text-sm md:text-sm font-bold flex items-center gap-2
 }
 
 .dashboard-black-white-button{
   @apply      flex items-center gap-2 dark:hover:bg-zinc-300 cursor-pointer
             dark:bg-white  dark:text-black  dark:border-white/30 bg-black text-white border-white/30 hover:bg-zinc-800/80
-              px-4 py-2 font-bold  text-sm transition 
+              px-5 py-3 font-bold  text-sm transition 
 }
 
 .dashboard-rectangle-button{
-  @apply py-2 px-4 rounded-sm flex gap-2 cursor-pointer lg:text-sm md:text-sm sm:text-xs font-semibold items-center
-  
+  @apply py-2 px-4 rounded-sm flex gap-2 cursor-pointer lg:text-sm md:text-sm sm:text-xs items-center
+          font-bold dark:bg-white dark:text-black bg-black text-white dark:hover:bg-zinc-200
+          hover:bg-zinc-700 transition-all translate-1
 }
 
 .dashboard-title{
@@ -300,18 +301,19 @@
 
 .image-upload-box{
   @apply flex items-center gap-2 max-h-54 px-2 text-sm dark:border-zinc-100/50 border-zinc-800/50  cursor-pointer 
-  bg-transparent border py-2 border-dashed rounded-sm 
+  bg-transparent border py-2 border-dashed rounded-sm;
 }
 
 /* ICONS */
 
 .icon-button{
-  @apply h-6 w-6 text-zinc-700 dark:text-zinc-300  hover:text-blue-600 dark:hover:text-blue-500 transition-colors cursor-pointer
+  @apply h-5 w-5 md:h-6 md:w-6 lg:h-6 lg:w-6 text-zinc-700 dark:text-zinc-300  hover:text-blue-600 dark:hover:text-blue-500
+         transition-colors cursor-pointer;
    
 }
 
 .tooltip-content{
-  @apply rounded-sm dark:bg-zinc-100 bg-zinc-800 font-medium text-sm
+  @apply rounded-sm dark:bg-zinc-100 bg-zinc-800 font-medium text-sm;
 }
 
 /* PRICING CARDS */
@@ -326,4 +328,74 @@
   & p{
     @apply text-base/7 text-zinc-400 max-w-sm text-center mt-4;
   }
+}
+
+/* MAIN PAGE CONTENT */
+
+.page-title{
+  @apply font-bold  md:text-[52px] dark:text-teal-300 text-teal-700 items-center max-w-6xl
+         text-4xl md:text-6xl lg:text-6xl;
+}
+
+.page-paragraph{
+  @apply text-base dark:text-zinc-400 text-zinc-500;
+}
+
+.page-important-paragraph{
+  @apply dark:text-zinc-400 text-zinc-500 sm:text-2xl lg:text-4xl md:text-4xl; 
+}
+
+.page-subtitle{
+  @apply font-medium lg:text-2xl md:text-2xl text-xl   dark:text-zinc-100/80 text-zinc-900/80;
+}
+
+.page-footer{
+  @apply font-semibold  md:text-[52px] dark:text-teal-300 text-teal-700 items-center max-w-6xl
+         text-2xl md:text-4xl lg:text-4xl;
+}
+
+/* Feature Card */
+
+.feature-main-title{
+  @apply   lg:text-5xl md:text-5xl sm:text-4xl font-semibold flex items-center gap-4 ;
+}
+
+.feature-card{
+  @apply rounded-sm border dark:border-zinc-100/10 border-zinc-800/10 px-6 flex flex-col gap-4;
+
+  & .card-title{
+    @apply lg:text-4xl md:text-4xl sm:text-xl font-semibold flex  gap-2 items-center py-8;
+  }
+
+  & img{
+    @apply rounded-lg lg:mt-4 sm:mt-4; 
+  }
+
+  & .description-icon{
+    @apply bg-linear-to-tr from-zinc-900 via-rose-400 to-rose-300 rounded-sm h-8 w-8 p-1 border border-purple-200/40 ;
+  }
+
+  & .feature-description-container{
+    @apply flex  w-full items-center flex-col ;
+  }
+
+  & .description-container{
+    @apply flex justify-between w-full py-4 lg:py-10 md:py-10 flex-col gap-6 lg:flex-row md:flex-row
+  }
+
+  & .feature-description-header{
+    @apply max-w-xl md:text-3xl sm:text-2xl lg:text-3xl font-semibold
+  }
+
+   & .feature-description{
+    @apply max-w-lg
+  }
+}
+
+.separator{
+  @apply my-10;
+}
+
+.home-navigation-link{
+  @apply  text-xs md:text-sm lg:text-sm font-semibold dark:hover:text-white hover:text-black  dark:text-teal-500 text-teal-600 
 }
