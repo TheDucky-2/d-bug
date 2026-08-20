@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+
 export const useSearch = () => {
 
     const [isSearching, setIsSearching] = useState(false)
@@ -14,7 +15,7 @@ export const useSearch = () => {
         setSearchQuery("")
     }
 
-    const handleSearchExitEvent = (e) => {
+    const handleSearchExitEvent = (e : React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === "Escape"){
             closeSearch()
         }
