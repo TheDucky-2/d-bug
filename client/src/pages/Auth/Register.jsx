@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/config/axios";
 import { toast } from "sonner";
-import BasicNavbar from "@/components/BasicNavbar.jsx";
 import { useTheme } from "@/context/ThemeContext";
 import { LoaderCircle, UserPlus } from "lucide-react";
 import {  Eye, EyeOff } from "lucide-react";
@@ -59,7 +58,6 @@ const Register = () => {
   return (
     <>
     <div className="flex min-h-screen flex-col">
-        <BasicNavbar/>
 
          <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
         
@@ -118,7 +116,7 @@ const Register = () => {
                     :
 
                     <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                             <button className="absolute right-2 top-3" onClick={toggleShowPassword}>
                                <Eye className=" text-gray-500/80 dark:text-gray-200/60 h-6 w-6"/> 
                     

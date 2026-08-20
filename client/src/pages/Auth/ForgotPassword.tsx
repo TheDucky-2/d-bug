@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
-import BasicNavbar from "@/components/BasicNavbar";
 import { ArrowLeft, Mail, Send } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
@@ -28,17 +27,10 @@ const ForgotPassword = () => {
 
   return (
     <>
-     <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
-        
-            * {
-                font-family: "Inter";
-            }
-    `}</style>
+
 
         {/**Navbar section */}
     <div className="flex min-h-screen flex-col">
-        <BasicNavbar/>
 
          <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
             

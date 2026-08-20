@@ -4,10 +4,8 @@ import api from "@/config/axios";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Github } from '@lobehub/icons';
-import { Flexbox } from '@lobehub/ui';
 
 import { useTheme } from "@/context/ThemeContext";
-import BasicNavbar from "@/components/BasicNavbar";
 import { LoaderCircle, LogIn, Eye, EyeOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -75,7 +73,6 @@ const Login = () => {
 
         {/**Navbar section */}
     <div className="flex min-h-screen flex-col ">
-        <BasicNavbar/>
 
         <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
         
