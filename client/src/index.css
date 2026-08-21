@@ -47,7 +47,12 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
-}
+    --color-button-primary: var(--button-primary);
+    --color-button-border-secondary: var(--button-border);
+    --transparent-button-hover:var(--transparent-button-hover-background);
+    --ascii-art-color: var(--ascii-art-color)
+
+  }
 
 :root {
     --background: rgb(244, 244, 245);
@@ -87,6 +92,10 @@
     --grid-bg: #fafafa;
     --grid-shimmer: rgba(0, 0, 0, 0.015);
     --grid-glow: rgba(255, 255, 255, 0.06);
+    --button-primary: rgb(41, 129, 92);
+    --button-border: rgba(0,0,0, 0.3);  
+    --transparent-button-hover-background:  rgba(228, 228, 231, 0.8);
+    --ascii-art-color: rgba(0, 0, 0, 0.955);
 }
 
 .dark {
@@ -126,6 +135,10 @@
     --grid-bg: #090909;
     --grid-shimmer: rgba(255, 255, 255, 0.015);
     --grid-glow: rgba(255, 255, 255, 0.06);
+    --button-primary: rgb(11, 188, 150);
+    --button-border: rgba(255,255,255, 0.5);
+    --transparent-button-hover-background: rgba(63, 63, 70, 0.6);
+    --ascii-art-color: rgba(254, 229, 229);
 }
 
 @layer base {
@@ -209,6 +222,30 @@
   scrollbar-color: #71717a transparent;
 }
 
+.underline {
+  position: relative;
+  text-decoration: none;
+  color: black;
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: black;
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.underline:hover::after {
+  transform: scaleX(1);
+}
+
 /* NAVBAR */
 
 .navbar{
@@ -222,8 +259,9 @@
 }
 
 
-.plain-text-button{
-  @apply cursor-pointer text-sm transition-all font-semibold dark:text-zinc-100 text-zinc-800 hover:text-blue-600 dark:hover:text-blue-500
+.transparent-button{
+  @apply cursor-pointer transition-all font-semibold text-foreground  border border-button-border-secondary py-2
+         text-sm lg:text-sm md:text-sm px-4 rounded-sm hover:bg-(--transparent-button-hover)
 }
 
 /*AUTH PAGES*/
@@ -241,13 +279,13 @@
 }
 
 .auth-page-navigation-link{
-  @apply text-xs md:text-sm lg:text-sm font-semibold hover:text-blue-600  dark:text-teal-500 text-teal-600 
+  @apply text-xs md:text-sm lg:text-sm font-semibold hover:text-blue-600 text-foreground
 }
 
 .auth-page-button{
-  @apply        text-sm lg:text-base md:text-base font-semibold dark:bg-white dark:text-black w-full py-3 rounded-full text-white 
-              bg-zinc-800 dark:hover:bg-zinc-100 hover:bg-zinc-800
-                hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center
+@apply        text-sm lg:text-base md:text-base font-semibold bg-button-primary w-full py-3 rounded-lg
+      hover:rounded-none text-secondary
+      hover:opacity-90 transition-opacity cursor-pointer items-center flex gap-2 justify-center
 }
 
 /*DASHBOARD PAGES*/
@@ -271,9 +309,9 @@
 }
 
 .dashboard-rectangle-button{
-  @apply py-2 px-4 rounded-sm flex gap-2 cursor-pointer lg:text-sm md:text-sm sm:text-xs items-center
+  @apply py-2 px-4 rounded-sm cursor-pointer text-sm items-center
           font-bold dark:bg-white dark:text-black bg-black text-white dark:hover:bg-zinc-200
-          hover:bg-zinc-700 transition-all translate-1
+          hover:bg-zinc-700 
 }
 
 .dashboard-title{
@@ -396,6 +434,42 @@
   @apply my-10;
 }
 
+
 .home-navigation-link{
   @apply  text-xs md:text-sm lg:text-sm font-semibold dark:hover:text-white hover:text-black  dark:text-teal-500 text-teal-600 
+          hover:underline underline-offset-8
+}
+
+.search-bar{
+  @apply dark:border-zinc-100/50 border-zinc-900/50 border-2 rounded-full py-1 px-8 text-sm
+}
+
+.logo-ascii-art{
+
+  font-family: "JetBrains Mono", monospace;
+  white-space: pre;
+  color: var(--ascii-art-color);
+  background: transparent;
+  overflow: hidden;
+  font-size: 8px;
+  line-height: 1;
+  margin: 0px;
+}
+
+.bug-art{
+  font-family: "JetBrains Mono", monospace;
+  white-space: pre;
+  color: rgb(239, 9, 9);
+  background: transparent;
+  overflow: hidden;
+  font-size: 5px;
+  line-height: 1;
+  margin: 0px;
+}
+
+
+.button-primary{
+  @apply bg-button-primary py-2 px-4 rounded-sm cursor-pointer text-sm items-center
+          font-bold  dark:text-black  text-white dark:hover:bg-teal-400
+          hover:bg-teal-800 
 }

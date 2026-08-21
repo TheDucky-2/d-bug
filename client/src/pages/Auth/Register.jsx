@@ -8,6 +8,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { ArrowLeft, Home, LoaderCircle, UserPlus } from "lucide-react";
 import {  Eye, EyeOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cleanedLogoArt } from "@/assets/ascii_art"; 
 
 const Register = () => {
 
@@ -57,17 +58,17 @@ const Register = () => {
 
   return (
     <>
-    <div className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col">
 
-         <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
-        
+         <div className={`w-full flex-1 flex items-center justify-center px-6 lg:px-18 overflow-hidden`}>
+
+             <section className="flex w-full justify-center p-16 flex-2/3">
                 <form onSubmit={handleFormSubmit}
-            className={`max-w-md w-full flex flex-col items-center  justify-center  p-6 sm:p-8 rounded-xl gap-5`}>
-
-                    <div className="flex items-center justify-center  text-base flex-col text-center">
-                      <h2 className="auth-page-title">Get started with</h2>
-                      <img src={isDark ? logo : logo_black} className="h-10 w-30 mb-2"/>
-                      <p className="auth-page-subtitle">Start tracking and resolving issues with your team.</p>
+                className={`max-w-md w-full flex flex-col  items-center justify-center p-4 sm:p-4 rounded-xl gap-5`}>
+                    <div className="flex items-center justify-center  text-base flex-col text-center mb-5">
+                      <h2 className="auth-page-title text-left">Get started</h2>
+                      <p className="auth-page-subtitle mt-2">
+                        Create an account to start tracking and resolving bugs with your team.</p>
                     </div>
 
 
@@ -130,8 +131,27 @@ const Register = () => {
                     
                     }
                     </div>
-        
-                    <button type="submit" disabled={isLoading} className="auth-page-button">
+                  
+
+                    <div className="w-full flex items-center justify-between text-white/50 mb-5">
+                        <div className="flex items-center gap-2">
+                            <input className="h-5" type="checkbox" id="checkbox " />
+                            <label className="auth-page-text gap-1 flex" htmlFor="checkbox">
+                                I agree to the 
+                                <span>
+                                    <Link to="/terms-of-use" className="auth-page-navigation-link ">
+                                    Terms and Conditions
+                                    </Link>
+                                </span>
+                                
+           
+                            </label>
+                        </div>
+                    </div>
+                    
+                    {/** SIGN UP BUTTON */}
+
+                    <button type="submit" disabled={isLoading} className="button-primary flex items-center gap-2 w-full justify-center">
                         {!isLoading && <UserPlus size={24}/>}
                        {isLoading  && (<LoaderCircle className="animate-spin"/>)}
                        {isLoading? "Setting up your account...":  "Sign up"}
@@ -139,11 +159,20 @@ const Register = () => {
                     <p className="auth-page-text">Already have an account? 
                     <Link className="auth-page-navigation-link px-2" to="/auth/sign-in">Log in</Link></p>
                     <Link className="home-navigation-link flex items-center gap-1  " relative="path" to="/">
-                            <ArrowLeft size={28}/> Go Back to Home
+                            <ArrowLeft size={28}/> Back to Home
                     </Link>
+
                 </form>
+                
+                </section>
+
+            <section 
+            className=" hidden lg:flex w-[45%]  max-w-2xl h-250 p-16  flex-1/3 overflow-hidden items-center justify-center flex-col">
+                <pre className="logo-ascii-art">{cleanedLogoArt}</pre>
+                
+            </section>
             </div>
-        </div>
+        </main>
         </>
   )
 }
