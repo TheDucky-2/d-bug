@@ -1,20 +1,20 @@
 import {useTheme} from "../../../context/ThemeContext.jsx";
 import logo from "../../../assets/d_bug.png"
 import logo_black from "../../../assets/d_bug_black.png"
-import {sidebarMenuItems} from "../../../assets/assets.js"
-import { Inbox, Bug, FolderGit2, ChartNoAxesCombined, Settings, Users, LayoutGrid} from "lucide-react";
+import { Inbox, Bug, FolderGit2, Columns3, ChartNoAxesCombined, Settings, Users, LayoutGrid, CircleCheck, UserRoundKey, Wallet, UsersRound, CircleUser, CreditCard, Folder, Activity} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-
+import { EllipsisVertical } from 'lucide-react';
 import { Separator } from "@/components/ui/separator"
 import { Link } from "react-router-dom";
 import {
@@ -28,25 +28,67 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-
 const OrganizationSidebar = ({setActivePage}) => {
+
+ const yourOrganizationSidebarMenuItems = [
+
+  {title: "Overview",
+   url: "dashboard",
+   icon: LayoutGrid
+  },
+  {title: "Teams",
+   url: "teams",
+   icon: ChartNoAxesCombined
+  },
+  {title: "Members",
+   url: "members",
+   icon: Users
+  },
+  {title: "Inbox",
+   url: "inbox",
+   icon: Inbox
+  },
+  {title: "Activity",
+   url: "activity",
+   icon: Activity
+  },
+  {title: "Reports",
+   url: "reports",
+   icon: ChartNoAxesCombined
+  },
+]
+
+ const yourProjectsSidebarMenuItems = [
+
+  {title: "Projects",
+   url: "projects",
+   icon: Folder
+  },
+   {title: "Repositories",
+   url: "repositories",
+   icon: FolderGit2
+  },
+  {title: "Bugs",
+   url: "bugs",
+   icon: Bug
+  },
+  {title: "Bug Board",
+   url: "dashboard/bugboard",
+   icon: Columns3
+  }
+]
+
+
+
 
   const {isDark} = useTheme();
 
   return (
     <>
-    <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
-        
-            * {
-                font-family: "Inter";
-            }
-    `}
-    </style>
-    
-    <Sidebar className={`border border-r-white/20`} collapsible="icon">
+
+    <Sidebar className={`border border-r-white/20`} collapsible="offcanvas">
       <SidebarHeader>
-      <SidebarMenu className={`mb-1`}>
+      <SidebarMenu className={`py-(--padding-vertical-sm)`}>
         <SidebarMenuItem>
         <Link to="/">
         <img src={isDark ? logo : logo_black} className="h-8 w-24"/>
@@ -57,25 +99,48 @@ const OrganizationSidebar = ({setActivePage}) => {
       </SidebarHeader>
       <Separator/>
 
-      <SidebarContent className={`pt-2`}>
+      <SidebarContent className={`py-(--padding-vertical-sm)`}>
          <SidebarGroup>
+          <SidebarGroupLabel  className="text-foreground/50 font-semibold">
+            ORGANIZATION
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className={`gap-2`}>
-              {sidebarMenuItems.map((item) => {
+            <SidebarMenu className={`gap-md`}>
+              {yourOrganizationSidebarMenuItems.map((item) => {
                 return (
                   <SidebarMenuItem key={item.title} >
                     <SidebarMenuButton asChild>
-                      <button onClick={() => setActivePage(item.url)}>
-                      <div className="flex items-center gap-2">
-                        { 
-                          item.title === "Overview" ? <LayoutGrid size={18}/> :
-                          item.title === "Members" ? <Users size={18}/> :
-                          item.title === "Inbox" ? <Inbox size={18}/> : 
-                          item.title === "Bugs" ? <Bug size={18}/> :
-                          item.title === "Projects" ? <FolderGit2 size={18}/> :
-                          item.title === "Reports" ? <ChartNoAxesCombined size={18}/> : "None"
-                        }
-                        <span className={`text-sm ${isDark? "text-white/40 hover:text-white": "text-black"}`} >{item.title}</span>
+                      <button onClick={() => setActivePage(item.url)} className="cursor-pointer">
+                      <div className="flex items-center gap-lg">
+                        <item.icon size={18}/>
+                        <span className={`text-sm  text-foreground/80 `} >{item.title}</span>
+                        </div>
+                      </button>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+      <Separator/>
+        {/* Your Projects */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-foreground/50 font-semibold">
+            PROJECTS
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className={`gap-md`}>
+              {yourProjectsSidebarMenuItems.map((item) => {
+                return (
+                  <SidebarMenuItem key={item.title} >
+                    <SidebarMenuButton asChild>
+                      <button onClick={() => setActivePage(item.url)} className="cursor-pointer">
+                      <div className="flex items-center gap-lg">
+                        <item.icon size={18}/>
+                        <span className={`text-sm text-foreground/80`} >{item.title}</span>
                         </div>
                       </button>
                     </SidebarMenuButton>
@@ -88,32 +153,53 @@ const OrganizationSidebar = ({setActivePage}) => {
         </SidebarGroup>
       </SidebarContent>
 
+            <Separator/>
+
       <Separator/>
 
-      <SidebarFooter className={`gap-4 m-2`}>
-       <div>
+      <SidebarFooter className={`gap-sm py-(--padding-vertical-md)`}>
+       <div className="justify-between flex items-center" >
+
+        {/* Settings dropdown */}
+
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-          <button onClick = {()=> setActivePage("settings")}>
-          <div className="flex items-center gap-2">
+          <button onClick = {()=> setActivePage("settings")} className="cursor-pointer">
+          <div className="flex items-center px-(--padding-horizontal-sm) gap-lg w-full">
             <Settings size={18}/>
-            <span className={`text-sm ${isDark? "text-white/40 hover:text-white": "text-black"}`}>Settings</span>        
+            <span className={`text-sm text-foreground/80`}>
+            Settings
+            </span>        
             </div>
           </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className={`w-48`}>
+            <DropdownMenuContent className={`min-w-44 rounded-sm`}>
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Organization Settings</DropdownMenuLabel>
-                <DropdownMenuItem>Manage Permissions</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-md">
+
+                  <UserRoundKey />
+                  <p>Manage Permissions</p>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Wallet/>
+                  <p>Billing</p>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-md">
+                  <CircleCheck  />
+                  <p>Subscription</p>
+                </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+
+
+          <div>
+            <p>
+              <EllipsisVertical size={18}/>
+            </p>
+          </div>
+        
 
 
         
