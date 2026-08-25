@@ -6,7 +6,7 @@ import { BadgeCheck, CircleDot, EyeDashed, LucideIcon, RefreshCw } from 'lucide-
 import type { BugStatus } from '@/types/bug'
 import { useState } from 'react'
 
-const Columns = () => {
+const Columns = ({draggedElement, setDraggedElement}) => {
 
     const columnConfig: {
         status: string;
@@ -50,7 +50,41 @@ const Columns = () => {
             const columnBugs = bugs.filter(bug => bug.status === column.status)
 
             return (
-                <div key={column.status} className='bg-column w-1/4 px-(--padding-horizontal-sm) py-(--padding-vertical-md) rounded-xl'>
+                <div 
+                    onDragEnter={
+                        (e) => {
+                            e.preventDefault()
+                            console.log(e.currentTarget)
+                            e.currentTarget.classList.add("hover-over-column")
+                        }
+                    }  
+
+                    onDragLeave={
+                        (e) => {
+                            e.preventDefault()
+                            e.currentTarget.classList.remove("hover-over-column")
+                        }
+                    }
+
+                    onDragOver={
+                        (e) => {
+                            e.preventDefault()
+                            
+                        }
+                    }
+
+
+                    onDrop={
+                        (e) => {
+                            e.preventDefault()
+
+                            console.log("dropped", column)
+                            console.log("Dragged", draggedElement)
+                            
+                        }
+                    }
+
+                key={column.status} className='bg-column w-1/4 px-(--padding-horizontal-sm) py-(--padding-vertical-md) rounded-xl'>
                 <div>
                     <h2 className='text-lg flex items-center gap-lg'>
                     <column.icon className={`dark:text-${column.iconColor}-500 text-${column.iconColor}-600`} size={18}
@@ -64,7 +98,10 @@ const Columns = () => {
                 </div>
                     <div className='flex flex-col pt-(--padding-vertical-lg) gap-lg'>
                         {columnBugs.map((bug) => {
-                            return <BugCard bug={bug}/>
+                            return <BugCard 
+                            draggedElement={draggedElement} 
+                            setDraggedElement={setDraggedElement}
+                            bug={bug}  />
                         })}
                     </div>
 

@@ -1,7 +1,11 @@
+import { useState } from "react"
 import Columns from "./Columns"
 
 
 const BugBoard = () => {
+
+  const [draggedElement, setDraggedElement] = useState<HTMLElement>(null)
+
   return (
     <>
     <div >
@@ -10,8 +14,8 @@ const BugBoard = () => {
         </h1>
     </div>
 
-    <div className="mt-8">
-        <Columns/>
+    <div className="pt-(--padding-vertical-lg)">
+        <Columns draggedElement={draggedElement} setDraggedElement={setDraggedElement}/>
     </div>
     </>
   )

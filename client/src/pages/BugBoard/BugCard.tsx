@@ -1,13 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import type { BugProps } from "@/types/bug.js";
+import type { BugCardProps } from "@/types/bug.js";
 import { bugs } from "@/assets/assets.js";
 import { Bug, Calendar } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useRef, useState } from "react";
 
 
 
- const BugCard = ({bug}: BugProps) => {
-
+ const BugCard = ({bug, draggedElement, setDraggedElement}: BugCardProps) => {
 
 
     const convertToDay = (dateString: string) => {
@@ -25,10 +25,19 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
         
 
     return (
-        <div draggable>
+        <div draggable 
+        onDragStart={(e)=> {
+            console.log("Dragging bug", bug.id)
+            console.log(e.currentTarget)
+
+            setDraggedElement(e.currentTarget)
+        }}
+        
+        
+        >
         <Tooltip>
             <TooltipTrigger asChild>
-        <div className="card bg-background p-4 text-xs border border-zinc-100/20 rounded-lg">
+        <div className="card backdrop-blur-md bg-background p-4 text-xs border border-zinc-100/20 rounded-lg">
 
             {/** CARD HEADER */}
             <div className="flex items-center justify-between text-xs">
