@@ -1,7 +1,7 @@
 import {useTheme} from "../../../context/ThemeContext.jsx";
 import logo from "../../../assets/d_bug.png"
 import logo_black from "../../../assets/d_bug_black.png"
-import { Inbox, Bug, FolderGit2, Columns3, ChartNoAxesCombined, Settings, Users, LayoutGrid, CircleCheck, UserRoundKey, Wallet, UsersRound, CircleUser, CreditCard, Folder, Activity} from "lucide-react";
+import { Inbox, Bug, FolderGit2, Columns3, ChartNoAxesCombined, Settings, Users, LayoutGrid, CircleCheck, UserRoundKey, Wallet, UsersRound, CircleUser, CreditCard, Folder, Activity, SquareUserRound} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -36,13 +36,13 @@ const OrganizationSidebar = ({setActivePage}) => {
    url: "dashboard",
    icon: LayoutGrid
   },
-  {title: "Teams",
+  {title: "Team",
    url: "teams",
-   icon: ChartNoAxesCombined
+   icon: SquareUserRound
   },
   {title: "Members",
    url: "members",
-   icon: Users
+   icon: UsersRound
   },
   {title: "Inbox",
    url: "inbox",
@@ -78,16 +78,13 @@ const OrganizationSidebar = ({setActivePage}) => {
   }
 ]
 
-
-
-
   const {isDark} = useTheme();
 
   return (
     <>
 
-    <Sidebar className={`border border-r-white/20`} collapsible="offcanvas">
-      <SidebarHeader>
+    <Sidebar  collapsible="offcanvas">
+      <SidebarHeader className={`bg-dashboard-container`}>
       <SidebarMenu className={`py-(--padding-vertical-sm)`}>
         <SidebarMenuItem>
         <Link to="/">
@@ -97,9 +94,9 @@ const OrganizationSidebar = ({setActivePage}) => {
       </SidebarMenu>
 
       </SidebarHeader>
-      <Separator/>
 
-      <SidebarContent className={`py-(--padding-vertical-sm)`}>
+
+      <SidebarContent className={`py-(--padding-vertical-sm) bg-dashboard-container`}>
          <SidebarGroup>
           <SidebarGroupLabel  className="text-foreground/50 font-semibold">
             ORGANIZATION
@@ -125,7 +122,7 @@ const OrganizationSidebar = ({setActivePage}) => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-      <Separator/>
+
         {/* Your Projects */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-foreground/50 font-semibold">
@@ -153,11 +150,9 @@ const OrganizationSidebar = ({setActivePage}) => {
         </SidebarGroup>
       </SidebarContent>
 
-            <Separator/>
 
-      <Separator/>
 
-      <SidebarFooter className={`gap-sm py-(--padding-vertical-md)`}>
+      <SidebarFooter className={`gap-sm py-(--padding-vertical-md) bg-dashboard-container`}>
        <div className="justify-between flex items-center" >
 
         {/* Settings dropdown */}
@@ -199,10 +194,7 @@ const OrganizationSidebar = ({setActivePage}) => {
               <EllipsisVertical size={18}/>
             </p>
           </div>
-        
-
-
-        
+            
       </div>
     
       </SidebarFooter>
