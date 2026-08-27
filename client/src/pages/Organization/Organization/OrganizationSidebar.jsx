@@ -1,7 +1,8 @@
 import {useTheme} from "../../../context/ThemeContext.jsx";
 import logo from "../../../assets/d_bug.png"
 import logo_black from "../../../assets/d_bug_black.png"
-import { Inbox, Bug, FolderGit2, Columns3, ChartNoAxesCombined, Settings, Users, LayoutGrid, CircleCheck, UserRoundKey, Wallet, UsersRound, CircleUser, CreditCard, Folder, Activity, SquareUserRound} from "lucide-react";
+import { Inbox, Bug, FolderGit2, Columns3,
+  ChevronDown, ChartNoAxesCombined, Settings, Users, LayoutGrid, CircleCheck, UserRoundKey, Wallet, UsersRound, CircleUser, CreditCard, Folder, Activity, SquareUserRound} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -26,9 +27,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible.jsx";
+import { useState } from "react";
 
 
 const OrganizationSidebar = ({setActivePage}) => {
+
+ const [isCollapsed, setIsCollapsed] = useState(false)
 
  const yourOrganizationSidebarMenuItems = [
 
@@ -97,10 +102,24 @@ const OrganizationSidebar = ({setActivePage}) => {
 
 
       <SidebarContent className={`py-(--padding-vertical-sm) bg-dashboard-container`}>
+
+        <Collapsible asChild>
+
          <SidebarGroup>
-          <SidebarGroupLabel  className="text-foreground/50 font-semibold">
-            ORGANIZATION
+           <SidebarGroupLabel asChild  className="text-foreground/50 font-semibold">
+            <CollapsibleTrigger >
+            <button 
+            onClick={() => setIsCollapsed(prev => !prev)}
+            className="flex items-center justify-between icon-button  w-full"
+              >
+              ORGANIZATION
+              <ChevronDown className="ml-auto  transition-transform group-data-[state=open]/collapsible:rotate-180" />
+            </button>
+              
+            </CollapsibleTrigger>
           </SidebarGroupLabel>
+
+          <CollapsibleContent>
           <SidebarGroupContent>
             <SidebarMenu className={`gap-md`}>
               {yourOrganizationSidebarMenuItems.map((item) => {
@@ -120,14 +139,30 @@ const OrganizationSidebar = ({setActivePage}) => {
 
             </SidebarMenu>
           </SidebarGroupContent>
+          </CollapsibleContent>
         </SidebarGroup>
+        </Collapsible>
 
 
         {/* Your Projects */}
+
+        <Collapsible asChild>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground/50 font-semibold">
-            PROJECTS
+          <SidebarGroupLabel asChild className="text-foreground/50 font-semibold">
+              <CollapsibleTrigger>
+           
+            <button 
+            onClick={() => setIsCollapsed(prev => !prev)}
+            className="flex items-center justify-between  w-full icon-button"
+              >
+              PROJECTS
+              <ChevronDown className="ml-auto  transition-transform group-data-[state=open]/collapsible:rotate-180" />
+            </button>
+             
+            </CollapsibleTrigger>
           </SidebarGroupLabel>
+
+          <CollapsibleContent>
           <SidebarGroupContent>
             <SidebarMenu className={`gap-md`}>
               {yourProjectsSidebarMenuItems.map((item) => {
@@ -147,7 +182,11 @@ const OrganizationSidebar = ({setActivePage}) => {
 
             </SidebarMenu>
           </SidebarGroupContent>
+          </CollapsibleContent>
         </SidebarGroup>
+
+        </Collapsible>
+
       </SidebarContent>
 
 
