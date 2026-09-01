@@ -11,15 +11,17 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .Project import Project
+    from .Team import Team
 
 class Organization(Base):
 
     __tablename__ = "organizations"
 
     organization_id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    organization_name: Mapped[str] = mapped_column(unique=True)
+    organization_name: Mapped[str] = mapped_column()
     organization_logo_url: Mapped[str | None] = mapped_column(nullable=True)
     organization_status: Mapped[OrganizationStatus] = mapped_column(default=OrganizationStatus.ACTIVE)
-    organization_projects: Mapped[List["Project"]]  = relationship(back_populates="organization")
+    projects: Mapped[List["Project"]]  = relationship(back_populates="organization")
+    teams : Mapped["Team"] = relationship(back_populates="organization")
     members: Mapped[List["Member"]] = relationship(back_populates="organization")
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
