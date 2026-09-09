@@ -57,18 +57,15 @@ const Register = () => {
 }
 
   return (
-    <>
-    <main className="flex min-h-screen flex-col">
-
-         <div className={`w-full flex-1 flex items-center justify-center px-6 lg:px-18 overflow-hidden`}>
-
-             <section className="flex w-full justify-center p-16 flex-2/3">
+        <div className="min-h-screen w-full ">
+         <div className={` min-h-screen items-center justify-center flex container   `}>
                 <form onSubmit={handleFormSubmit}
-                className={`max-w-md w-full flex flex-col  items-center justify-center p-4 sm:p-4 rounded-xl gap-5`}>
+                className={`max-w-md  w-full flex flex-col  items-center justify-center min-w-0 p-4 sm:p-4 rounded-xl gap-5`}>
                     <div className="flex items-center justify-center  text-base flex-col text-center mb-5">
-                      <h2 className="auth-page-title text-left">Get started</h2>
-                      <p className="auth-page-subtitle mt-2">
-                        Create an account to start tracking and resolving bugs with your team.</p>
+                      <h2 className="text-left">Let's get started</h2>
+                      <h4 className=" text-foreground/60 mt-2">
+                        Create an account to start tracking and resolving bugs with your team.
+                      </h4>
                     </div>
 
 
@@ -134,12 +131,13 @@ const Register = () => {
                   
 
                     <div className="w-full flex items-center justify-between text-white/50 mb-5">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <input className="h-5" type="checkbox" id="checkbox " />
-                            <label className="auth-page-text gap-1 flex" htmlFor="checkbox">
+                            <label className=" gap-1 text-foreground/60 flex" htmlFor="checkbox">
                                 I agree to the 
                                 <span>
-                                    <Link to="/terms-of-use" className="auth-page-navigation-link ">
+                                    <Link to="/terms-of-use" 
+                                    className="font-semibold hover:text-blue-600 text-foreground transition-all duration-300 ">
                                     Terms and Conditions
                                     </Link>
                                 </span>
@@ -156,24 +154,18 @@ const Register = () => {
                        {isLoading  && (<LoaderCircle className="animate-spin"/>)}
                        {isLoading? "Setting up your account...":  "Sign up"}
                     </button>
-                    <p className="auth-page-text">Already have an account? 
-                    <Link className="auth-page-navigation-link px-2" to="/auth/sign-in">Log in</Link></p>
+                    <h4 className="text-foreground/60">Already have an account? 
+                        <Link className="font-semibold hover:text-blue-600 text-foreground px-2 transition-all duration-300  text-text-small" to="/auth/sign-in">Log in</Link>
+                    </h4>
                     <Link className="home-navigation-link flex items-center gap-1  " relative="path" to="/">
                             <ArrowLeft size={28}/> Back to Home
                     </Link>
 
                 </form>
-                
-                </section>
-
-            <section 
-            className=" hidden lg:flex w-[45%]  max-w-2xl h-250 p-16  flex-1/3 overflow-hidden items-center justify-center flex-col">
-                <pre className="logo-ascii-art">{cleanedLogoArt}</pre>
-                
-            </section>
+           
             </div>
-        </main>
-        </>
+</div>
+
   )
 }
 

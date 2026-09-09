@@ -79,7 +79,7 @@
     --color-resolved: oklch(74.3% 0.219 149.579);
     --color-dashboard-container: var(--dashboard-container-color);
     --color-table-background: var(--background-table);
-
+    --text-small: clamp(0.8rem, 1.2vw, 1rem);
   }
 
 :root {
@@ -185,7 +185,7 @@
     html,
     body,
     #root {
-    @apply m-0 p-0 w-full h-full;
+    @apply m-0 p-0 w-full h-full ;
   }
 
   * {
@@ -286,6 +286,34 @@
   transform: scaleX(1);
 }
 
+
+
+h2{
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
+}
+
+h4{
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+p{
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+.container{
+  margin-inline: auto;
+  height: auto;
+  width: min(90em, 95%);
+}
+
+
+label{
+
+ font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+
+
 /* NAVBAR */
 
 .navbar{
@@ -306,17 +334,11 @@
 
 /*AUTH PAGES*/
 
-.auth-page-title{
-  @apply  text-base md:text-xl lg:text-xl font-bold dark:text-white/80 text-black/70
-}
 
 .auth-page-subtitle{
   @apply text-xs md:text-sm lg:text-sm text-center dark:text-white/60 text-black/60
 }
 
-.auth-page-text{
-  @apply text-xs md:text-sm lg:text-sm text-center dark:text-white/50 text-black/50
-}
 
 .auth-page-navigation-link{
   @apply text-xs md:text-sm lg:text-sm font-semibold hover:text-blue-600 text-foreground
