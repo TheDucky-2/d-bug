@@ -60,6 +60,10 @@
     --gap-lg: 8px;
     --gap-xl: 16px;
     --gap-2xl: 32px;
+    --gap-icon-text: clamp(0.375rem, 0.25rem + 0.4vw, 0.75rem);
+    --gap-oauth-btn: clamp(0.625rem, 0.4rem + 0.5vw, 1rem);
+    --gap-input-field:  clamp(0.75rem, 0.5rem + 0.7vw, 1.25rem);
+    --gap-major: clamp(1rem, 0.5rem + 1vw, 1.5rem);
     --padding-vertical-lg: 2rem;
     --padding-vertical-md: 1rem;
     --padding-vertical-ms: 0.75rem;
@@ -289,7 +293,7 @@
 
 
 h2{
-  font-size: clamp(1.5rem, 2vw, 2.5rem);
+  font-size: clamp(1.0rem, 3vw + 1rem , 2.5rem);
 }
 
 h4{
@@ -297,7 +301,7 @@ h4{
 }
 
 p{
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-size: clamp(0.5rem, 1.5vw + 0.5rem, 1rem);
 }
 
 .container{
@@ -311,6 +315,19 @@ label{
 
  font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
+
+
+.grid-container-l{
+  padding-inline: clamp(1rem, 5vw, 3rem);
+  width: 100%;
+  min-height: 100vh;
+
+  grid-template-columns:  1fr;
+  grid-template-rows: min(80px, 30%) 1fr;
+  display: grid;
+}
+
+
 
 
 
@@ -341,7 +358,7 @@ label{
 
 
 .auth-page-navigation-link{
-  @apply text-xs md:text-sm lg:text-sm font-semibold hover:text-blue-600 text-foreground
+  @apply  font-semibold hover:text-blue-600 text-foreground hover:underline-offset-4 hover:underline
 }
 
 .auth-page-button{
@@ -505,8 +522,8 @@ label{
 
 
 .home-navigation-link{
-  @apply  text-xs md:text-sm lg:text-sm font-semibold dark:hover:text-white hover:text-black  dark:text-teal-500 text-teal-600 
-          hover:underline underline-offset-8
+  @apply font-semibold dark:hover:text-white hover:text-black  dark:text-teal-500 text-teal-600 
+          hover:underline underline-offset-8 transition-all duration-500
 }
 
 .navigation-arrow{
@@ -548,11 +565,22 @@ nav .button-primary{
           hover:bg-teal-800 
 }
 
-.button-primary{
+.button-primary {
+  @apply dark:bg-teal-700 bg-teal-600
+    py-(--padding-vertical-ms)
+    px-(--padding-horizontal-md)
+    rounded-sm
+    cursor-pointer
+    items-center
+    font-bold
+    dark:text-white
+    text-white
+    dark:hover:bg-teal-600
+    hover:bg-teal-800
+    transition-all
+    duration-500;
 
-  @apply dark:bg-teal-700 bg-teal-600 py-(--padding-vertical-ms) px-(--padding-horizontal-md)  rounded-sm cursor-pointer text-sm items-center
-          font-bold  dark:text-white  text-white dark:hover:bg-teal-600
-          hover:bg-teal-800 transition-all duration-500
+  font-size: clamp(0.5rem, 1.5vw + 0.5rem, 1rem);
 }
 
 .button-primary-dark{

@@ -1,13 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
-import { ArrowLeft, Mail, Send } from "lucide-react";
+import { ArrowLeft, Home, Mail, Send } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { toast } from "sonner";
+import {Moon, Sun} from "lucide-react"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const ForgotPassword = () => {
 
-    const {isDark} = useTheme()
+
+    const {isDark, toggleTheme} = useTheme()
     const {forgotPassword} = useAuth()
     const [email, setEmail] = useState("")
     const navigate = useNavigate()
@@ -26,20 +29,46 @@ const ForgotPassword = () => {
     }
 
   return (
-    <>
+        <div className=" grid-container-l ">
 
+            <div className="  items-center justify-between flex ">
+                <div className="flex justify-start  gap-icon-text ">
+                    <Home className="dark:text-teal-500 text-teal-600"/>
+                    <Link className="home-navigation-link" relative="path" to="/">   
+                    Home
+                    </Link>
+                </div>
 
-        {/**Navbar section */}
-    <div className="flex min-h-screen flex-col">
+                        {/** Toggle Theme Button */}
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                    {/** theme changing container */}
+                    <button onClick={toggleTheme} className={`cursor-pointer transition hover:text-blue-500 dark:hover:text-blue-400`} >
+                    
+                    {isDark
+                ? <Sun size={20} className="icon-button" />  
+                    : <Moon size={20} className="icon-button" />}
+                    </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="tooltip-content">
+                    Toggle Theme
+                    </TooltipContent>
+                </Tooltip>
+                
+            </div>
 
-         <div className={`w-full px-6 flex flex-1 items-center justify-center ${isDark ? "bg-black" : "bg-white"}`}>
+         <div className={` items-center justify-center flex container   `}>
             
             <form onSubmit={handleSubmit}
-            className={`max-w-md w-full flex flex-col items-center justify-center p-6 sm:p-8 rounded-xl gap-5`}>
-                <h2 className="auth-page-title">Forgot Password?</h2>
-                <p className="auth-page-subtitle">
-                No worries, we'll send a password-reset link to your registered email address.
-                </p>
+            className={`max-w-md w-full flex flex-col items-center  justify-center p-6 sm:p-8 rounded-xl gap-major`}>
+
+
+                    <div className="flex items-center  flex-col text-center mb-5">
+                      <h2 className="font-medium">Forgot Password?</h2>
+                      <p className=" text-foreground/60 mt-2">
+                      No worries, we'll send a password-reset link to your registered email address.
+                      </p>
+                    </div>
             
                 <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-xl overflow-hidden pl-6 gap-2">
                     <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,21 +78,21 @@ const ForgotPassword = () => {
                     type="email" placeholder="Email id" className={`bg-transparent ${isDark ?  "text-white" : "text-black"} placeholder-gray-500/80 outline-none text-sm w-full h-full`} required />                 
                 </div>
     
-                <button type="submit" className="auth-page-button">
-                    <Send size={24}/>
-                    <span >Send Link</span>
-                </button>
+                    <button type="submit"  className="button-primary flex items-center gap-2 w-full justify-center">
+                        <Send/>
+                        Send Link
+                    </button>
 
-                <div className="flex items-center gap-2 hover:underline">
+                <div className="flex items-center gap-2 ">
                     <ArrowLeft size={24} className={`${isDark ? "text-teal-400" : "text-teal-600"} `}/>
-                    <Link className="auth-page-navigation-link" relative="path" to="/auth/sign-in">   
-                    Back to log in
+                    <Link className="home-navigation-link" relative="path" to="/auth/sign-in">   
+                    Log in 
                     </Link>
                 </div>
             </form>
         </div>
     </div>
-    </>
+        
   )
 }
 

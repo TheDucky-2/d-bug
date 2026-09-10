@@ -9,10 +9,11 @@ import { ArrowLeft, Home, LoaderCircle, UserPlus } from "lucide-react";
 import {  Eye, EyeOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cleanedLogoArt } from "@/assets/ascii_art"; 
+import {Moon, Sun} from "lucide-react"
 
 const Register = () => {
 
-    const {isDark} = useTheme()
+      const {isDark, toggleTheme} = useTheme()
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
@@ -57,10 +58,37 @@ const Register = () => {
 }
 
   return (
-        <div className="min-h-screen w-full ">
-         <div className={` min-h-screen items-center justify-center flex container   `}>
+        <div className=" grid-container-l">
+        
+            <div className="  items-center justify-between flex ">
+                <div className="flex justify-start  gap-icon-text ">
+                    <Home className="dark:text-teal-500 text-teal-600"/>
+                    <Link className="home-navigation-link" relative="path" to="/">   
+                    Home
+                    </Link>
+                </div>
+
+                        {/** Toggle Theme Button */}
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                    {/** theme changing container */}
+                    <button onClick={toggleTheme} className={`cursor-pointer transition hover:text-blue-500 dark:hover:text-blue-400`} >
+                    
+                    {isDark
+                ? <Sun size={20} className="icon-button" />  
+                    : <Moon size={20} className="icon-button" />}
+                    </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="tooltip-content">
+                    Toggle Theme
+                    </TooltipContent>
+                </Tooltip>
+                
+            </div>
+
+         <div className={`  items-center justify-center flex container   `}>
                 <form onSubmit={handleFormSubmit}
-                className={`max-w-md  w-full flex flex-col  items-center justify-center min-w-0 p-4 sm:p-4 rounded-xl gap-5`}>
+                className={`max-w-md  w-full flex flex-col  items-center justify-center min-w-0 p-4 sm:p-4 rounded-xl gap-major`}>
                     <div className="flex items-center justify-center  text-base flex-col text-center mb-5">
                       <h2 className="text-left">Let's get started</h2>
                       <h4 className=" text-foreground/60 mt-2">
@@ -68,7 +96,7 @@ const Register = () => {
                       </h4>
                     </div>
 
-
+                <div className="flex flex-col gap-input-field w-full">
                     <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-xl overflow-hidden pl-6 gap-2">
                         <svg width="18" height="18" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3.125 13.125a4.375 4.375 0 0 1 8.75 0M10 4.375a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" stroke="#6B7280" strokeOpacity=".6" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
@@ -128,6 +156,7 @@ const Register = () => {
                     
                     }
                     </div>
+                </div>
                   
 
                     <div className="w-full flex items-center justify-between text-white/50 mb-5">
@@ -149,17 +178,16 @@ const Register = () => {
                     
                     {/** SIGN UP BUTTON */}
 
-                    <button type="submit" disabled={isLoading} className="button-primary flex items-center gap-2 w-full justify-center">
-                        {!isLoading && <UserPlus size={24}/>}
+                    <button type="submit" disabled={isLoading} className="button-primary flex items-center 
+                    gap-icon-text w-full justify-center">
+                        {!isLoading && <UserPlus size={20}/>}
                        {isLoading  && (<LoaderCircle className="animate-spin"/>)}
                        {isLoading? "Setting up your account...":  "Sign up"}
                     </button>
                     <h4 className="text-foreground/60">Already have an account? 
                         <Link className="font-semibold hover:text-blue-600 text-foreground px-2 transition-all duration-300  text-text-small" to="/auth/sign-in">Log in</Link>
                     </h4>
-                    <Link className="home-navigation-link flex items-center gap-1  " relative="path" to="/">
-                            <ArrowLeft size={28}/> Back to Home
-                    </Link>
+
 
                 </form>
            
