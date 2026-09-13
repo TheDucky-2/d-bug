@@ -48,18 +48,20 @@
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
     --color-button-primary: var(--button-primary);
+    --color-button-primary-dark: var(--button-primary-dark);
     --color-button-border-secondary: var(--button-border);
     --transparent-button-hover:var(--transparent-button-hover-background);
     --ascii-art-color: var(--ascii-art-color);
     --color-light-border: var(--border-light);
     --color-column: var(--board-column-color);
     --color-board-count: var(--board-column-count-color);
-    --gap-xs: 1px;
-    --gap-sm: 2px;
-    --gap-md: 4px;
-    --gap-lg: 8px;
-    --gap-xl: 16px;
-    --gap-2xl: 32px;
+    --color-destructive-shadow: rgba(213, 55, 55, 0.7);
+    --gap-xs: clamp(0.5rem, 0.5vw + 0.25rem, 0.75rem);
+    --gap-sm: clamp(0.75rem, 1vw, 1.5rem);
+    --gap-md: clamp(1rem, 1.5vw, 2rem);
+    --gap-lg: clamp(1.5rem, 2vw, 3rem);
+    --gap-xl: clamp(1.5rem, 2.5vw, 4rem);
+    --gap-2xl: clamp(2rem, 3vw, 5rem);
     --gap-icon-text: clamp(0.375rem, 0.25rem + 0.4vw, 0.75rem);
     --gap-oauth-btn: clamp(0.625rem, 0.4rem + 0.5vw, 1rem);
     --gap-input-field:  clamp(0.75rem, 0.5rem + 0.7vw, 1.25rem);
@@ -84,7 +86,112 @@
     --color-dashboard-container: var(--dashboard-container-color);
     --color-table-background: var(--background-table);
     --text-small: clamp(0.8rem, 1.2vw, 1rem);
-  }
+
+  --primary-bg-color: rgba(0, 0, 0);
+  --text-color: rgba(255, 255, 255); 
+  --destructive-color: rgb(244, 5, 5);
+  --navbar-menu-color: rgba(0, 0, 0);
+
+  /* Padding */
+  --padding-xs:  clamp(0.25rem, 0.2vw + 0.2rem, 0.5rem);
+  --padding-sm:  clamp(0.5rem,  0.3vw + 0.4rem, 0.75rem);
+  --padding-md:  clamp(0.75rem, 0.5vw + 0.5rem, 1.25rem);
+  --padding-lg:  clamp(1rem,    0.8vw + 0.75rem, 1.75rem);
+  --padding-xl:  clamp(1.5rem,  1vw + 1rem,      2.5rem);
+  --padding-2xl: clamp(2rem,    1.5vw + 1rem,    4rem);
+  --padding-3xl: clamp(3rem,    2vw + 1.5rem,    6rem);
+
+  /* Gap */
+  --gap-xs:  clamp(0.25rem, 0.2vw + 0.2rem, 0.5rem);
+  --gap-sm:  clamp(0.5rem,  0.3vw + 0.4rem, 0.75rem);
+  --gap-md:  clamp(0.75rem, 0.5vw + 0.5rem, 1.25rem);
+  --gap-lg:  clamp(1rem,    0.8vw + 0.75rem, 1.75rem);
+  --gap-xl:  clamp(1.5rem,  1vw + 1rem,      2.5rem);
+  --gap-2xl: clamp(2rem,    1.5vw + 1rem,    4rem);
+  --gap-3xl: clamp(3rem,    2vw + 1.5rem,    6rem);
+
+  /* Typography */
+  --text-xs:  clamp(0.625rem, 0.6vw,  0.75rem);
+  --text-sm:  clamp(1rem,  0.7vw,  0.875rem);
+  --text-md:  clamp(1.1rem, 2.5vw,  1.5rem);
+  --text-lg:  clamp(1rem,     1.2vw,  1.25rem);
+  --text-xl:  clamp(1.125rem, 1.5vw,  1.5rem);
+  --text-2xl: clamp(1.5rem,   2vw,    2rem);
+  --text-3xl: clamp(2rem,     3.5vw,  3rem);
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --button-primary: #14b884;
+  --color-hover-background : var(--hover-background);
+
+  /* Primary */
+
+--button-primary-hover: #2FAF7F;
+  --button-primary-active: #0D8F68;
+  --button-primary-disabled: #7DD3B5;
+  --button-primary-text: #111827;
+
+  /* Secondary */
+  --button-secondary: #1F2937;
+  --button-secondary-hover: #444a497b;
+  --button-secondary-active: #111827;
+  --button-secondary-text: #F9FAFB;
+
+  /* Outline */
+  --button-outline: transparent;
+  --button-outline-border: #14B884;
+  --button-outline-hover: rgba(20, 184, 132, 0.10);
+  --button-outline-text: #14B884;
+
+  /* Ghost */
+  --button-ghost: transparent;
+  --button-ghost-hover: rgba(20, 184, 132, 0.10);
+  --button-ghost-active: rgba(20, 184, 132, 0.18);
+  --button-ghost-text: #14B884;
+
+  /* Success */
+  --button-success: #22C55E;
+  --button-success-hover: #16A34A;
+  --button-success-active: #15803D;
+  --button-success-text: #FFFFFF;
+
+  /* Danger */
+  --button-danger: #EF4444;
+  --button-danger-hover: #DC2626;
+  --button-danger-active: #B91C1C;
+  --button-danger-text: #FFFFFF;
+}
+  
 
 :root {
     --background: rgb(244, 244, 245);
@@ -125,6 +232,7 @@
     --grid-shimmer: rgba(0, 0, 0, 0.015);
     --grid-glow: rgba(255, 255, 255, 0.06);
     --button-primary: rgb(41, 129, 92);
+    --button-primary-dark: rgb(8, 135, 82);
     --button-border: rgba(0,0,0, 0.3);  
     --transparent-button-hover-background:  rgba(228, 228, 231, 0.8);
     --ascii-art-color: rgba(0, 0, 0, 0.955);
@@ -133,7 +241,8 @@
     --board-column-count-color:  oklch(0.488 0.243 264.376);
     --dashboard-container-color: rgb(244, 244, 245);
     --background-table : oklch(100% 0.00011 271.152);
-    
+    --hover-background: rgba(213, 213, 219, 0.468);
+    --navlink-hover-text: rgb(20, 154, 112);
 }
 
 .dark {
@@ -175,6 +284,7 @@
     --grid-shimmer: rgba(255, 255, 255, 0.015);
     --grid-glow: rgba(255, 255, 255, 0.06);
     --button-primary: rgb(11, 188, 150);
+    --button-primary-dark: rgb(15, 227, 139);
     --button-border: rgba(255,255,255, 0.5);
     --transparent-button-hover-background: rgba(63, 63, 70, 0.6);
     --ascii-art-color: rgba(254, 229, 229);
@@ -183,6 +293,8 @@
     --board-column-count-color:  oklch(0.488 0.243 264.376);
     --dashboard-container-color: rgb(10, 10, 10);
     --background-table : oklch(21% 0.006 285.885);
+     --hover-background: rgba(63, 63, 70, 1);
+    --navlink-hover-text: rgb(29, 245, 176);
 }
 
 @layer base {
@@ -196,7 +308,7 @@
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-clip;
     }
   html {
     @apply font-mono;
@@ -304,11 +416,17 @@ p{
   font-size: clamp(0.5rem, 1.5vw + 0.5rem, 1rem);
 }
 
-.container{
+
+.main-container{
+  background-color: var(--primary-bg-color);
+  width: min(120rem, 100%);
+  min-height: 100dvh;
   margin-inline: auto;
-  height: auto;
-  width: min(90em, 95%);
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
 }
+
 
 
 label{
@@ -329,15 +447,8 @@ label{
 
 
 
-
-
 /* NAVBAR */
 
-.navbar{
-  @apply sticky top-0  items-center flex w-full shadow-md max-h-16 py-(--padding-vertical-md) border-b justify-evenly flex-wrap 
-  sm:flex-row bg-background
-        
-}
 
 .navbar-navigation-link{
   @apply text-base font-semibold hover:text-blue-500 dark:hover:text-blue-400
@@ -559,12 +670,6 @@ label{
 }
 
 
-nav .button-primary{
-  @apply bg-button-primary py-2 px-4 rounded-sm cursor-pointer text-sm items-center
-          font-bold  dark:text-black  text-white dark:hover:bg-teal-400
-          hover:bg-teal-800 
-}
-
 .button-primary {
   @apply dark:bg-teal-700 bg-teal-600
     py-(--padding-vertical-ms)
@@ -574,13 +679,14 @@ nav .button-primary{
     items-center
     font-bold
     dark:text-white
+    whitespace-nowrap
     text-white
     dark:hover:bg-teal-600
     hover:bg-teal-800
     transition-all
     duration-500;
 
-  font-size: clamp(0.5rem, 1.5vw + 0.5rem, 1rem);
+  font-size: var(--text-sm);
 }
 
 .button-primary-dark{
